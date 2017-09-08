@@ -21,5 +21,6 @@ print('backed Up to Target Location :: ', target if osInstance.system(zipCommand
  
 #or
  
-# Index of the tuple can be used to evaluate this expression
+# Index of the tuple can be used to evaluate this expression 
+# Using tuple with index as subsitute to ternary operator
 print (('Backup FAILED', 'backed Up to Target Location :: ')[osInstance.system(zipCommand) == 0])
