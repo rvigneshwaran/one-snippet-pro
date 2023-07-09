@@ -557,8 +557,54 @@
       }).get();
       console.log("Character Indices:", characterIndices);
 
-      // Event Triggering
-      $('#characters ul li').first().trigger('click');
+     // Event Triggering
+     $('.character').click(function() {
+        $(this).toggleClass('highlight');
+      });
+
+      // Examples
+      // Trigger click event
+      $('.character:first').trigger('click');
+
+      // Trigger custom event
+      $('.character').on('customEvent', function() {
+        console.log("Custom Event Triggered:", $(this).text());
+      });
+
+      $('.character:first').trigger('customEvent');
+
+      // Trigger multiple events
+      $('.character:first').trigger('click customEvent');
+
+      // Trigger event with data
+      $('.character').on('customEventWithData', function(event, data) {
+        console.log("Custom Event Data:", data);
+      });
+
+      $('.character:first').trigger('customEventWithData', ['Custom Data']);
+
+      // Trigger event with additional parameters
+      $('.character').on('customEventWithParams', function(event, param1, param2) {
+        console.log("Custom Event Parameters:", param1, param2);
+      });
+
+      $('.character:first').trigger('customEventWithParams', ['Param 1', 'Param 2']);
+
+      // Trigger event on parent element
+      $('#characters').trigger('click');
+
+      // Trigger event on multiple elements
+      $('.character').trigger('click');
+
+      // Trigger event on specific element
+      $('.character:first').trigger('click');
+
+      // Trigger event with namespace
+      $('.character').on('customEvent.namespace', function() {
+        console.log("Custom Event Triggered with Namespace:", $(this).text());
+      });
+
+      $('.character:first').trigger('customEvent.namespace');
 
       // Utility Methods
       var characterCount = $('.character').length;
