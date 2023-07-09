@@ -13,12 +13,14 @@ One Snippet Pro is an initiative to learn and practice the programming in one sn
 
 To get started with One Snippet Pro, follow these steps:
 1. Clone this repository to your local machine using the following command:
+    
     ```
-    git clone https://github.com/rvigneshwaran/one-snippet-pro.git
+    `git clone https://github.com/rvigneshwaran/one-snippet-pro.git`
     ```
 2. Navigate to the cloned directory:
+    
     ```
-    cd one-snippet-pro
+    `cd one-snippet-pro`
     ```
 3. Explore the repository and its contents. The snippets are organized into directories based on programming languages and technologies.
 
@@ -41,18 +43,24 @@ Contributions to One Snippet Pro are welcome! If you have a useful code snippet 
 
 1. Fork this repository to your own GitHub account.
 2. Create a new branch for your contribution:
+
     ``` Checkout
-    git checkout -b feature/new-snippet
+    `git checkout -b feature/new-snippet`
     ```
+
 3. Add your code snippet to the appropriate directory, or create a new directory if necessary.
 4. Commit your changes with a descriptive commit message:
+    
     ``` Commit
-    git commit -m "Add new code snippet for [language/technology]"
+    `git commit -m "Add new code snippet for [language/technology]"`
     ```
+
 5. Push your changes to your forked repository:
+    
     ``` Push to Origin
-    git push origin feature/new-snippet
+    `git push origin feature/new-snippet`
     ```
+
 6. Open a pull request on the main repository to submit your contribution. Provide a clear and detailed description of your snippet.
 Once your pull request is reviewed and accepted, your snippet will be added to the repository and made available to others.
 
