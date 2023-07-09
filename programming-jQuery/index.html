@@ -60,6 +60,72 @@
       console.log("Previous Character:", prevCharacter.text());
       console.log("Parent Element:", parentElement.attr('id'));
 
+      // Traversal Examples
+      var siblings = $('.character').siblings();
+      console.log("Siblings:", siblings.text());
+
+      var children = $('#characters').children();
+      console.log("Children:", children.text());
+
+      var descendant = $('#characters').find('.character');
+      console.log("Descendant:", descendant.text());
+
+      var closestElement = $('.character').closest('div');
+      console.log("Closest Element:", closestElement.attr('id'));
+
+      var allPrevious = $('.character').prevAll();
+      console.log("All Previous:", allPrevious.text());
+
+      var allNext = $('.character').nextAll();
+      console.log("All Next:", allNext.text());
+
+      var firstParent = $('.character').parent();
+      console.log("First Parent:", firstParent.attr('id'));
+
+      var allParents = $('.character').parents();
+      console.log("All Parents:", allParents.map(function() { return $(this).attr('id'); }).get());
+
+      var firstAncestor = $('.character').parentsUntil('body').last();
+      console.log("First Ancestor:", firstAncestor.attr('id'));
+
+      var allAncestors = $('.character').parentsUntil('body');
+      console.log("All Ancestors:", allAncestors.map(function() { return $(this).attr('id'); }).get());
+
+      var nextSiblings = $('.character').nextAll('.character');
+      console.log("Next Siblings:", nextSiblings.text());
+
+      var prevSiblings = $('.character').prevAll('.character');
+      console.log("Previous Siblings:", prevSiblings.text());
+
+      var nthChild = $('.character:nth-child(2)');
+      console.log("2nd Child:", nthChild.text());
+
+      var firstTwoChildren = $('.character:lt(2)');
+      console.log("First Two Children:", firstTwoChildren.text());
+
+      var lastTwoChildren = $('.character:gt(0):lt(2)');
+      console.log("Last Two Children:", lastTwoChildren.text());
+
+      var hasCharacter = $('.character').has('.book');
+      console.log("Elements with Character and Book:", hasCharacter.text());
+
+      var characterFilter = $('.character').filter(function() {
+        return $(this).text().length > 10;
+      });
+      console.log("Filtered Characters:", characterFilter.text());
+
+      var characterNotFilter = $('.character').not('.highlight');
+      console.log("Characters Not Highlighted:", characterNotFilter.text());
+
+      var characterSlice = $('.character').slice(1, 3);
+      console.log("Sliced Characters:", characterSlice.text());
+
+      var characterFirst = $('.character').first();
+      console.log("First Character:", characterFirst.text());
+
+      var characterLast = $('.character').last();
+      console.log("Last Character:", characterLast.text());
+
       // Manipulating HTML Content
       var booksHTML = $('#books ul').html();
       console.log("Books HTML:", booksHTML);
