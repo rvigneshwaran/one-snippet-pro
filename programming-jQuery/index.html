@@ -122,6 +122,16 @@
       // Event Triggering
       $('#characters ul li').first().trigger('click');
 
+      // Utility Methods
+      var characterCount = $('.character').length;
+      console.log("Character Count:", characterCount);
+
+      var hasClass = $('.character').hasClass('highlight');
+      console.log("Has Highlight Class:", hasClass);
+
+      var firstCharacterText = $('.character').first().text();
+      console.log("First Character Text:", firstCharacterText);
+
       // Version-Specific Snippets
 
       // jQuery 3.6.0 and above: .remove()
