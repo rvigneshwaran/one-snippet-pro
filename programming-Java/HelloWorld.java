@@ -17,8 +17,14 @@ import java.util.concurrent.ConcurrentSkipListMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.concurrent.LinkedBlockingDeque;
+import java.util.function.BiFunction;
+import java.util.function.BinaryOperator;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Supplier;
+import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
-
+import java.util.function.*;
 import javax.naming.InvalidNameException;
 
 import java.util.*;
@@ -1157,8 +1163,99 @@ public class HelloWorld {
 
     // Lambdas
     public static void greetLambda() {
-        Runnable runnable = () -> System.out.println("Hello from lambda!");
+        // Runnable Lambda
+        Runnable runnable = () -> System.out.println("Hello from Runnable Lambda!");
         runnable.run();
+
+        // Single Abstract Method (SAM) Interface
+        Consumer<String> consumer = message -> System.out.println("Consumer Lambda: " + message);
+        consumer.accept("Hello, World!");
+
+        // Functional Interface as Parameter
+        greet("John", name -> System.out.println("Hello, " + name + "!"));
+
+        // Lambda with Multiple Parameters
+        BiFunction<Integer, Integer, Integer> add = (a, b) -> a + b;
+        System.out.println("Addition Result: " + add.apply(5, 3));
+
+        // Predicate Lambda
+        Predicate<Integer> isEven = number -> number % 2 == 0;
+        System.out.println("Is 10 even? " + isEven.test(10));
+
+        // UnaryOperator Lambda
+        UnaryOperator<Integer> square = number -> number * number;
+        System.out.println("Square of 5: " + square.apply(5));
+
+        // BinaryOperator Lambda
+        BinaryOperator<Integer> multiply = (a, b) -> a * b;
+        System.out.println("Multiplication Result: " + multiply.apply(5, 3));
+
+        // Lambda with Statement Block
+        Function<Integer, String> evenOdd = number -> {
+            if (number % 2 == 0) {
+                return "Even";
+            } else {
+                return "Odd";
+            }
+        };
+        System.out.println("Is 7 even or odd? " + evenOdd.apply(7));
+
+        // Lambda with Exception Handling
+        Function<Integer, Integer> divideByZero = number -> {
+            try {
+                return number / 0;
+            } catch (ArithmeticException e) {
+                System.out.println("Exception caught: " + e);
+                return -1;
+            }
+        };
+        System.out.println("Result: " + divideByZero.apply(10));
+
+        // Method Reference
+        List<String> names = new ArrayList<>();
+        names.add("Alice");
+        names.add("Bob");
+        names.add("Charlie");
+        names.forEach(System.out::println);
+
+        // Lambda with Instance Method Reference
+        GreetingService greetingService = new GreetingService();
+        greet("John", greetingService::sayHello);
+
+        // Lambda with Constructor Reference
+        Supplier<PersonLambda> personSupplier = PersonLambda::new;
+        PersonLambda person = personSupplier.get();
+        person.setName("Alice");
+        System.out.println("Person: " + person.getName());
+    }
+
+    static void greet(String name, Consumer<String> consumer) {
+        consumer.accept(name);
+    }
+
+    static class GreetingService {
+        void sayHello(String name) {
+            System.out.println("Hello, " + name + "!");
+        }
+    }
+
+    static class PersonLambda {
+        private String name;
+
+        public PersonLambda() {
+        }
+
+        public PersonLambda(String name) {
+            this.name = name;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
     }
 
     // Functional Interfaces
