@@ -4,18 +4,18 @@ This repository contains an HTML document that demonstrates various concepts and
 
 ## Concepts Covered
 
-- Manipulating CSS Classes: Adding, removing, and toggling CSS classes on elements.
-- Event Handling: Handling events such as clicks and keypresses.
-- AJAX Request: Making asynchronous requests to load data from a server.
-- DOM Traversal: Navigating the DOM tree to select specific elements.
-- Manipulating HTML Content: Changing the content of HTML elements.
-- CSS Manipulation: Modifying CSS properties of elements.
-- Animation Effects: Applying animation effects to elements.
-- Event Delegation: Handling events for dynamically added elements.
-- Form Handling: Interacting with HTML forms, such as submitting and validating data.
-- Data Filtering: Filtering elements based on various criteria.
-- Data Mapping: Creating new arrays or collections based on existing data.
-- Event Triggering: Programmatically triggering events on elements.
+- **Manipulating CSS Classes**: Adding, removing, and toggling CSS classes on elements.
+- **Event Handling**: Handling events such as clicks and keypresses.
+- **AJAX Request**: Making asynchronous requests to load data from a server.
+- **DOM Traversal**: Navigating the DOM tree to select specific elements.
+- **Manipulating HTML Content**: Changing the content of HTML elements.
+- **CSS Manipulation**: Modifying CSS properties of elements.
+- **Animation Effects**: Applying animation effects to elements.
+- **Event Delegation**: Handling events for dynamically added elements.
+- **Form Handling**: Interacting with HTML forms, such as submitting and validating data.
+- **Data Filtering**: Filtering elements based on various criteria.
+- **Data Mapping**: Creating new arrays or collections based on existing data.
+- **Event Triggering**: Programmatically triggering events on elements.
 
 ## Examples
 - The examples provided in the code cover a wide range of use cases and scenarios. Each example is accompanied by comments that explain the purpose and functionality of the code. The examples include:
