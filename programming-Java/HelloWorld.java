@@ -116,9 +116,162 @@ public class HelloWorld {
         return a + b;
     }
 
-    // String Concatenation
+    // String Based Functions and its usage
     public static void greet(String name) {
         System.out.println("Hello, " + name + "!");
+        String str1 = "Hello, World!";
+        String str2 = "Java is awesome";
+        String str3 = "   Java Programming   ";
+
+        // String Length
+        int length = str1.length();
+        System.out.println("Length of str1: " + length);
+
+        // Concatenation
+        String concat = str1 + " " + str2;
+        System.out.println("Concatenated string: " + concat);
+
+        // Comparison
+        boolean isEqual = str1.equals(str2);
+        System.out.println("Strings str1 and str2 are equal: " + isEqual);
+
+        // Comparison (Ignoring Case)
+        boolean isEqualIgnoreCase = str1.equalsIgnoreCase(str2);
+        System.out.println("Strings str1 and str2 are equal (ignoring case): " + isEqualIgnoreCase);
+
+        // Substring
+        String substring = str1.substring(7);
+        System.out.println("Substring from str1: " + substring);
+
+        // Substring (with Start and End Index)
+        String substringWithIndex = str2.substring(4, 9);
+        System.out.println("Substring from str2 with index: " + substringWithIndex);
+
+        // Trim
+        String trimmedString = str3.trim();
+        System.out.println("Trimmed string: " + trimmedString);
+
+        // Upper Case
+        String upperCaseString = str1.toUpperCase();
+        System.out.println("Uppercase string: " + upperCaseString);
+
+        // Lower Case
+        String lowerCaseString = str2.toLowerCase();
+        System.out.println("Lowercase string: " + lowerCaseString);
+
+        // Replace
+        String replacedString = str1.replace("World", "Universe");
+        System.out.println("Replaced string: " + replacedString);
+
+        // Split
+        String[] splitArray = str2.split(" ");
+        System.out.println("Split string array:");
+        for (String s : splitArray) {
+            System.out.println(s);
+        }
+
+        // Contains
+        boolean contains = str1.contains("Hello");
+        System.out.println("str1 contains 'Hello': " + contains);
+
+        // Starts With
+        boolean startsWith = str2.startsWith("Java");
+        System.out.println("str2 starts with 'Java': " + startsWith);
+
+        // Ends With
+        boolean endsWith = str1.endsWith("!");
+        System.out.println("str1 ends with '!': " + endsWith);
+
+        // Index Of
+        int indexOf = str2.indexOf("is");
+        System.out.println("Index of 'is' in str2: " + indexOf);
+
+        // Last Index Of
+        int lastIndexOf = str1.lastIndexOf("l");
+        System.out.println("Last index of 'l' in str1: " + lastIndexOf);
+
+        // Empty Check
+        boolean isEmpty = str3.isEmpty();
+        System.out.println("str3 is empty: " + isEmpty);
+
+        // Character At
+        char charAt = str1.charAt(4);
+        System.out.println("Character at index 4 in str1: " + charAt);
+
+        // To Char Array
+        char[] charArray = str2.toCharArray();
+        System.out.println("Char array from str2:");
+        for (char c : charArray) {
+            System.out.println(c);
+        }
+
+        // Replace All
+        String replacedAll = str2.replaceAll("a", "o");
+        System.out.println("str2 with 'a' replaced by 'o': " + replacedAll);
+
+        // Format
+        String formattedString = String.format("The value of pi is %.2f", Math.PI);
+        System.out.println("Formatted string: " + formattedString);
+
+        // Join
+        String[] words = {"Java", "is", "fun"};
+        String joinedString = String.join(" ", words);
+        System.out.println("Joined string: " + joinedString);
+
+        // String Builder
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("Hello");
+        stringBuilder.append(", ");
+        stringBuilder.append("World!");
+        String stringBuilderString = stringBuilder.toString();
+        System.out.println("String from StringBuilder: " + stringBuilderString);
+
+        // String Buffer
+        StringBuffer stringBuffer = new StringBuffer();
+        stringBuffer.append("Java");
+        stringBuffer.append(" is");
+        stringBuffer.append(" awesome");
+        String stringBufferString = stringBuffer.toString();
+        System.out.println("String from StringBuffer: " + stringBufferString);
+
+        // Reversing a String
+        StringBuilder reversedStringBuilder = new StringBuilder(str1).reverse();
+        String reversedString = reversedStringBuilder.toString();
+        System.out.println("Reversed string: " + reversedString);
+
+        // String Equality (String Pool)
+        String str4 = "Hello, World!";
+        boolean isSameObject = (str1 == str4);
+        System.out.println("str1 and str4 are the same object: " + isSameObject);
+
+        // String Equality (Using Intern)
+        String internedStr1 = str1.intern();
+        String internedStr4 = str4.intern();
+        boolean isInternedEqual = (internedStr1 == internedStr4);
+        System.out.println("Interned str1 and interned str4 are the same object: " + isInternedEqual);
+
+        // String Builder (Chaining Methods)
+        String chainedMethods = new StringBuilder()
+                .append("Hello")
+                .append(", ")
+                .append("World!")
+                .toString();
+        System.out.println("String from chained methods: " + chainedMethods);
+
+        // String Conversion (Integer to String)
+        int number = 42;
+        String numberString = String.valueOf(number);
+        System.out.println("Number as string: " + numberString);
+
+        // String Conversion (Double to String)
+        double decimal = 3.14;
+        String decimalString = String.valueOf(decimal);
+        System.out.println("Decimal as string: " + decimalString);
+
+        // String Conversion (Boolean to String)
+        boolean flag = true;
+        String flagString = String.valueOf(flag);
+        System.out.println("Flag as string: " + flagString);
     }
 
     // Collections and Iteration
