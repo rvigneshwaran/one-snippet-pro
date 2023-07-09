@@ -443,6 +443,60 @@
       });
       console.log("Long Names:", longNames.text());
 
+      // Data Filtering
+      var allCharacters = $('.character');
+      var selectedCharacter = $('.character.selected');
+      var firstCharacter = $('.character:first');
+      var lastCharacter = $('.character:last');
+
+      // Get all characters
+      var allCharacters = $('.character');
+      console.log("All Characters:", allCharacters);
+
+      // Get selected characters
+      var selectedCharacters = $('.character.selected');
+      console.log("Selected Characters:", selectedCharacters);
+
+      // Get first character
+      var firstCharacter = $('.character:first');
+      console.log("First Character:", firstCharacter);
+
+      // Get last character
+      var lastCharacter = $('.character:last');
+      console.log("Last Character:", lastCharacter);
+
+      // Filter characters by class
+      var highlightedCharacters = $('.character').filter('.highlight');
+      console.log("Highlighted Characters:", highlightedCharacters);
+
+      // Filter characters by index
+      var evenCharacters = $('.character').filter(function(index) {
+        return index % 2 === 0;
+      });
+      console.log("Even Characters:", evenCharacters);
+
+      // Filter characters by text
+      var charactersWithA = $('.character').filter(function() {
+        return $(this).text().includes('a');
+      });
+      console.log("Characters with 'a':", charactersWithA);
+
+      // Find characters within an element
+      var charactersInBooks = $('#books').find('.character');
+      console.log("Characters in Books:", charactersInBooks);
+
+      // Has class
+      var hasHighlightClass = $('.character').hasClass('highlight');
+      console.log("Has Highlight Class:", hasHighlightClass);
+
+      // Not
+      var nonHighlightedCharacters = $('.character').not('.highlight');
+      console.log("Non-highlighted Characters:", nonHighlightedCharacters);
+
+      // Is
+      var isFirstCharacterHighlighted = firstCharacter.is('.highlight');
+      console.log("Is First Character Highlighted:", isFirstCharacterHighlighted);
+
       // Data Mapping
       var characterNames = $('.character').map(function() {
         return $(this).text();
