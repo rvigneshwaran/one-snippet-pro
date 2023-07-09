@@ -1,35 +1,12 @@
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.BitSet;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Deque;
-import java.util.EnumMap;
-import java.util.EnumSet;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.IdentityHashMap;
-import java.util.LinkedHashMap;
-import java.util.LinkedHashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.NavigableMap;
-import java.util.NavigableSet;
-import java.util.PriorityQueue;
-import java.util.Queue;
-import java.util.Set;
-import java.util.SortedMap;
-import java.util.SortedSet;
-import java.util.Stack;
-import java.util.TreeMap;
-import java.util.TreeSet;
-import java.util.WeakHashMap;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingDeque;
 import java.util.concurrent.BlockingQueue;
@@ -41,6 +18,9 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.stream.Collectors;
+
+import javax.naming.InvalidNameException;
+
 import java.util.*;
 
 enum Day {
@@ -983,13 +963,183 @@ public class HelloWorld {
         }
     }
 
-    // Exception Handling
+    static class InvalidAgeException extends Exception {
+        public InvalidAgeException(String message) {
+            super(message);
+        }
+    }
+
+    static void cleanup() {
+        System.out.println("Performing cleanup...");
+    }
+
+    static void readData(String filename) throws FileNotFoundException {
+        FileInputStream fileInputStream = new FileInputStream(filename);
+    }
+
+    static void readMultipleFiles() throws IOException {
+        IOException exception1 = null;
+        IOException exception2 = null;
+        IOException exception3 = null;
+
+        try {
+            readData("file1.txt");
+        } catch (IOException e) {
+            exception1 = e;
+        }
+
+        try {
+            readData("file2.txt");
+        } catch (IOException e) {
+            exception2 = e;
+        }
+
+        try {
+            readData("file3.txt");
+        } catch (IOException e) {
+            exception3 = e;
+        }
+
+        if (exception1 != null) {
+            exception1.addSuppressed(exception2);
+            exception1.addSuppressed(exception3);
+            throw exception1;
+        }
+    }
+
+    static void processFile(String filename) throws IOException {
+        try {
+            readData(filename);
+        } catch (FileNotFoundException e) {
+            throw new IOException("File not found", e);
+        }
+    }
+
+    static void validateName(String name) throws InvalidNameException {
+        if (name.length() < 3) {
+            throw new InvalidNameException("Invalid name: " + name);
+        }
+    }
+
+    static class InvalidNameException extends Exception {
+        public InvalidNameException(String message) {
+            super(message);
+        }
+    }
+
+    static void recurse() {
+        recurse();
+    }
+
     public static int divide(int a, int b) {
         try {
             return a / b;
         } catch (ArithmeticException e) {
             System.out.println("Cannot divide by zero!");
             return -1;
+        }
+    }
+
+    // Exception Handling
+    public static void demonstrateExceptionHandling() {
+        // Catching Multiple Exceptions
+        try {
+            int[] numbers = {1, 2, 3};
+            System.out.println(numbers[4]);
+        } catch (ArrayIndexOutOfBoundsException | NullPointerException e) {
+            System.out.println("Exception caught: " + e);
+        }
+
+        // Custom Exception
+        try {
+            int age = -5;
+            if (age < 0) {
+                throw new InvalidAgeException("Invalid age: " + age);
+            }
+        } catch (InvalidAgeException e) {
+            System.out.println("Exception caught: " + e.getMessage());
+        }
+
+        // Finally Block
+        BufferedReader reader = null;
+        try {
+            reader = new BufferedReader(new FileReader("file.txt"));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                System.out.println(line);
+            }
+        } catch (IOException e) {
+            System.out.println("Exception caught: " + e);
+        } finally {
+            try {
+                if (reader != null) {
+                    reader.close();
+                }
+            } catch (IOException e) {
+                System.out.println("Exception caught while closing reader: " + e);
+            }
+        }
+
+        // Custom Finally Block
+        try {
+            int result = divide(10, 0);
+            System.out.println("Result: " + result);
+        } catch (ArithmeticException e) {
+            System.out.println("Exception caught: " + e);
+        } finally {
+            cleanup();
+        }
+
+        // Propagating Exceptions
+        try {
+            readData("file.txt");
+        } catch (FileNotFoundException e) {
+            System.out.println("Exception caught: " + e);
+        }
+
+        // Try-With-Resources
+        try (BufferedReader reader2 = new BufferedReader(new FileReader("file.txt"))) {
+            String line;
+            while ((line = reader2.readLine()) != null) {
+                System.out.println(line);
+            }
+        } catch (IOException e) {
+            System.out.println("Exception caught: " + e);
+        }
+
+        // Suppressed Exceptions
+        try {
+            readMultipleFiles();
+        } catch (IOException e) {
+            System.out.println("Exception caught: " + e);
+            Throwable[] suppressed = e.getSuppressed();
+            for (Throwable throwable : suppressed) {
+                System.out.println("Suppressed Exception: " + throwable);
+            }
+        }
+
+        // Rethrowing Exceptions
+        try {
+            processFile("file.txt");
+        } catch (IOException e) {
+            System.out.println("Exception caught: " + e);
+        }
+
+        // Handling Exception in a Loop
+        String[] names = {"Alice", "Bob", "Charlie"};
+        for (String name : names) {
+            try {
+                validateName(name);
+            } catch (InvalidNameException e) {
+                System.out.println("Exception caught: " + e.getMessage());
+            }
+        }
+
+        // Catching Errors
+        try {
+            recurse();
+        } catch (StackOverflowError e) {
+            System.out.println("Exception caught: " + e);
         }
     }
 
@@ -1146,6 +1296,8 @@ public class HelloWorld {
         greet("Alice");
 
         demonstateCollection();
+
+        demonstrateExceptionHandling();
 
         Cat cat = new Cat("Whiskers");
         cat.makeSound();
