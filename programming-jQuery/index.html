@@ -368,6 +368,57 @@
         $('#characterName').val('');
       });
 
+      // Form Handling
+      $('#characterForm').submit(function(event) {
+        event.preventDefault();
+        var characterName = $('#characterName').val();
+        if (characterName) {
+          var li = $('<li>').text(characterName);
+          $('#characters ul').append(li);
+          $('#characterName').val('');
+        }
+      });
+
+      // Get form input value
+      $('#characterForm').submit(function(event) {
+        event.preventDefault();
+        var characterName = $('#characterName').val();
+        console.log("Character Name:", characterName);
+      });
+
+      // Set form input value
+      $('#characterName').val('New Character');
+
+      // Reset form
+      $('#characterForm')[0].reset();
+
+      // Disable form input
+      $('#characterName').prop('disabled', true);
+
+      // Enable form input
+      $('#characterName').prop('disabled', false);
+
+      // Prevent form submission
+      $('#characterForm').submit(function(event) {
+        event.preventDefault();
+      });
+
+      // Get selected radio button value
+      $('input[name="gender"]:checked').val();
+
+      // Set radio button selection
+      $('input[name="gender"]').prop('checked', true);
+
+      // Get selected checkbox values
+      var selectedHobbies = [];
+      $('input[name="hobby"]:checked').each(function() {
+        selectedHobbies.push($(this).val());
+      });
+      console.log("Selected Hobbies:", selectedHobbies);
+
+      // Set checkbox selection
+      $('input[name="hobby"]').prop('checked', true);
+
       // AJAX POST Request
       $('#saveCharacter').click(function() {
         var characterData = {
