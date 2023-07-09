@@ -2,10 +2,50 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.BitSet;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Deque;
+import java.util.EnumMap;
+import java.util.EnumSet;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.IdentityHashMap;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.NavigableMap;
+import java.util.NavigableSet;
+import java.util.PriorityQueue;
+import java.util.Queue;
+import java.util.Set;
+import java.util.SortedMap;
+import java.util.SortedSet;
+import java.util.Stack;
+import java.util.TreeMap;
+import java.util.TreeSet;
+import java.util.WeakHashMap;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingDeque;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.ConcurrentMap;
+import java.util.concurrent.ConcurrentSkipListMap;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.CopyOnWriteArraySet;
+import java.util.concurrent.LinkedBlockingDeque;
 import java.util.stream.Collectors;
+import java.util.*;
 
+enum Day {
+        MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY
+}
 public class HelloWorld {
     // Variables and Constants
     public static final double PI = 3.14159;
@@ -275,17 +315,648 @@ public class HelloWorld {
     }
 
     // Collections and Iteration
-    public static void iterateList() {
-        List<Integer> numbers = new ArrayList<>();
-        numbers.add(1);
-        numbers.add(2);
-        numbers.add(3);
-        numbers.add(4);
-        numbers.add(5);
+    public static void demonstateCollection() {
+        List<Integer> numbersList = new ArrayList<>();
+        numbersList.add(1);
+        numbersList.add(2);
+        numbersList.add(3);
+        numbersList.add(4);
+        numbersList.add(5);
 
-        for (int number : numbers) {
+        for (int number : numbersList) {
             System.out.println(number);
         }
+
+        // List Examples
+        List<String> list = new ArrayList<>();
+        list.add("Apple");
+        list.add("Banana");
+        list.add("Cherry");
+        list.add("Durian");
+        System.out.println("List: " + list);
+
+        // Accessing elements in a List
+        System.out.println("First element: " + list.get(0));
+        System.out.println("Last element: " + list.get(list.size() - 1));
+
+        // Modifying elements in a List
+        list.set(1, "Blueberry");
+        System.out.println("Modified List: " + list);
+
+        // Removing elements from a List
+        list.remove(2);
+        System.out.println("List after removal: " + list);
+
+        // Iterating over a List using enhanced for loop
+        for (String fruit : list) {
+            System.out.println(fruit);
+        }
+
+        // Set Examples
+        Set<Integer> set = new HashSet<>();
+        set.add(1);
+        set.add(2);
+        set.add(3);
+        set.add(4);
+        System.out.println("Set: " + set);
+
+        // Checking if an element exists in a Set
+        boolean contains = set.contains(3);
+        System.out.println("Set contains 3: " + contains);
+
+        // Removing an element from a Set
+        set.remove(2);
+        System.out.println("Set after removal: " + set);
+
+        // Iterating over a Set using Iterator
+        Iterator<Integer> iterator = set.iterator();
+        while (iterator.hasNext()) {
+            System.out.println(iterator.next());
+        }
+
+        // Map Examples
+        Map<String, Integer> map = new HashMap<>();
+        map.put("Alice", 25);
+        map.put("Bob", 30);
+        map.put("Charlie", 35);
+        System.out.println("Map: " + map);
+
+        // Accessing values in a Map
+        int age = map.get("Bob");
+        System.out.println("Bob's age: " + age);
+
+        // Modifying values in a Map
+        map.put("Charlie", 40);
+        System.out.println("Modified Map: " + map);
+
+        // Removing entries from a Map
+        map.remove("Alice");
+        System.out.println("Map after removal: " + map);
+
+        // Iterating over a Map using keySet()
+        Set<String> keys = map.keySet();
+        for (String key : keys) {
+            int value = map.get(key);
+            System.out.println(key + ": " + value);
+        }
+
+        // Queue Examples
+        Queue<String> queue = new LinkedList<>();
+        queue.offer("Apple");
+        queue.offer("Banana");
+        queue.offer("Cherry");
+        System.out.println("Queue: " + queue);
+
+        // Accessing elements in a Queue
+        String element = queue.peek();
+        System.out.println("First element: " + element);
+
+        // Removing elements from a Queue
+        String removedElement = queue.poll();
+        System.out.println("Removed element: " + removedElement);
+        System.out.println("Queue after removal: " + queue);
+
+        // Iterating over a Queue using while loop
+        while (!queue.isEmpty()) {
+            System.out.println(queue.poll());
+        }
+
+        // Deque Examples
+        Deque<String> deque = new ArrayDeque<>();
+        deque.addFirst("Apple");
+        deque.addLast("Banana");
+        deque.addLast("Cherry");
+        System.out.println("Deque: " + deque);
+
+        // Accessing elements in a Deque
+        String firstElement = deque.getFirst();
+        String lastElement = deque.getLast();
+        System.out.println("First element: " + firstElement);
+        System.out.println("Last element: " + lastElement);
+
+        // Removing elements from a Deque
+        String removedFirst = deque.removeFirst();
+        String removedLast = deque.removeLast();
+        System.out.println("Removed first element: " + removedFirst);
+        System.out.println("Removed last element: " + removedLast);
+        System.out.println("Deque after removal: " + deque);
+
+        // Iterating over a Deque using descendingIterator()
+        Iterator<String> descendingIterator = deque.descendingIterator();
+        while (descendingIterator.hasNext()) {
+            System.out.println(descendingIterator.next());
+        }
+
+        // Stack Examples
+        Stack<String> stack = new Stack<>();
+        stack.push("Apple");
+        stack.push("Banana");
+        stack.push("Cherry");
+        System.out.println("Stack: " + stack);
+
+        // Accessing elements in a Stack
+        String topElement = stack.peek();
+        System.out.println("Top element: " + topElement);
+
+        // Removing elements from a Stack
+        String poppedElement = stack.pop();
+        System.out.println("Popped element: " + poppedElement);
+        System.out.println("Stack after removal: " + stack);
+
+        // Iterating over a Stack using for loop
+        for (int i = stack.size() - 1; i >= 0; i--) {
+            System.out.println(stack.get(i));
+        }
+
+        // Collections Class Examples
+        List<Integer> numbers = new ArrayList<>();
+        numbers.add(3);
+        numbers.add(1);
+        numbers.add(2);
+        System.out.println("Numbers before sorting: " + numbers);
+        Collections.sort(numbers);
+        System.out.println("Numbers after sorting: " + numbers);
+
+        List<String> names = Arrays.asList("Alice", "Bob", "Charlie");
+        System.out.println("Names: " + names);
+        Collections.reverse(names);
+        System.out.println("Reversed Names: " + names);
+
+        Collections.shuffle(numbers);
+        System.out.println("Shuffled Numbers: " + numbers);
+
+        // LinkedList Examples
+        LinkedList<String> linkedList = new LinkedList<>();
+        linkedList.add("Apple");
+        linkedList.add("Banana");
+        linkedList.add("Cherry");
+        System.out.println("LinkedList: " + linkedList);
+
+        linkedList.addFirst("Orange");
+        linkedList.addLast("Grape");
+        System.out.println("LinkedList after adding: " + linkedList);
+
+        linkedList.removeFirst();
+        linkedList.removeLast();
+        System.out.println("LinkedList after removal: " + linkedList);
+
+        // TreeSet Examples
+        TreeSet<Integer> treeSet = new TreeSet<>();
+        treeSet.add(3);
+        treeSet.add(1);
+        treeSet.add(2);
+        System.out.println("TreeSet: " + treeSet);
+
+        // Accessing elements in a TreeSet
+        int firstElementTreeSet = treeSet.first();
+        int lastElementTreeSet = treeSet.last();
+        System.out.println("First element: " + firstElementTreeSet);
+        System.out.println("Last element: " + lastElementTreeSet);
+
+        // Removing elements from a TreeSet
+        treeSet.remove(2);
+        System.out.println("TreeSet after removal: " + treeSet);
+
+        // Iterating over a TreeSet using Iterator
+        Iterator<Integer> treeSetIterator = treeSet.iterator();
+        while (treeSetIterator.hasNext()) {
+            System.out.println(treeSetIterator.next());
+        }
+
+        // HashMap Examples
+        HashMap<String, Integer> hashMap = new HashMap<>();
+        hashMap.put("Apple", 10);
+        hashMap.put("Banana", 20);
+        hashMap.put("Cherry", 30);
+        System.out.println("HashMap: " + hashMap);
+
+        // Accessing values in a HashMap
+        int appleQuantity = hashMap.get("Apple");
+        System.out.println("Quantity of Apple: " + appleQuantity);
+
+        // Modifying values in a HashMap
+        hashMap.put("Banana", 25);
+        System.out.println("Modified HashMap: " + hashMap);
+
+        // Removing entries from a HashMap
+        hashMap.remove("Cherry");
+        System.out.println("HashMap after removal: " + hashMap);
+
+        // Iterating over a HashMap using keySet()
+        Set<String> hashMapKeys = hashMap.keySet();
+        for (String key : hashMapKeys) {
+            int value = hashMap.get(key);
+            System.out.println(key + ": " + value);
+        }
+
+        // HashSet Examples
+        HashSet<String> hashSet = new HashSet<>();
+        hashSet.add("Apple");
+        hashSet.add("Banana");
+        hashSet.add("Cherry");
+        System.out.println("HashSet: " + hashSet);
+
+        // Checking if an element exists in a HashSet
+        boolean containsApple = hashSet.contains("Apple");
+        System.out.println("HashSet contains Apple: " + containsApple);
+
+        // Removing an element from a HashSet
+        hashSet.remove("Banana");
+        System.out.println("HashSet after removal: " + hashSet);
+
+        // Iterating over a HashSet using enhanced for loop
+        for (String elementHashset : hashSet) {
+            System.out.println(elementHashset);
+        }
+
+        // TreeMap Examples
+        TreeMap<String, Integer> treeMap = new TreeMap<>();
+        treeMap.put("Apple", 5);
+        treeMap.put("Banana", 3);
+        treeMap.put("Cherry", 2);
+        System.out.println("TreeMap: " + treeMap);
+
+        // Accessing values in a TreeMap
+        int bananaQuantity = treeMap.get("Banana");
+        System.out.println("Quantity of Banana: " + bananaQuantity);
+
+        // Modifying values in a TreeMap
+        treeMap.put("Cherry", 10);
+        System.out.println("Modified TreeMap: " + treeMap);
+
+        // Removing entries from a TreeMap
+        treeMap.remove("Apple");
+        System.out.println("TreeMap after removal: " + treeMap);
+
+        // Iterating over a TreeMap using entrySet()
+        Set<Map.Entry<String, Integer>> treeMapEntries = treeMap.entrySet();
+        for (Map.Entry<String, Integer> entry : treeMapEntries) {
+            String key = entry.getKey();
+            int value = entry.getValue();
+            System.out.println(key + ": " + value);
+        }
+
+        // LinkedHashSet Examples
+        LinkedHashSet<String> linkedHashSet = new LinkedHashSet<>();
+        linkedHashSet.add("Apple");
+        linkedHashSet.add("Banana");
+        linkedHashSet.add("Cherry");
+        System.out.println("LinkedHashSet: " + linkedHashSet);
+
+        // Removing an element from a LinkedHashSet
+        linkedHashSet.remove("Banana");
+        System.out.println("LinkedHashSet after removal: " + linkedHashSet);
+
+        // Iterating over a LinkedHashSet using Iterator
+        Iterator<String> linkedHashSetIterator = linkedHashSet.iterator();
+        while (linkedHashSetIterator.hasNext()) {
+            System.out.println(linkedHashSetIterator.next());
+        }
+
+        // PriorityQueue Examples
+        PriorityQueue<String> priorityQueue = new PriorityQueue<>();
+        priorityQueue.offer("Apple");
+        priorityQueue.offer("Banana");
+        priorityQueue.offer("Cherry");
+        System.out.println("PriorityQueue: " + priorityQueue);
+
+        // Accessing elements in a PriorityQueue
+        String headElement = priorityQueue.peek();
+        System.out.println("Head element: " + headElement);
+
+        // Removing elements from a PriorityQueue
+        String removedElementPQueue = priorityQueue.poll();
+        System.out.println("Removed element: " + removedElementPQueue);
+        System.out.println("PriorityQueue after removal: " + priorityQueue);
+
+        // Iterating over a PriorityQueue using forEach()
+        priorityQueue.forEach(System.out::println);
+
+        // ArrayDeque Examples
+        ArrayDeque<String> arrayDeque = new ArrayDeque<>();
+        arrayDeque.add("Apple");
+        arrayDeque.add("Banana");
+        arrayDeque.add("Cherry");
+        System.out.println("ArrayDeque: " + arrayDeque);
+
+        // Accessing elements in an ArrayDeque
+        String firstElementArrayDeque = arrayDeque.getFirst();
+        String lastElementArrayDeque = arrayDeque.getLast();
+        System.out.println("First element: " + firstElementArrayDeque);
+        System.out.println("Last element: " + lastElementArrayDeque);
+
+        // Removing elements from an ArrayDeque
+        String removedFirstArrayDeque = arrayDeque.removeFirst();
+        String removedLastArrayDeque = arrayDeque.removeLast();
+        System.out.println("Removed first element: " + removedFirstArrayDeque);
+        System.out.println("Removed last element: " + removedLastArrayDeque);
+        System.out.println("ArrayDeque after removal: " + arrayDeque);
+
+        // Iterating over an ArrayDeque using descendingIterator()
+        Iterator<String> descendingIteratorArrayDeque = arrayDeque.descendingIterator();
+        while (descendingIteratorArrayDeque.hasNext()) {
+            System.out.println(descendingIteratorArrayDeque.next());
+        }
+
+        // BitSet Examples
+        BitSet bitSet1 = new BitSet(8);
+        BitSet bitSet2 = new BitSet(8);
+
+        bitSet1.set(0);
+        bitSet1.set(2);
+        bitSet1.set(4);
+        bitSet1.set(6);
+
+        bitSet2.set(1);
+        bitSet2.set(3);
+        bitSet2.set(5);
+        bitSet2.set(7);
+
+        System.out.println("BitSet 1: " + bitSet1);
+        System.out.println("BitSet 2: " + bitSet2);
+
+        bitSet1.and(bitSet2);
+        System.out.println("BitSet 1 AND BitSet 2: " + bitSet1);
+
+        bitSet1.or(bitSet2);
+        System.out.println("BitSet 1 OR BitSet 2: " + bitSet1);
+
+        // EnumSet Examples
+        EnumSet<Day> daysOfWeek = EnumSet.allOf(Day.class);
+        System.out.println("Days of Week: " + daysOfWeek);
+
+        EnumSet<Day> workingDays = EnumSet.range(Day.MONDAY, Day.FRIDAY);
+        System.out.println("Working Days: " + workingDays);
+
+        EnumSet<Day> weekend = EnumSet.of(Day.SATURDAY, Day.SUNDAY);
+        System.out.println("Weekend: " + weekend);
+
+        // IdentityHashMap Examples
+        IdentityHashMap<String, Integer> identityHashMap = new IdentityHashMap<>();
+        identityHashMap.put("One", 1);
+        identityHashMap.put(new String("One"), 2);
+        System.out.println("IdentityHashMap: " + identityHashMap);
+
+        // WeakHashMap Examples
+        WeakHashMap<Integer, String> weakHashMap = new WeakHashMap<>();
+        Integer key1 = 1;
+        Integer key2 = 2;
+        weakHashMap.put(key1, "Value 1");
+        weakHashMap.put(key2, "Value 2");
+        System.out.println("WeakHashMap: " + weakHashMap);
+
+        key1 = null;
+        System.gc();
+        System.out.println("WeakHashMap after garbage collection: " + weakHashMap);
+
+        // LinkedHashMap Examples
+        LinkedHashMap<String, Integer> linkedHashMap = new LinkedHashMap<>();
+        linkedHashMap.put("One", 1);
+        linkedHashMap.put("Two", 2);
+        linkedHashMap.put("Three", 3);
+        System.out.println("LinkedHashMap: " + linkedHashMap);
+
+        // Access Order Mode
+        LinkedHashMap<String, Integer> accessOrderMap = new LinkedHashMap<>(16, 0.75f, true);
+        accessOrderMap.put("One", 1);
+        accessOrderMap.put("Two", 2);
+        accessOrderMap.put("Three", 3);
+        System.out.println("Access Order LinkedHashMap: " + accessOrderMap);
+
+        accessOrderMap.get("Two");
+        accessOrderMap.get("One");
+        System.out.println("Access Order LinkedHashMap after access: " + accessOrderMap);
+
+        // TreeMap with Comparator Examples
+        TreeMap<String, Integer> treeMapGen = new TreeMap<>(Comparator.reverseOrder());
+        treeMapGen.put("One", 1);
+        treeMapGen.put("Two", 2);
+        treeMapGen.put("Three", 3);
+        System.out.println("TreeMap with Comparator: " + treeMapGen);
+
+        // ArrayDeque as Stack Examples
+        ArrayDeque<String> stackArrayDeque = new ArrayDeque<>();
+        stackArrayDeque.push("One");
+        stackArrayDeque.push("Two");
+        stackArrayDeque.push("Three");
+        System.out.println("Stack (ArrayDeque): " + stackArrayDeque);
+
+        String poppedElementArrayDeque = stackArrayDeque.pop();
+        System.out.println("Popped element: " + poppedElementArrayDeque);
+        System.out.println("Stack after pop: " + stackArrayDeque);
+
+        // ArrayDeque as Queue Examples
+        ArrayDeque<String> queueArrayDeque = new ArrayDeque<>();
+        queueArrayDeque.offer("One");
+        queueArrayDeque.offer("Two");
+        queueArrayDeque.offer("Three");
+        System.out.println("Queue (ArrayDeque): " + queueArrayDeque);
+
+        String polledElement = queue.poll();
+        System.out.println("Polled element: " + polledElement);
+        System.out.println("Queue after poll: " + queue);
+
+        // LinkedList as Stack Examples
+        LinkedList<String> stackUsingLinkedList = new LinkedList<>();
+        stackUsingLinkedList.push("One");
+        stackUsingLinkedList.push("Two");
+        stackUsingLinkedList.push("Three");
+        System.out.println("Stack (LinkedList): " + stackUsingLinkedList);
+
+        String poppedElementUsingLinkedList = stackUsingLinkedList.pop();
+        System.out.println("Popped element (LinkedList): " + poppedElementUsingLinkedList);
+        System.out.println("Stack after pop (LinkedList): " + stackUsingLinkedList);
+
+        // LinkedList as Queue Examples
+        LinkedList<String> queueUsingLinkedList = new LinkedList<>();
+        queueUsingLinkedList.offer("One");
+        queueUsingLinkedList.offer("Two");
+        queueUsingLinkedList.offer("Three");
+        System.out.println("Queue (LinkedList): " + queueUsingLinkedList);
+
+        String polledElementUsingLinkedList = queueUsingLinkedList.poll();
+        System.out.println("Polled element (LinkedList): " + polledElementUsingLinkedList);
+        System.out.println("Queue after poll (LinkedList): " + queueUsingLinkedList);
+
+        // EnumMap Examples
+        EnumMap<Day, String> enumMap = new EnumMap<>(Day.class);
+        enumMap.put(Day.MONDAY, "Monday");
+        enumMap.put(Day.TUESDAY, "Tuesday");
+        enumMap.put(Day.WEDNESDAY, "Wednesday");
+        System.out.println("EnumMap: " + enumMap);
+
+        // CopyOnWriteArrayList Examples
+        CopyOnWriteArrayList<String> copyOnWriteArrayList = new CopyOnWriteArrayList<>();
+        copyOnWriteArrayList.add("One");
+        copyOnWriteArrayList.add("Two");
+        copyOnWriteArrayList.add("Three");
+        System.out.println("CopyOnWriteArrayList: " + copyOnWriteArrayList);
+
+        // CopyOnWriteArraySet Examples
+        CopyOnWriteArraySet<String> copyOnWriteArraySet = new CopyOnWriteArraySet<>();
+        copyOnWriteArraySet.add("One");
+        copyOnWriteArraySet.add("Two");
+        copyOnWriteArraySet.add("Three");
+        System.out.println("CopyOnWriteArraySet: " + copyOnWriteArraySet);
+
+        // ConcurrentHashMap Examples
+        ConcurrentHashMap<String, Integer> concurrentHashMap = new ConcurrentHashMap<>();
+        concurrentHashMap.put("One", 1);
+        concurrentHashMap.put("Two", 2);
+        concurrentHashMap.put("Three", 3);
+        System.out.println("ConcurrentHashMap: " + concurrentHashMap);
+
+        // ConcurrentSkipListMap Examples
+        ConcurrentSkipListMap<String, Integer> concurrentSkipListMap = new ConcurrentSkipListMap<>();
+        concurrentSkipListMap.put("One", 1);
+        concurrentSkipListMap.put("Two", 2);
+        concurrentSkipListMap.put("Three", 3);
+        System.out.println("ConcurrentSkipListMap: " + concurrentSkipListMap);
+
+        // ConcurrentLinkedQueue Examples
+        ConcurrentLinkedQueue<String> concurrentLinkedQueue = new ConcurrentLinkedQueue<>();
+        concurrentLinkedQueue.offer("One");
+        concurrentLinkedQueue.offer("Two");
+        concurrentLinkedQueue.offer("Three");
+        System.out.println("ConcurrentLinkedQueue: " + concurrentLinkedQueue);
+
+        // BlockingQueue Examples
+        BlockingQueue<String> blockingQueue = new ArrayBlockingQueue<>(3);
+        blockingQueue.offer("One");
+        blockingQueue.offer("Two");
+        blockingQueue.offer("Three");
+        System.out.println("BlockingQueue: " + blockingQueue);
+
+        try {
+            blockingQueue.put("Four");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("BlockingQueue after put: " + blockingQueue);
+
+        try {
+            String removedElementBlockingQueue = blockingQueue.take();
+            System.out.println("Removed element: " + removedElementBlockingQueue);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("BlockingQueue after take: " + blockingQueue);
+
+        // BlockingDeque Examples
+        BlockingDeque<String> blockingDeque = new LinkedBlockingDeque<>(3);
+        blockingDeque.offer("One");
+        blockingDeque.offer("Two");
+        blockingDeque.offer("Three");
+        System.out.println("BlockingDeque: " + blockingDeque);
+
+        try {
+            blockingDeque.putFirst("Zero");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("BlockingDeque after putFirst: " + blockingDeque);
+
+        try {
+            String removedLastElement = blockingDeque.takeLast();
+            System.out.println("Removed last element: " + removedLastElement);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("BlockingDeque after takeLast: " + blockingDeque);
+
+        // PriorityQueue with Comparator Examples
+        PriorityQueue<Integer> priorityQueueWithComparator = new PriorityQueue<>(Comparator.reverseOrder());
+        priorityQueueWithComparator.offer(3);
+        priorityQueueWithComparator.offer(1);
+        priorityQueueWithComparator.offer(2);
+        System.out.println("PriorityQueue with Comparator: " + priorityQueueWithComparator);
+
+        // Deque as Stack Examples
+        Deque<String> stackUsingDeque = new ArrayDeque<>();
+        stackUsingDeque.push("One");
+        stackUsingDeque.push("Two");
+        stackUsingDeque.push("Three");
+        System.out.println("Stack (Deque): " + stackUsingDeque);
+
+        String poppedElementUsingDeque = stackUsingDeque.pop();
+        System.out.println("Popped element (Deque): " + poppedElementUsingDeque);
+        System.out.println("Stack after pop (Deque): " + stackUsingDeque);
+
+        // Deque as Queue Examples
+        Deque<String> queueUsingDeque = new ArrayDeque<>();
+        queueUsingDeque.offer("One");
+        queueUsingDeque.offer("Two");
+        queueUsingDeque.offer("Three");
+        System.out.println("Queue (Deque): " + queueUsingDeque);
+
+        String polledElementUsingDeque = queueUsingDeque.poll();
+        System.out.println("Polled element (Deque): " + polledElementUsingDeque);
+        System.out.println("Queue after poll (Deque): " + queueUsingDeque);
+
+        // NavigableSet Examples
+        NavigableSet<Integer> navigableSet = new TreeSet<>();
+        navigableSet.add(5);
+        navigableSet.add(2);
+        navigableSet.add(7);
+        navigableSet.add(1);
+        navigableSet.add(8);
+        System.out.println("NavigableSet: " + navigableSet);
+
+        System.out.println("Lower (4): " + navigableSet.lower(4));
+        System.out.println("Higher (4): " + navigableSet.higher(4));
+        System.out.println("Floor (4): " + navigableSet.floor(4));
+        System.out.println("Ceiling (4): " + navigableSet.ceiling(4));
+
+        // NavigableMap Examples
+        NavigableMap<String, Integer> navigableMap = new TreeMap<>();
+        navigableMap.put("One", 1);
+        navigableMap.put("Two", 2);
+        navigableMap.put("Three", 3);
+        System.out.println("NavigableMap: " + navigableMap);
+
+        System.out.println("Lower key (\"Two\"): " + navigableMap.lowerKey("Two"));
+        System.out.println("Higher key (\"Two\"): " + navigableMap.higherKey("Two"));
+        System.out.println("Floor key (\"Two\"): " + navigableMap.floorKey("Two"));
+        System.out.println("Ceiling key (\"Two\"): " + navigableMap.ceilingKey("Two"));
+
+        // ConcurrentMap Examples
+        ConcurrentMap<String, Integer> concurrentMap = new ConcurrentHashMap<>();
+        concurrentMap.put("One", 1);
+        concurrentMap.put("Two", 2);
+        concurrentMap.put("Three", 3);
+        System.out.println("ConcurrentMap: " + concurrentMap);
+
+        // SortedSet Examples
+        SortedSet<Integer> sortedSet = new TreeSet<>();
+        sortedSet.add(5);
+        sortedSet.add(2);
+        sortedSet.add(7);
+        sortedSet.add(1);
+        sortedSet.add(8);
+        System.out.println("SortedSet: " + sortedSet);
+
+        System.out.println("First element: " + sortedSet.first());
+        System.out.println("Last element: " + sortedSet.last());
+        System.out.println("Head Set (5): " + sortedSet.headSet(5));
+        System.out.println("Tail Set (5): " + sortedSet.tailSet(5));
+        System.out.println("Sub Set (2-7): " + sortedSet.subSet(2, 7));
+
+        // SortedMap Examples
+        SortedMap<String, Integer> sortedMap = new TreeMap<>();
+        sortedMap.put("One", 1);
+        sortedMap.put("Two", 2);
+        sortedMap.put("Three", 3);
+        System.out.println("SortedMap: " + sortedMap);
+
+        System.out.println("First key: " + sortedMap.firstKey());
+        System.out.println("Last key: " + sortedMap.lastKey());
+        System.out.println("Head Map (\"Two\"): " + sortedMap.headMap("Two"));
+        System.out.println("Tail Map (\"Two\"): " + sortedMap.tailMap("Two"));
+        System.out.println("Sub Map (\"One\"-\"Three\"): " + sortedMap.subMap("One", "Three"));
     }
 
     // Object-Oriented Programming
@@ -474,7 +1145,7 @@ public class HelloWorld {
 
         greet("Alice");
 
-        iterateList();
+        demonstateCollection();
 
         Cat cat = new Cat("Whiskers");
         cat.makeSound();
