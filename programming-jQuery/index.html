@@ -130,6 +130,60 @@
       var booksHTML = $('#books ul').html();
       console.log("Books HTML:", booksHTML);
 
+      // Examples
+      // Replace text of an element
+      $('.character').text('New Character');
+
+      // Append content to an element
+      $('#characters ul').append('<li class="character">New Character 1</li>');
+      $('#characters ul').append('<li class="character">New Character 2</li>');
+
+      // Prepend content to an element
+      $('#characters ul').prepend('<li class="character">New Character 3</li>');
+      $('#characters ul').prepend('<li class="character">New Character 4</li>');
+
+      // Insert content before an element
+      $('.character').before('<li class="character">Before Character</li>');
+
+      // Insert content after an element
+      $('.character').after('<li class="character">After Character</li>');
+
+      // Wrap an element around another element
+      $('.character').wrap('<div class="wrapper"></div>');
+
+      // Remove an element
+      $('.character').remove();
+
+      // Empty the content of an element
+      $('#characters ul').empty();
+
+      // Replace an element with another element
+      $('.character').replaceWith('<li class="character">Replaced Character</li>');
+
+      // Clone an element
+      var clonedElement = $('.book').clone();
+      $('#characters ul').append(clonedElement);
+
+      // Get and set HTML content
+      var charactersHTML = $('#characters ul').html();
+      console.log("Characters HTML:", charactersHTML);
+
+      $('#characters ul').html('<li class="character">Updated Character</li>');
+
+      // Get and set text content
+      var booksText = $('.book').text();
+      console.log("Books Text:", booksText);
+
+      $('.book').text('Updated Book');
+
+      // Get and set attribute values
+      var idValue = $('#characters').attr('id');
+      console.log("ID Value:", idValue);
+
+      $('.character').attr('data-role', 'main');
+      var dataRole = $('.character').attr('data-role');
+      console.log("Data Role:", dataRole);
+
       // CSS Manipulation
       $('.character').css('font-weight', 'bold');
       $('.book').css({
