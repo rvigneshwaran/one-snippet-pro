@@ -305,6 +305,60 @@
         $(this).toggleClass('selected');
       });
 
+      // Event Delegation
+      $('#characters ul').on('click', '.character', function() {
+        $(this).toggleClass('selected');
+      });
+
+      // Click event delegation
+      $('#characters ul').on('click', '.character', function() {
+        console.log("Clicked Character:", $(this).text());
+      });
+
+      // Mouseover event delegation
+      $('#characters ul').on('mouseover', '.character', function() {
+        console.log("Mouseover Character:", $(this).text());
+      });
+
+      // Double click event delegation
+      $('#characters ul').on('dblclick', '.character', function() {
+        console.log("Double Clicked Character:", $(this).text());
+      });
+
+      // Keydown event delegation
+      $(document).on('keydown', function(event) {
+        console.log("Keydown Event - Key Code:", event.keyCode);
+      });
+
+      // Submit event delegation
+      $('form').on('submit', function(event) {
+        event.preventDefault();
+        console.log("Form Submitted");
+      });
+
+      // Change event delegation
+      $('input[type="checkbox"]').on('change', function() {
+        if ($(this).is(':checked')) {
+          console.log("Checkbox Checked");
+        } else {
+          console.log("Checkbox Unchecked");
+        }
+      });
+
+      // Hover event delegation
+      $('#characters ul').on('mouseenter', '.character', function() {
+        console.log("Mouse Enter Character:", $(this).text());
+      }).on('mouseleave', '.character', function() {
+        console.log("Mouse Leave Character:", $(this).text());
+      });
+
+      // Custom event delegation
+      $('#characters ul').on('myCustomEvent', '.character', function() {
+        console.log("Custom Event Triggered:", $(this).text());
+      });
+
+      $('.character').trigger('myCustomEvent');
+
       // Form Handling
       $('#characterForm').submit(function(event) {
         event.preventDefault();
