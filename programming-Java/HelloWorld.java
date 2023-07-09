@@ -16,16 +16,14 @@ import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.ConcurrentSkipListMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.CopyOnWriteArraySet;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingDeque;
-import java.util.function.BiFunction;
-import java.util.function.BinaryOperator;
-import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.function.Supplier;
-import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
 import java.util.function.*;
 import javax.naming.InvalidNameException;
+
+import org.w3c.dom.css.Counter;
 
 import java.util.*;
 
@@ -1264,6 +1262,129 @@ public class HelloWorld {
         int perform(int a, int b);
     }
 
+    public static void functionalInterfaceDemo(){
+        // Functional Interfaces
+        // Predicate
+        Predicate<Integer> isPositive = num -> num > 0;
+        System.out.println("Is 5 positive? " + isPositive.test(5));
+
+        // BiPredicate
+        BiPredicate<String, Integer> isStringLengthValid = (str, len) -> str.length() == len;
+        System.out.println("Is 'Hello' of length 5? " + isStringLengthValid.test("Hello", 5));
+
+        // Consumer
+        Consumer<String> printUpperCase = str -> System.out.println(str.toUpperCase());
+        printUpperCase.accept("hello");
+
+        // BiConsumer
+        BiConsumer<String, Integer> printFormatted = (str, num) -> System.out.println(str + ": " + num);
+        printFormatted.accept("Count", 10);
+
+        // Supplier
+        Supplier<Double> getRandomNumber = Math::random;
+        System.out.println("Random number: " + getRandomNumber.get());
+
+        // Function
+        Function<Integer, String> convertToString = Object::toString;
+        System.out.println("String representation of 10: " + convertToString.apply(10));
+
+        // BiFunction
+        BiFunction<String, Integer, Boolean> isStringLengthGreaterThan = (str, len) -> str.length() > len;
+        System.out.println("Is 'Hello' length greater than 3? " + isStringLengthGreaterThan.apply("Hello", 3));
+
+        // UnaryOperator
+        UnaryOperator<Integer> square = num -> num * num;
+        System.out.println("Square of 5: " + square.apply(5));
+
+        // BinaryOperator
+        BinaryOperator<Integer> sum = Integer::sum;
+        System.out.println("Sum of 5 and 3: " + sum.apply(5, 3));
+
+        // IntPredicate
+        IntPredicate isEven = num -> num % 2 == 0;
+        System.out.println("Is 10 even? " + isEven.test(10));
+
+        // LongPredicate
+        LongPredicate isPositiveLong = num -> num > 0;
+        System.out.println("Is 1000 positive? " + isPositiveLong.test(1000));
+
+        // DoublePredicate
+        DoublePredicate isNegativeDouble = num -> num < 0;
+        System.out.println("Is -3.14 negative? " + isNegativeDouble.test(-3.14));
+
+        // IntConsumer
+        IntConsumer printSquare = num -> System.out.println("Square: " + (num * num));
+        printSquare.accept(5);
+
+        // LongConsumer
+        LongConsumer printCube = num -> System.out.println("Cube: " + (num * num * num));
+        printCube.accept(3);
+
+        // DoubleConsumer
+        DoubleConsumer printSquareRoot = num -> System.out.println("Square Root: " + Math.sqrt(num));
+        printSquareRoot.accept(25);
+
+        // IntSupplier
+        IntSupplier getRandomNumberInRange = () -> (int) (Math.random() * 100);
+        System.out.println("Random number in range [0, 100): " + getRandomNumberInRange.getAsInt());
+
+        // LongSupplier
+        LongSupplier getCurrentTimeInMillis = System::currentTimeMillis;
+        System.out.println("Current time in milliseconds: " + getCurrentTimeInMillis.getAsLong());
+
+        // DoubleSupplier
+        DoubleSupplier getPiValue = () -> Math.PI;
+        System.out.println("Pi value: " + getPiValue.getAsDouble());
+
+        // IntFunction
+        IntFunction<String> convertToHex = Integer::toHexString;
+        System.out.println("Hex representation of 15: " + convertToHex.apply(15));
+
+        // LongFunction
+        LongFunction<String> convertToBinary = Long::toBinaryString;
+        System.out.println("Binary representation of 10: " + convertToBinary.apply(10));
+
+        // DoubleFunction
+        DoubleFunction<String> formatDecimal = num -> String.format("%.2f", num);
+        System.out.println("Formatted decimal: " + formatDecimal.apply(3.14159));
+
+        // ToIntFunction
+        ToIntFunction<String> getStringLength = String::length;
+        System.out.println("Length of 'Hello': " + getStringLength.applyAsInt("Hello"));
+
+        // ToLongFunction
+        ToLongFunction<String> convertToLong = Long::parseLong;
+        System.out.println("Long value of '1000': " + convertToLong.applyAsLong("1000"));
+
+        // ToDoubleFunction
+        ToDoubleFunction<String> convertToDouble = Double::parseDouble;
+        System.out.println("Double value of '3.14': " + convertToDouble.applyAsDouble("3.14"));
+
+        // IntUnaryOperator
+        IntUnaryOperator incrementByFive = num -> num + 5;
+        System.out.println("Increment 10 by 5: " + incrementByFive.applyAsInt(10));
+
+        // LongUnaryOperator
+        LongUnaryOperator decrementByTen = num -> num - 10;
+        System.out.println("Decrement 20 by 10: " + decrementByTen.applyAsLong(20));
+
+        // DoubleUnaryOperator
+        DoubleUnaryOperator squareRoot = Math::sqrt;
+        System.out.println("Square root of 100: " + squareRoot.applyAsDouble(100));
+
+        // IntBinaryOperator
+        IntBinaryOperator multiply = (a, b) -> a * b;
+        System.out.println("Multiply 5 by 3: " + multiply.applyAsInt(5, 3));
+
+        // LongBinaryOperator
+        LongBinaryOperator add = Long::sum;
+        System.out.println("Add 1000 and 2000: " + add.applyAsLong(1000, 2000));
+
+        // DoubleBinaryOperator
+        DoubleBinaryOperator divide = (a, b) -> a / b;
+        System.out.println("Divide 10 by 2: " + divide.applyAsDouble(10, 2));
+    }
+
     public static int calculate(int a, int b, Operation operation) {
         return operation.perform(a, b);
     }
@@ -1275,6 +1396,160 @@ public class HelloWorld {
         });
 
         thread.start();
+
+        // Thread creation and start
+        Thread thread1 = new Thread(() -> System.out.println("Hello from Thread 1"));
+        thread1.start();
+
+        // Sleeping a thread
+        Thread thread2 = new Thread(() -> {
+            try {
+                Thread.sleep(2000);
+                System.out.println("Hello from Thread 2");
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+        thread2.start();
+
+        // Joining threads
+        Thread thread3 = new Thread(() -> {
+            try {
+                Thread.sleep(1000);
+                System.out.println("Hello from Thread 3");
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+
+        Thread thread4 = new Thread(() -> {
+            try {
+                Thread.sleep(2000);
+                System.out.println("Hello from Thread 4");
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+
+        thread3.start();
+        thread4.start();
+
+        try {
+            thread3.join();
+            thread4.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        // Thread priority
+        Thread thread5 = new Thread(() -> System.out.println("Hello from Thread 5 (Low Priority)"));
+        Thread thread6 = new Thread(() -> System.out.println("Hello from Thread 6 (High Priority)"));
+
+        thread5.setPriority(Thread.MIN_PRIORITY);
+        thread6.setPriority(Thread.MAX_PRIORITY);
+
+        thread5.start();
+        thread6.start();
+
+        // Thread synchronization with synchronized keyword
+        Counter counter = new Counter();
+
+        Thread thread7 = new Thread(() -> {
+            for (int i = 0; i < 1000; i++) {
+                counter.increment();
+            }
+        });
+
+        Thread thread8 = new Thread(() -> {
+            for (int i = 0; i < 1000; i++) {
+                counter.increment();
+            }
+        });
+
+        thread7.start();
+        thread8.start();
+
+        try {
+            thread7.join();
+            thread8.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("Counter value: " + counter.getCount());
+
+        // Thread synchronization with wait() and notify()
+        Message message = new Message();
+
+        Thread thread9 = new Thread(() -> {
+            synchronized (message) {
+                try {
+                    message.wait();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                System.out.println("Message received: " + message.getContent());
+            }
+        });
+
+        Thread thread10 = new Thread(() -> {
+            synchronized (message) {
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                message.setContent("Hello, World!");
+                message.notify();
+            }
+        });
+
+        thread9.start();
+        thread10.start();
+
+        // Thread interruption
+        Thread thread11 = new Thread(() -> {
+            while (!Thread.currentThread().isInterrupted()) {
+                System.out.println("Thread 11 is running...");
+            }
+            System.out.println("Thread 11 is interrupted.");
+        });
+
+        thread11.start();
+        thread11.interrupt();
+
+        // ThreadLocal
+        ThreadLocal<Integer> threadLocal = ThreadLocal.withInitial(() -> 0);
+
+        Thread thread12 = new Thread(() -> {
+            threadLocal.set(10);
+            System.out.println("Thread 12: " + threadLocal.get());
+        });
+
+        Thread thread13 = new Thread(() -> {
+            threadLocal.set(20);
+            System.out.println("Thread 13: " + threadLocal.get());
+        });
+
+        thread12.start();
+        thread13.start();
+
+        try {
+            thread12.join();
+            thread13.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        // Thread pool
+        ExecutorService executor = Executors.newFixedThreadPool(5);
+
+        for (int i = 0; i < 10; i++) {
+            final int taskId = i;
+            executor.execute(() -> System.out.println("Task " + taskId + " executed by " + Thread.currentThread().getName()));
+        }
+
+        executor.shutdown();
     }
 
     // Java 8: Default and Static Methods in Interfaces
@@ -1406,10 +1681,13 @@ public class HelloWorld {
         System.out.println("Result: " + divideResult);
 
         greetAnonymousClass();
+
         greetLambda();
 
         int additionResult = calculate(5, 3, (a, b) -> a + b);
         System.out.println("Addition Result: " + additionResult);
+
+        functionalInterfaceDemo();
 
         launchThread();
 
@@ -1441,5 +1719,31 @@ public class HelloWorld {
 
         java.util.Optional<String> optionalName = java.util.Optional.of("John");
         processOptional(optionalName);
+
+        
+    }
+
+    static class Counter {
+        private int count = 0;
+
+        public synchronized void increment() {
+            count++;
+        }
+
+        public int getCount() {
+            return count;
+        }
+    }
+
+    static class Message {
+        private String content;
+
+        public String getContent() {
+            return content;
+        }
+
+        public void setContent(String content) {
+            this.content = content;
+        }
     }
 }
