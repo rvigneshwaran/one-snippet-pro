@@ -503,6 +503,60 @@
       });
       console.log("Character Names:", characterNames.get());
 
+      var characterNames = $('.character').map(function() {
+        return $(this).text();
+      }).get();
+      console.log("Character Names:", characterNames);
+
+      // Examples
+      // Get character names as an array
+      var characterNames = $('.character').map(function() {
+        return $(this).text();
+      }).get();
+      console.log("Character Names:", characterNames);
+
+      // Get character names as a comma-separated string
+      var characterNamesString = $('.character').map(function() {
+        return $(this).text();
+      }).get().join(', ');
+      console.log("Character Names String:", characterNamesString);
+
+      // Get character name lengths
+      var characterNameLengths = $('.character').map(function() {
+        return $(this).text().length;
+      }).get();
+      console.log("Character Name Lengths:", characterNameLengths);
+
+      // Get character names in uppercase
+      var characterNamesUppercase = $('.character').map(function() {
+        return $(this).text().toUpperCase();
+      }).get();
+      console.log("Character Names Uppercase:", characterNamesUppercase);
+
+      // Get characters' parents
+      var characterParents = $('.character').map(function() {
+        return $(this).parent().attr('id');
+      }).get();
+      console.log("Character Parents:", characterParents);
+
+      // Get characters' previous siblings
+      var characterPrevSiblings = $('.character').map(function() {
+        return $(this).prev().text();
+      }).get();
+      console.log("Character Previous Siblings:", characterPrevSiblings);
+
+      // Get characters' next siblings
+      var characterNextSiblings = $('.character').map(function() {
+        return $(this).next().text();
+      }).get();
+      console.log("Character Next Siblings:", characterNextSiblings);
+
+      // Get character indices
+      var characterIndices = $('.character').map(function(index) {
+        return index;
+      }).get();
+      console.log("Character Indices:", characterIndices);
+
       // Event Triggering
       $('#characters ul li').first().trigger('click');
 
