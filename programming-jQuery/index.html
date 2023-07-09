@@ -244,6 +244,62 @@
       $('.character').fadeOut(2000).fadeIn(2000);
       $('.book').slideUp(2000).slideDown(2000);
 
+      // FadeIn and FadeOut
+      $('.character').fadeOut(2000).fadeIn(2000);
+      $('.book').fadeOut(2000).fadeIn(2000);
+
+      // SlideUp and SlideDown
+      $('.character').slideUp(2000).slideDown(2000);
+      $('.book').slideUp(2000).slideDown(2000);
+
+      // Show and Hide
+      $('.character').hide(2000).show(2000);
+      $('.book').hide(2000).show(2000);
+
+      // Toggle
+      $('.character').toggle(2000);
+      $('.book').toggle(2000);
+
+      // SlideToggle
+      $('.character').slideToggle(2000);
+      $('.book').slideToggle(2000);
+
+      // Animate
+      $('.character').animate({
+        fontSize: '24px',
+        opacity: 0.5
+      }, 2000).animate({
+        fontSize: '18px',
+        opacity: 1
+      }, 2000);
+
+      $('.book').animate({
+        marginLeft: '50px',
+        marginRight: '50px'
+      }, 2000).animate({
+        marginLeft: '0',
+        marginRight: '0'
+      }, 2000);
+
+      // Callback
+      $('.character').fadeOut(2000, function() {
+        console.log("FadeOut Complete");
+        $(this).fadeIn(2000, function() {
+          console.log("FadeIn Complete");
+        });
+      });
+
+      // Chaining
+      $('.character').fadeOut(2000).fadeIn(2000).slideUp(2000).slideDown(2000);
+
+      // Stop Animation
+      $('.character').click(function() {
+        $(this).stop();
+      });
+
+      // Delay
+      $('.character').fadeOut(2000).delay(1000).fadeIn(2000);
+
       // Event Delegation
       $('#characters ul').on('click', '.character', function() {
         $(this).toggleClass('selected');
