@@ -1,3 +1,7 @@
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -16,6 +20,94 @@ public class HelloWorld {
             System.out.println("You are an adult.");
         } else {
             System.out.println("You are a minor.");
+        }
+
+        // 1. If-Else Statement
+        int num = 10;
+        if (num % 2 == 0) {
+            System.out.println("Number is even.");
+        } else {
+            System.out.println("Number is odd.");
+        }
+
+        // 2. Nested If-Else Statement
+        age = 25;
+        if (age >= 18) {
+            if (age < 60) {
+                System.out.println("You are an adult.");
+            } else {
+                System.out.println("You are a senior citizen.");
+            }
+        } else {
+            System.out.println("You are a minor.");
+        }
+
+        // 3. Switch Statement
+        String day = "Monday";
+        switch (day) {
+            case "Monday":
+                System.out.println("It's Monday.");
+                break;
+            case "Tuesday":
+                System.out.println("It's Tuesday.");
+                break;
+            case "Wednesday":
+                System.out.println("It's Wednesday.");
+                break;
+            default:
+                System.out.println("It's some other day.");
+        }
+
+        // 4. Ternary Operator
+        int x = 5;
+        int y = (x > 0) ? 10 : -10;
+        System.out.println("Value of y: " + y);
+
+        // 5. For Loop
+        for (int i = 1; i <= 5; i++) {
+            System.out.println("Iteration " + i);
+        }
+
+        // 6. While Loop
+        int j = 1;
+        while (j <= 5) {
+            System.out.println("Iteration " + j);
+            j++;
+        }
+
+        // 7. Do-While Loop
+        int k = 1;
+        do {
+            System.out.println("Iteration " + k);
+            k++;
+        } while (k <= 5);
+
+        // 8. Break Statement
+        for (int i = 1; i <= 10; i++) {
+            if (i == 5) {
+                break;
+            }
+            System.out.println("Value: " + i);
+        }
+
+        // 9. Continue Statement
+        for (int i = 1; i <= 5; i++) {
+            if (i == 3) {
+                continue;
+            }
+            System.out.println("Value: " + i);
+        }
+
+        // 10. Labeled Statements
+        outerLoop:
+        for (int i = 1; i <= 3; i++) {
+            innerLoop:
+            for (int l = 1; l <= 3; l++) {
+                if (l == 2) {
+                    break outerLoop;
+                }
+                System.out.println("i: " + i + ", l: " + l);
+            }
         }
     }
 
