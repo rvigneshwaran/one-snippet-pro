@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Ponniyin Selvan jQuery Example</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+
+  <h1>Ponniyin Selvan</h1>
+
+  <div id="characters">
+    <h2>Characters</h2>
+    <ul>
+      <li class="character">Vandiyathevan</li>
+      <li class="character">Azhwarkadiyan</li>
+      <li class="character">Nandhini</li>
+    </ul>
+  </div>
+
+  <div id="books">
+    <h2>Books</h2>
+    <ul>
+      <li class="book">Book 1: Ponniyin Selvan</li>
+      <li class="book">Book 2: Sivagamiyin Sabatham</li>
+      <li class="book">Book 3: Parthiban Kanavu</li>
+    </ul>
+  </div>
+
+  <script>
+    // Document Ready Function
+    $(document).ready(function() {
+      // Manipulating CSS Classes
+      $('.character').addClass('highlight');
+
+      // Event Handling
+      $('.book').click(function() {
+        $(this).toggleClass('selected');
+      });
+
+      // AJAX Request
+      $.ajax({
+        url: 'characters.json',
+        dataType: 'json',
+        success: function(data) {
+          // Iterating through JSON Data
+          $.each(data, function(index, character) {
+            var li = $('<li>').text(character.name);
+            $('#characters ul').append(li);
+          });
+        }
+      });
+
+      // DOM Traversal
+      var firstCharacter = $('.character').first();
+      var nextCharacter = firstCharacter.next();
+      var prevCharacter = firstCharacter.prev();
+      var parentElement = firstCharacter.parent();
+      console.log("First Character:", firstCharacter.text());
+      console.log("Next Character:", nextCharacter.text());
+      console.log("Previous Character:", prevCharacter.text());
+      console.log("Parent Element:", parentElement.attr('id'));
+
+      // Manipulating HTML Content
+      var booksHTML = $('#books ul').html();
+      console.log("Books HTML:", booksHTML);
+
+      // CSS Manipulation
+      $('.character').css('font-weight', 'bold');
+      $('.book').css({
+        'color': 'blue',
+        'font-size': '18px'
+      });
+
+      // Animation Effects
+      $('.character').fadeOut(2000).fadeIn(2000);
+      $('.book').slideUp(2000).slideDown(2000);
+
+      // Event Delegation
+      $('#characters ul').on('click', '.character', function() {
+        $(this).toggleClass('selected');
+      });
+
+      // Form Handling
+      $('#characterForm').submit(function(event) {
+        event.preventDefault();
+        var characterName = $('#characterName').val();
+        var li = $('<li>').text(characterName);
+        $('#characters ul').append(li);
+        $('#characterName').val('');
+      });
+
+      // AJAX POST Request
+      $('#saveCharacter').click(function() {
+        var characterData = {
+          name: $('#characterName').val(),
+          role: $('#characterRole').val(),
+          description: $('#characterDescription').val()
+        };
+
+        $.ajax({
+          url: 'saveCharacter.php',
+          method: 'POST',
+          data: characterData,
+          success: function(response) {
+            console.log("Character saved:", response);
+          }
+        });
+      });
+
+      // Data Filtering
+      var longNames = $('.character').filter(function() {
+        return $(this).text().length > 10;
+      });
+      console.log("Long Names:", longNames.text());
+
+      // Data Mapping
+      var characterNames = $('.character').map(function() {
+        return $(this).text();
+      });
+      console.log("Character Names:", characterNames.get());
+
+      // Event Triggering
+      $('#characters ul li').first().trigger('click');
+
+      // Version-Specific Snippets
+
+      // jQuery 3.6.0 and above: .remove()
+      $('#books').remove();
+    });
+  </script>
+
+</body>
+</html>
