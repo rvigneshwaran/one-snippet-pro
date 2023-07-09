@@ -191,6 +191,55 @@
         'font-size': '18px'
       });
 
+      $('.character').css('font-weight', 'bold');
+      $('.book').css({
+        'color': 'blue',
+        'font-size': '18px'
+      });
+
+      // Examples
+      // Get and set CSS property values
+      var fontWeight = $('.character').css('font-weight');
+      console.log("Font Weight:", fontWeight);
+
+      $('.character').css('color', 'green');
+      $('.book').css({
+        'font-size': '20px',
+        'text-decoration': 'underline'
+      });
+
+      // Add and remove CSS classes
+      $('.character').addClass('highlight');
+      $('.book').removeClass('highlight');
+
+      // Toggle CSS classes
+      $('.character').toggleClass('highlight');
+      $('.book').toggleClass('highlight');
+
+      // Check if an element has a CSS class
+      var hasHighlight = $('.character').hasClass('highlight');
+      console.log("Has Highlight Class:", hasHighlight);
+
+      // Get and set width and height
+      var characterWidth = $('.character').width();
+      var characterHeight = $('.character').height();
+      console.log("Character Width:", characterWidth);
+      console.log("Character Height:", characterHeight);
+
+      $('.character').width('200px');
+      $('.character').height('50px');
+
+      // Get and set inner and outer width and height
+      var characterInnerWidth = $('.character').innerWidth();
+      var characterInnerHeight = $('.character').innerHeight();
+      console.log("Character Inner Width:", characterInnerWidth);
+      console.log("Character Inner Height:", characterInnerHeight);
+
+      var characterOuterWidth = $('.character').outerWidth();
+      var characterOuterHeight = $('.character').outerHeight();
+      console.log("Character Outer Width:", characterOuterWidth);
+      console.log("Character Outer Height:", characterOuterHeight);
+
       // Animation Effects
       $('.character').fadeOut(2000).fadeIn(2000);
       $('.book').slideUp(2000).slideDown(2000);
