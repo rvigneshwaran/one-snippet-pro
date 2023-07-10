@@ -1627,7 +1627,7 @@ public class HelloWorld {
     // Advanced Concepts
 
     // Generics
-    public static <T> void printList(List<T> list) {
+    public static <T> void printGenricList(List<T> list) {
         for (T item : list) {
             System.out.println(item);
         }
@@ -1779,6 +1779,67 @@ public class HelloWorld {
         System.out.println("Person: " + person);
 
         // Advanced Concepts Examples
+
+        // Example 1: Generic Class
+        Box<String> wandBox = new Box<>("Elder Wand");
+        String content = wandBox.getContent();
+        System.out.println("Wand: " + content);
+
+        // Example 2: Generic Method
+        String[] spells = {"Expelliarmus", "Lumos", "Expecto Patronum"};
+        List<String> spellList = arrayToList(spells);
+        System.out.println("Spells: " + spellList);
+
+        // Example 3: Bounded Type Parameter
+        String mostPowerfulSpell = getMax(spells);
+        System.out.println("Most Powerful Spell: " + mostPowerfulSpell);
+
+        // Example 4: Multiple Type Parameters
+        Pair<String, Integer> harryPair = new Pair<>("Harry Potter", 17);
+        String name = harryPair.getFirst();
+        Integer ageG = harryPair.getSecond();
+        System.out.println("Name: " + name + ", Age: " + ageG);
+
+        // Example 5: Generic Interface
+        Calculator<Integer> intCalculator = new IntegerCalculator();
+        int sum = intCalculator.add(7, 4);
+        System.out.println("Spell Count: " + sum);
+
+        Calculator<Double> doubleCalculator = new DoubleCalculator();
+        double product = doubleCalculator.multiply(2.5, 4.0);
+        System.out.println("Product: " + product);
+
+        // Example 6: Generic Wildcards
+        List<String> spellBook = new ArrayList<>();
+        spellBook.add("Expelliarmus");
+        spellBook.add("Lumos");
+        spellBook.add("Expecto Patronum");
+
+        List<Integer> wandLengths = new ArrayList<>();
+        wandLengths.add(13);
+        wandLengths.add(11);
+        wandLengths.add(9);
+
+        printGenricList(spellBook);
+        printGenricList(wandLengths);
+
+        // Example 7: Generic Bounds with Interfaces
+        Wand elderWand = new Wand("Elder Wand", 15.0);
+        Broom nimbus2000 = new Broom("Nimbus 2000", 10.5);
+        System.out.println("Elder Wand Length: " + calculateLength(elderWand));
+        System.out.println("Nimbus 2000 Length: " + calculateLength(nimbus2000));
+
+        // Example 8: Generic Bounds with Classes
+        List<Wand> wandList = new ArrayList<>();
+        wandList.add(new Wand("Holly Wand", 13.0));
+        wandList.add(new Wand("Vine Wand", 11.5));
+
+        List<Broom> broomList = new ArrayList<>();
+        broomList.add(new Broom("Firebolt", 12.0));
+        broomList.add(new Broom("Cleansweep Seven", 10.0));
+
+        printItems(wandList);
+        printItems(broomList);
 
         List<Integer> numbers = List.of(1, 2, 3, 4, 5);
         printList(numbers);
@@ -1963,4 +2024,145 @@ public class HelloWorld {
             System.out.println(character.getClass().getSimpleName() + " creates a Horcrux.");
         }
     }
+
+    
+    static class Box<T> {
+        private T content;
+
+        public Box(T content) {
+            this.content = content;
+        }
+
+        public T getContent() {
+            return content;
+        }
+    }
+
+    static <T> List<T> arrayToList(T[] array) {
+        List<T> list = new ArrayList<>();
+        for (T element : array) {
+            list.add(element);
+        }
+        return list;
+    }
+
+    static <T extends Comparable<T>> T getMax(T[] array) {
+        T max = array[0];
+        for (T element : array) {
+            if (element.compareTo(max) > 0) {
+                max = element;
+            }
+        }
+        return max;
+    }
+
+    static class Pair<K, V> {
+        private K first;
+        private V second;
+
+        public Pair(K first, V second) {
+            this.first = first;
+            this.second = second;
+        }
+
+        public K getFirst() {
+            return first;
+        }
+
+        public V getSecond() {
+            return second;
+        }
+    }
+
+    interface Calculator<T> {
+        T add(T a, T b);
+
+        T multiply(T a, T b);
+    }
+
+    static class IntegerCalculator implements Calculator<Integer> {
+        @Override
+        public Integer add(Integer a, Integer b) {
+            return a + b;
+        }
+
+        @Override
+        public Integer multiply(Integer a, Integer b) {
+            return a * b;
+        }
+    }
+
+    static class DoubleCalculator implements Calculator<Double> {
+        @Override
+        public Double add(Double a, Double b) {
+            return a + b;
+        }
+
+        @Override
+        public Double multiply(Double a, Double b) {
+            return a * b;
+        }
+    }
+
+    static void printList(List<?> list) {
+        for (Object item : list) {
+            System.out.println(item);
+        }
+    }
+
+    static abstract class MagicalItem {
+        private String name;
+
+        public MagicalItem(String name) {
+            this.name = name;
+        }
+
+        public String getName() {
+            return name;
+        }
+    }
+
+    static class Wand extends MagicalItem {
+        private double length;
+
+        public Wand(String name, double length) {
+            super(name);
+            this.length = length;
+        }
+
+        public double getLength() {
+            return length;
+        }
+    }
+
+    static class Broom extends MagicalItem {
+        private double speed;
+
+        public Broom(String name, double speed) {
+            super(name);
+            this.speed = speed;
+        }
+
+        public double getSpeed() {
+            return speed;
+        }
+    }
+
+    static <T extends MagicalItem> double calculateLength(T item) {
+        if (item instanceof Wand) {
+            Wand wand = (Wand) item;
+            return wand.getLength();
+        } else if (item instanceof Broom) {
+            Broom broom = (Broom) item;
+            return broom.getSpeed();
+        }
+        return 0.0;
+    }
+
+    static void printItems(List<? extends MagicalItem> items) {
+        for (MagicalItem item : items) {
+            System.out.println("Name: " + item.getName());
+        }
+    }
+
 }
