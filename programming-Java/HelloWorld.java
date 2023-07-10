@@ -1699,6 +1699,75 @@ public class HelloWorld {
         EnglishGreeting englishGreeting = new EnglishGreeting();
         englishGreeting.sayHello();
 
+        // Default and Static Methods
+        Wizard harry = new Wizard("Harry Potter");
+        harry.castSpell("Expelliarmus");
+        harry.flyOnBroomstick();
+
+        Witch hermione = new Witch("Hermione Granger");
+        hermione.castSpell("Wingardium Leviosa");
+        hermione.potionBrewing();
+
+        Witch ron = new Witch("Ron Weasley");
+        ron.castSpell("Lumos");
+        ron.apparate();
+
+        Magician.duel(harry, hermione);
+        Magician.duel(ron, harry);
+
+        MagicalCreature unicorn = new MagicalCreature("Unicorn");
+        unicorn.makeSound();
+
+        MagicalCreature phoenix = new MagicalCreature("Phoenix");
+        phoenix.makeSound();
+
+        EnchantedObject wand = new EnchantedObject("Wand");
+        wand.use();
+
+        EnchantedObject broomstick = new EnchantedObject("Broomstick");
+        broomstick.use();
+
+        Potion polyjuicePotion = new Potion("Polyjuice Potion");
+        polyjuicePotion.brew();
+
+        Potion felixFelicis = new Potion("Felix Felicis");
+        felixFelicis.brew();
+
+        Spell fireballSpell = new Spell("Fireball Spell");
+        fireballSpell.cast();
+
+        Spell levitationSpell = new Spell("Levitation Spell");
+        levitationSpell.cast();
+
+        PotionShop potionShop = new PotionShop();
+        potionShop.sellPotion(polyjuicePotion);
+        potionShop.sellPotion(felixFelicis);
+
+        DuelingClub duelingClub = new DuelingClub();
+        duelingClub.organizeDuel(harry, ron);
+        duelingClub.organizeDuel(hermione, ron);
+
+        DefenseAgainstDarkArts.teacherPresent();
+        DefenseAgainstDarkArts.learnSpell("Patronus Charm");
+
+        HogwartsLocation hogwarts = new HogwartsLocation();
+        hogwarts.enter(harry);
+        hogwarts.enter(hermione);
+
+        QuidditchGame quidditchGame = new QuidditchGame();
+        quidditchGame.play();
+
+        StudyGroup studyGroup = new StudyGroup();
+        studyGroup.study(harry);
+        studyGroup.study(ron);
+
+        OrderOfThePhoenix.orderMember(harry);
+        OrderOfThePhoenix.orderMember(hermione);
+
+        Horcrux.create(harry);
+        Horcrux.create(hermione);
+
+
         printStringLength();
 
         sendHttpRequest();
@@ -1744,6 +1813,154 @@ public class HelloWorld {
 
         public void setContent(String content) {
             this.content = content;
+        }
+    }
+
+    interface WizardingWorldCharacter {
+        void castSpell(String spellName);
+    }
+
+    static class Wizard implements WizardingWorldCharacter {
+        private String name;
+
+        public Wizard(String name) {
+            this.name = name;
+        }
+
+        public void flyOnBroomstick() {
+            System.out.println(name + " is flying on a broomstick.");
+        }
+
+        @Override
+        public void castSpell(String spellName) {
+            System.out.println(name + " casts the spell: " + spellName);
+        }
+    }
+
+    static class Witch implements WizardingWorldCharacter {
+        private String name;
+
+        public Witch(String name) {
+            this.name = name;
+        }
+
+        public void potionBrewing() {
+            System.out.println(name + " is brewing a potion.");
+        }
+
+        public void apparate() {
+            System.out.println(name + " is apparating to a different location.");
+        }
+
+        @Override
+        public void castSpell(String spellName) {
+            System.out.println(name + " casts the spell: " + spellName);
+        }
+    }
+
+    interface Magician {
+        static void duel(WizardingWorldCharacter character1, WizardingWorldCharacter character2) {
+            System.out.println(character1.getClass().getSimpleName() + " and " + character2.getClass().getSimpleName() + " are dueling.");
+        }
+    }
+
+    static class MagicalCreature {
+        private String name;
+
+        public MagicalCreature(String name) {
+            this.name = name;
+        }
+
+        public void makeSound() {
+            System.out.println("The " + name + " makes a sound.");
+        }
+    }
+
+    static class EnchantedObject {
+        private String name;
+
+        public EnchantedObject(String name) {
+            this.name = name;
+        }
+
+        public void use() {
+            System.out.println("Using the " + name + ".");
+        }
+    }
+
+    static class Potion {
+        private String name;
+
+        public Potion(String name) {
+            this.name = name;
+        }
+
+        public void brew() {
+            System.out.println("Brewing the " + name + " potion.");
+        }
+    }
+
+    static class Spell {
+        private String name;
+
+        public Spell(String name) {
+            this.name = name;
+        }
+
+        public void cast() {
+            System.out.println("Casting the spell: " + name);
+        }
+    }
+
+    static class PotionShop {
+        public void sellPotion(Potion potion) {
+            System.out.println("Selling the " + potion.name + ".");
+        }
+    }
+
+    static class DuelingClub {
+        public void organizeDuel(WizardingWorldCharacter character1, WizardingWorldCharacter character2) {
+            System.out.println("Organizing a duel between " + character1.getClass().getSimpleName() + " and " + character2.getClass().getSimpleName());
+        }
+    }
+
+    static class DefenseAgainstDarkArts {
+        public static void teacherPresent() {
+            System.out.println("Defense Against the Dark Arts teacher is present.");
+        }
+
+        public static void learnSpell(String spellName) {
+            System.out.println("Learning the spell: " + spellName);
+        }
+    }
+
+    static class HogwartsLocation {
+        public void enter(WizardingWorldCharacter character) {
+            System.out.println(character.getClass().getSimpleName() + " enters Hogwarts.");
+        }
+    }
+
+    static class QuidditchGame {
+        public void play() {
+            System.out.println("Playing Quidditch!");
+        }
+    }
+
+    static class StudyGroup {
+        public void study(WizardingWorldCharacter character) {
+            System.out.println(character.getClass().getSimpleName() + " is studying.");
+        }
+    }
+
+    static class OrderOfThePhoenix {
+        public static void orderMember(WizardingWorldCharacter character) {
+            System.out.println(character.getClass().getSimpleName() + " is an Order of the Phoenix member.");
+        }
+    }
+
+    static class Horcrux {
+        public static void create(WizardingWorldCharacter character) {
+            System.out.println(character.getClass().getSimpleName() + " creates a Horcrux.");
         }
     }
 }
