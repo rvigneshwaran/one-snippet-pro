@@ -1669,6 +1669,59 @@ public class HelloWorld {
 
         demonstateCollection();
 
+        // Example 1: Inheritance
+        Character jonSnow = new Character("Jon Snow", "Night's Watch");
+        jonSnow.displayHouse();
+
+        // Example 2: Polymorphism
+        Character aryaStark = new Assassin("Arya Stark", "House Stark");
+        aryaStark.displayHouse();
+
+        // Example 3: Encapsulation
+        Weapon weapon = new Weapon();
+        weapon.setName("Needle");
+        weapon.setDamage(100);
+        weapon.displayDetails();
+
+        // Example 4: Abstraction
+        Beast dragon = new Dragon();
+        dragon.makeSound();
+
+        // Example 5: Interface
+        Skill fightingSkill = new FightingSkill();
+        fightingSkill.train();
+        fightingSkill.attack();
+
+        // Example 6: Method Overriding
+        Character tyrionLannister = new Character("Tyrion Lannister", "House Lannister");
+        tyrionLannister.displayHouse();
+
+        Assassin jaqenHghar = new Assassin("Jaqen H'ghar", "Faceless Men");
+        jaqenHghar.displayHouse();
+
+        // Example 7: Abstract Class
+        Creature creature = new Direwolf();
+        creature.makeSound();
+
+        // Example 8: Method Overloading
+        MasterOfWhispers varys = new MasterOfWhispers();
+        varys.spy("Daenerys Targaryen");
+        varys.spy("Cersei Lannister", 10);
+
+        // Example 9: Class Hierarchy
+        ValyrianSteelWeapon longclaw = new Sword("Longclaw", 10.5);
+        ValyrianSteelWeapon needle = new Dagger("Needle", 5.0);
+        longclaw.useWeapon();
+        needle.useWeapon();
+
+        // Example 10: Constructors
+        Skills swordsmanship = new Skills("Swordsmanship");
+        System.out.println("Skill Name: " + swordsmanship.getName());
+
+        Skills archery = new Skills("Archery", 80);
+        System.out.println("Archery Skill: " + archery.getName() + ", Level: " + archery.getLevel());
+
+
         demonstrateExceptionHandling();
 
         Cat cat = new Cat("Whiskers");
@@ -2162,6 +2215,164 @@ public class HelloWorld {
     static void printItems(List<? extends MagicalItem> items) {
         for (MagicalItem item : items) {
             System.out.println("Name: " + item.getName());
+        }
+    }
+
+
+    static class Character {
+        private String name;
+        private String house;
+
+        public Character(String name, String house) {
+            this.name = name;
+            this.house = house;
+        }
+
+        public void displayHouse() {
+            System.out.println(name + " belongs to " + house + ".");
+        }
+    }
+
+    static class Assassin extends Character {
+        public Assassin(String name, String house) {
+            super(name, house);
+        }
+
+        @Override
+        public void displayHouse() {
+            System.out.println("An assassin from " + super.house + ".");
+        }
+    }
+
+    static class Weapon {
+        private String name;
+        private int damage;
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public void setDamage(int damage) {
+            this.damage = damage;
+        }
+
+        public void displayDetails() {
+            System.out.println("Weapon Name: " + name);
+            System.out.println("Damage: " + damage);
+        }
+    }
+
+    static abstract class Beast {
+        public abstract void makeSound();
+    }
+
+    static class Dragon extends Beast {
+        @Override
+        public void makeSound() {
+            System.out.println("Dragon's roar!");
+        }
+    }
+
+    interface Skill {
+        void train();
+
+        void attack();
+    }
+
+    static class FightingSkill implements Skill {
+        @Override
+        public void train() {
+            System.out.println("Training in fighting skill.");
+        }
+
+        @Override
+        public void attack() {
+            System.out.println("Attacking with fighting skill.");
+        }
+    }
+
+    static abstract class Creature {
+        public abstract void makeSound();
+    }
+
+    static class Direwolf extends Creature {
+        @Override
+        public void makeSound() {
+            System.out.println("Direwolf's howl!");
+        }
+    }
+
+    static class MasterOfWhispers {
+        public void spy(String target) {
+            System.out.println("Spying on " + target);
+        }
+
+        public void spy(String target, int duration) {
+            System.out.println("Spying on " + target + " for " + duration + " days.");
+        }
+    }
+
+    static abstract class ValyrianSteelWeapon {
+        private String name;
+
+        public ValyrianSteelWeapon(String name) {
+            this.name = name;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public abstract void useWeapon();
+    }
+
+    static class Sword extends ValyrianSteelWeapon {
+        private double length;
+
+        public Sword(String name, double length) {
+            super(name);
+            this.length = length;
+        }
+
+        @Override
+        public void useWeapon() {
+            System.out.println("Swinging the sword!");
+        }
+    }
+
+    static class Dagger extends ValyrianSteelWeapon {
+        private double length;
+
+        public Dagger(String name, double length) {
+            super(name);
+            this.length = length;
+        }
+
+        @Override
+        public void useWeapon() {
+            System.out.println("Stabbing with the dagger!");
+        }
+    }
+
+    static class Skills {
+        private String name;
+        private int level;
+
+        public Skills(String name) {
+            this.name = name;
+        }
+
+        public Skills(String name, int level) {
+            this.name = name;
+            this.level = level;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public int getLevel() {
+            return level;
         }
     }
 
