@@ -940,6 +940,47 @@ public class HelloWorld {
         System.out.println("Head Map (\"Two\"): " + sortedMap.headMap("Two"));
         System.out.println("Tail Map (\"Two\"): " + sortedMap.tailMap("Two"));
         System.out.println("Sub Map (\"One\"-\"Three\"): " + sortedMap.subMap("One", "Three"));
+
+        // Creating Optionals
+        Optional<String> emptyOptional = Optional.empty();
+        Optional<String> nonEmptyOptional = Optional.of("Hello, World!");
+
+        // Checking if an Optional is Present
+        boolean isPresent = nonEmptyOptional.isPresent();
+        System.out.println("Is Present: " + isPresent);
+
+        // Getting the Value from an Optional
+        String value = nonEmptyOptional.get();
+        System.out.println("Value: " + value);
+
+        // Handling an Empty Optional with orElse
+        String orElseValue = emptyOptional.orElse("Default Value");
+        System.out.println("OrElse Value: " + orElseValue);
+
+        // Handling an Empty Optional with orElseGet
+        String orElseGetValue = emptyOptional.orElseGet(() -> "Default Value from Supplier");
+        System.out.println("OrElseGet Value: " + orElseGetValue);
+
+        // Throwing an Exception for an Empty Optional with orElseThrow
+        String orElseThrowValue = emptyOptional.orElseThrow(IllegalStateException::new);
+
+        // Transforming the Value of an Optional with map
+        Optional<String> transformedOptional = nonEmptyOptional.map(optionalValue -> optionalValue.toUpperCase());
+        System.out.println("Transformed Value: " + transformedOptional.orElse("No Value"));
+
+        // Applying Optional Logic with ifPresent
+        nonEmptyOptional.ifPresent(optionalValue -> System.out.println("If Present: " + optionalValue));
+
+        // Filtering an Optional with filter
+        Optional<String> filteredOptional = nonEmptyOptional.filter(optionalValue -> optionalValue.length() > 5);
+        System.out.println("Filtered Value: " + filteredOptional.orElse("No Value"));
+
+        // Chaining Optional Operations
+        Optional<String> chainedOptional = nonEmptyOptional
+                .filter(optionalValue -> value.length() > 5)
+                .map(optionalValue -> value.substring(0, 5))
+                .flatMap(optionalValue -> Optional.of(value + "!!!"));
+        System.out.println("Chained Value: " + chainedOptional.orElse("No Value"));
     }
 
     // Object-Oriented Programming
