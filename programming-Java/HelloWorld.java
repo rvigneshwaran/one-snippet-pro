@@ -2098,6 +2098,89 @@ public class HelloWorld {
         java.util.Optional<String> optionalName = java.util.Optional.of("John");
         processOptional(optionalName);
 
+
+        // Creating Records
+        record Character(String name, String house) {}
+        Character harry = new Character("Harry Potter", "Gryffindor");
+        System.out.println(harry);
+
+        // Accessing Record Components
+        String name = harry.name();
+        String house = harry.house();
+        System.out.println("Name: " + name);
+        System.out.println("House: " + house);
+
+        // Updating Record Components
+        Character updatedHarry = harry.withHouse("Hufflepuff");
+        System.out.println(updatedHarry);
+
+        // Equals and HashCode
+        record Book(String title, String author) {}
+        Book book1 = new Book("Harry Potter and the Philosopher's Stone", "J.K. Rowling");
+        Book book2 = new Book("Harry Potter and the Philosopher's Stone", "J.K. Rowling");
+        System.out.println("Equals: " + book1.equals(book2));
+        System.out.println("HashCode (book1): " + book1.hashCode());
+        System.out.println("HashCode (book2): " + book2.hashCode());
+
+        // toString
+        System.out.println(book1);
+
+        // Copying Record Instances
+        Book copiedBook = book1;
+        System.out.println("Copied Book: " + copiedBook);
+
+        // Destructuring Records
+        record Location(int x, int y) {}
+        Location diagonAlley = new Location(5, 10);
+        var (x, y) = diagonAlley;
+        System.out.println("x: " + x + ", y: " + y);
+
+        // Inheritance with Records
+        record Wizard(String name, String house, String wand) extends Character(name, house) {}
+        Wizard hermione = new Wizard("Hermione Granger", "Gryffindor", "Vine wood");
+        System.out.println(hermione);
+
+        // Record Constructors
+        record Spell(String name, String type) {
+            Spell {
+                if (name.isEmpty()) {
+                    throw new IllegalArgumentException("Invalid spell name");
+                }
+            }
+        }
+        Spell expelliarmus = new Spell("Expelliarmus", "Charm");
+        System.out.println(expelliarmus);
+
+        // Static Members in Records
+        record School(String name, String location) {
+            static School hogwarts() {
+                return new School("Hogwarts School of Witchcraft and Wizardry", "Scotland");
+            }
+        }
+        School hogwarts = School.hogwarts();
+        System.out.println("Hogwarts: " + hogwarts);
+
+        // Custom Methods in Records
+        record QuidditchTeam(String name, String house) {
+            String getMotto() {
+                return "Catch the Snitch!";
+            }
+        }
+        QuidditchTeam gryffindorTeam = new QuidditchTeam("Gryffindor Quidditch Team", "Gryffindor");
+        System.out.println("Motto: " + gryffindorTeam.getMotto());
+
+        // Implementing Interfaces with Records
+        interface MagicalItem {
+            void use();
+        }
+        record Wand(String wood, String core) implements MagicalItem {
+            public void use() {
+                System.out.println("Waving the wand!");
+            }
+        }
+        Wand elderWand = new Wand("Elder", "Thestral tail hair");
+        elderWand.use();
+
         
     }
 
