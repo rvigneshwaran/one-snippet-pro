@@ -20,11 +20,10 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.stream.Collectors;
+import java.util.stream.DoubleStream;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 import java.util.function.*;
-import javax.naming.InvalidNameException;
-
-import org.w3c.dom.css.Counter;
-
 import java.util.*;
 
 enum Day {
@@ -1899,6 +1898,161 @@ public class HelloWorld {
 
         List<String> names = List.of("Alice", "Bob", "Charlie", "David");
         filterAndPrint(names);
+
+        // Example 1: Stream creation
+        Stream<String> stream1 = Stream.of("Winter", "is", "coming");
+        stream1.forEach(System.out::println);
+
+        // Example 2: Stream from array
+        String[] namesCharacters = {"Jon Snow", "Arya Stark", "Tyrion Lannister"};
+        Stream<String> stream2 = Arrays.stream(namesCharacters);
+        stream2.forEach(System.out::println);
+
+        // Example 3: Stream from collection
+        List<String> characters = Arrays.asList("Daenerys Targaryen", "Cersei Lannister", "Sansa Stark");
+        Stream<String> stream3 = characters.stream();
+        stream3.forEach(System.out::println);
+
+        // Example 4: Stream from range
+        IntStream stream4 = IntStream.range(1, 5);
+        stream4.forEach(System.out::println);
+
+        // Example 5: Stream from random numbers
+        Random random = new Random();
+        DoubleStream stream5 = random.doubles(3);
+        stream5.forEach(System.out::println);
+
+        // Example 6: Stream from generated values
+        Stream<String> stream6 = Stream.generate(() -> "Hodor").limit(3);
+        stream6.forEach(System.out::println);
+
+        // Example 7: Filter elements
+        List<Integer> numberss = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+        List<Integer> evenNumbers = numberss.stream()
+                .filter(n -> n % 2 == 0)
+                .collect(Collectors.toList());
+        System.out.println("Even numbers: " + evenNumbers);
+
+        // Example 8: Map elements
+        List<Integer> squaredNumbers = numbers.stream()
+                .map(n -> n * n)
+                .collect(Collectors.toList());
+        System.out.println("Squared numbers: " + squaredNumbers);
+
+        // Example 9: Sort elements
+        List<Integer> sortedNumbers = numbers.stream()
+                .sorted()
+                .collect(Collectors.toList());
+        System.out.println("Sorted numbers: " + sortedNumbers);
+
+        // Example 10: Reduce elements
+        Optional<Integer> sumOptional = numbers.stream()
+                .reduce((a, b) -> a + b);
+        sumOptional.ifPresent(value -> System.out.println("Sum: " + value));
+
+        // Example 11: Count elements
+        long count = numbers.stream().count();
+        System.out.println("Count: " + count);
+
+        // Example 12: Find minimum and maximum elements
+        Optional<Integer> min = numbers.stream().min(Integer::compareTo);
+        min.ifPresent(value -> System.out.println("Minimum: " + value));
+
+        Optional<Integer> max = numbers.stream().max(Integer::compareTo);
+        max.ifPresent(value -> System.out.println("Maximum: " + value));
+
+        // Example 13: Any and All Match
+        boolean anyMatch = numbers.stream().anyMatch(n -> n > 5);
+        System.out.println("Any match > 5: " + anyMatch);
+
+        boolean allMatch = numbers.stream().allMatch(n -> n > 0);
+        System.out.println("All match > 0: " + allMatch);
+
+        // Example 14: Distinct elements
+        List<Integer> duplicateNumbers = Arrays.asList(1, 2, 3, 2, 4, 3, 5);
+        List<Integer> distinctNumbers = duplicateNumbers.stream()
+                .distinct()
+                .collect(Collectors.toList());
+        System.out.println("Distinct numbers: " + distinctNumbers);
+
+        // Example 15: Skip and Limit elements
+        List<Integer> skipLimitNumbers = numbers.stream()
+                .skip(3)
+                .limit(5)
+                .collect(Collectors.toList());
+        System.out.println("Skip and limit numbers: " + skipLimitNumbers);
+
+        // Example 16: FlatMap elements
+        List<List<Integer>> nestedNumbers = Arrays.asList(
+                Arrays.asList(1, 2),
+                Arrays.asList(3, 4),
+                Arrays.asList(5, 6)
+        );
+        List<Integer> flattenedNumbers = nestedNumbers.stream()
+                .flatMap(Collection::stream)
+                .collect(Collectors.toList());
+        System.out.println("Flattened numbers: " + flattenedNumbers);
+
+        // Example 17: Group elements by criteria
+        Map<String, List<String>> charactersByHouse = characters.stream()
+                .collect(Collectors.groupingBy(s -> s.split(" ")[1]));
+        System.out.println("Characters by House: " + charactersByHouse);
+
+        // Example 18: Partition elements by condition
+        Map<Boolean, List<Integer>> evenOddPartition = numbers.stream()
+                .collect(Collectors.partitioningBy(n -> n % 2 == 0));
+        System.out.println("Even-Odd Partition: " + evenOddPartition);
+
+        // Example 19: Joining elements into a string
+        String characterNames = characters.stream()
+                .collect(Collectors.joining(", "));
+        System.out.println("Character names: " + characterNames);
+
+        // Example 20: Peeking into the stream
+        List<Integer> peekedNumbers = numbers.stream()
+                .peek(System.out::println)
+                .collect(Collectors.toList());
+        System.out.println("Peeked numbers: " + peekedNumbers);
+
+        // Additional Examples:
+        // Example 21: Summing elements
+        int sumOfNumbers = numbers.stream().mapToInt(Integer::intValue).sum();
+        System.out.println("Sum of numbers: " + sumOfNumbers);
+
+        // Example 22: Finding average
+        OptionalDouble average = numbers.stream().mapToDouble(Integer::doubleValue).average();
+        average.ifPresent(value -> System.out.println("Average: " + value));
+
+        // Example 23: Finding first element
+        Optional<Integer> firstElement = numbers.stream().findFirst();
+        firstElement.ifPresent(value -> System.out.println("First element: " + value));
+
+        // Example 24: Finding any element
+        Optional<Integer> anyElement = numbers.stream().findAny();
+        anyElement.ifPresent(value -> System.out.println("Any element: " + value));
+
+        // Example 25: Combining streams
+        Stream<Integer> combinedStream = Stream.concat(numbers.stream(), evenNumbers.stream());
+        List<Integer> combinedList = combinedStream.collect(Collectors.toList());
+        System.out.println("Combined list: " + combinedList);
+
+        // Example 26: Parallel stream
+        List<Integer> squaredNumbersParallel = numbers.parallelStream()
+                .map(n -> n * n)
+                .collect(Collectors.toList());
+        System.out.println("Squared numbers (Parallel): " + squaredNumbersParallel);
+
+        // Example 27: Stream from string characters
+        String sentenceDetails = "A Lannister always pays his debts.";
+        List<java.lang.Character> characterList = sentenceDetails.chars()
+                .mapToObj(c -> (char) c)
+                .collect(Collectors.toList());
+        System.out.println("Characters: " + characterList);
+
+        // Example 28: Stream from file
+        // Replace the path with the actual file path
+        // Path path = Paths.get("file.txt");
+        // Stream<String> streamFromFile = Files.lines(path
 
         java.util.Optional<String> optionalName = java.util.Optional.of("John");
         processOptional(optionalName);
