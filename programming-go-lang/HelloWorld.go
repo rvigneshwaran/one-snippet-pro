@@ -432,4 +432,48 @@ func main() {
 	invoice.PrintInvoice()
 	fmt.Println("Language Setting:", configuration.GetSetting("language"))
 	fmt.Println("Task Done:", task.Done)
+
+	// Example 1: Creating a slice using a composite literal
+	numbers := []int{1, 2, 3, 4, 5}
+	fmt.Println("Numbers:", numbers)
+
+	// Example 2: Accessing elements of a slice
+	fmt.Println("First element:", numbers[0])
+	fmt.Println("Last element:", numbers[len(numbers)-1])
+
+	// Example 3: Slicing a slice
+	subSlice := numbers[1:3]
+	fmt.Println("Subslice:", subSlice)
+
+	// Example 4: Modifying the underlying array through a slice
+	subSlice[0] = 10
+	fmt.Println("Modified slice:", subSlice)
+	fmt.Println("Original slice:", numbers)
+
+	// Example 5: Appending elements to a slice
+	numbers = append(numbers, 6, 7)
+	fmt.Println("Appended slice:", numbers)
+
+	// Example 6: Copying elements between slices
+	clone := make([]int, len(numbers))
+	copy(clone, numbers)
+	fmt.Println("Clone:", clone)
+
+	// Example 7: Modifying a slice with variadic append
+	numbers = append(numbers, []int{8, 9, 10}...)
+	fmt.Println("Variadic append:", numbers)
+
+	// Example 8: Deleting elements from a slice
+	indexToRemove := 2
+	numbers = append(numbers[:indexToRemove], numbers[indexToRemove+1:]...)
+	fmt.Println("Slice after deletion:", numbers)
+
+	// Example 9: Iterating over a slice using range
+	for index, value := range numbers {
+		fmt.Printf("Index: %d, Value: %d\n", index, value)
+	}
+
+	// Example 10: Creating a multidimensional slice
+	matrix := [][]int{{1, 2, 3}, {4, 5, 6}, {7, 8, 9}}
+	fmt.Println("Matrix:", matrix)
 }
