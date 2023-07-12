@@ -476,4 +476,165 @@ func main() {
 	// Example 10: Creating a multidimensional slice
 	matrix := [][]int{{1, 2, 3}, {4, 5, 6}, {7, 8, 9}}
 	fmt.Println("Matrix:", matrix)
+
+	// Example 1: for loop with a condition
+	for i := 0; i < 5; i++ {
+		fmt.Println("Iteration", i)
+	}
+
+	// Example 2: for loop as a while loop
+	j := 0
+	for j < 5 {
+		fmt.Println("Iteration", j)
+		j++
+	}
+
+	// Example 3: for loop as a forever loop with a break statement
+	k := 0
+	for {
+		if k >= 5 {
+			break
+		}
+		fmt.Println("Iteration", k)
+		k++
+	}
+
+	// Example 4: for loop with range over an array
+	numbers := [5]int{1, 2, 3, 4, 5}
+	for index, value := range numbers {
+		fmt.Println("Index:", index, "Value:", value)
+	}
+
+	// Example 5: for loop with range over a slice
+	names := []string{"Alice", "Bob", "Charlie"}
+	for index, name := range names {
+		fmt.Println("Index:", index, "Name:", name)
+	}
+
+	// Example 6: for loop with range over a map
+	ages := map[string]int{"Alice": 25, "Bob": 30, "Charlie": 35}
+	for name, age := range ages {
+		fmt.Println("Name:", name, "Age:", age)
+	}
+
+	// Example 7: nested for loop for a 2D matrix
+	matrix := [][]int{{1, 2, 3}, {4, 5, 6}, {7, 8, 9}}
+	for i := 0; i < len(matrix); i++ {
+		for j := 0; j < len(matrix[i]); j++ {
+			fmt.Println("Element at [", i, "][", j, "]:", matrix[i][j])
+		}
+	}
+
+	// Example 8: labeled for loop with break and continue statements
+Loop:
+	for i := 0; i < 3; i++ {
+		for j := 0; j < 3; j++ {
+			if i == 1 && j == 1 {
+				continue Loop
+			}
+			fmt.Println("Iteration [", i, "][", j, "]")
+		}
+	}
+
+	// Example 9: for loop with multiple initializations and post statements
+	for i, j := 0, 10; i < 5; i, j = i+1, j-1 {
+		fmt.Println("i:", i, "j:", j)
+	}
+
+	// Example 10: range loop with index omission
+	colors := []string{"red", "green", "blue"}
+	for _, color := range colors {
+		fmt.Println("Color:", color)
+	}
+
+	// Example 11: range loop with value omission
+	grades := map[string]int{"Alice": 85, "Bob": 92, "Charlie": 78}
+	for name := range grades {
+		fmt.Println("Name:", name)
+	}
+
+	// Example 12: for loop with conditional statements
+	for i := 0; i < 10; i++ {
+		if i%2 == 0 {
+			fmt.Println("Even number:", i)
+		} else {
+			fmt.Println("Odd number:", i)
+		}
+	}
+
+	// Example 13: for loop with labeled break statement
+	for i := 0; i < 5; i++ {
+		for j := 0; j < 5; j++ {
+			if i+j == 5 {
+				fmt.Println("Breaking loop at i=", i, "j=", j)
+				break
+			}
+			fmt.Println("Iteration i=", i, "j=", j)
+		}
+	}
+
+	// Example 14: for loop with labeled continue statement
+	for i := 0; i < 5; i++ {
+		for j := 0; j < 5; j++ {
+			if i == 2 && j == 2 {
+				fmt.Println("Continuing loop at i=", i, "j=", j)
+				continue
+			}
+			fmt.Println("Iteration i=", i, "j=", j)
+		}
+	}
+
+	// Example 15: for loop with early termination
+	for i := 0; i < 10; i++ {
+		if i > 5 {
+			fmt.Println("Terminating loop at i=", i)
+			break
+		}
+		fmt.Println("Iteration i=", i)
+	}
+
+	// Example 16: for loop with infinite loop and conditional break
+	count := 0
+	for {
+		if count >= 10 {
+			break
+		}
+		fmt.Println("Iteration count=", count)
+		count++
+	}
+
+	// Example 17: for loop with multiple conditions
+	for i, j := 0, 5; i < 5 && j > 0; i, j = i+1, j-1 {
+		fmt.Println("i:", i, "j:", j)
+	}
+
+	// Example 18: for loop with a continue statement
+	for i := 0; i < 10; i++ {
+		if i%2 == 0 {
+			continue
+		}
+		fmt.Println("Odd number:", i)
+	}
+
+	// Example 19: for loop with a nested break statement
+	for i := 0; i < 5; i++ {
+		for j := 0; j < 5; j++ {
+			if i+j == 5 {
+				fmt.Println("Breaking loop at i=", i, "j=", j)
+				break
+			}
+			fmt.Println("Iteration i=", i, "j=", j)
+		}
+	}
+
+	// Example 20: for loop with a nested continue statement
+	for i := 0; i < 5; i++ {
+		for j := 0; j < 5; j++ {
+			if i == 2 && j == 2 {
+				fmt.Println("Continuing loop at i=", i, "j=", j)
+				continue
+			}
+			fmt.Println("Iteration i=", i, "j=", j)
+		}
+	}
 }
