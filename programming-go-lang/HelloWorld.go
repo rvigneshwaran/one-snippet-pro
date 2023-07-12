@@ -324,6 +324,11 @@ func findTransformersWithMaxPower(transformers []Transformer) []Transformer {
 	return transformersWithMaxPower
 }
 
+func checkID() bool {
+	fmt.Println("Checking ID...")
+	return true
+}
+
 func main() {
 	// Create instances of Transformers
 	optimusPrime := Transformer{Name: "Optimus Prime", Faction: "Autobot", Power: 100}
@@ -636,5 +641,199 @@ Loop:
 			}
 			fmt.Println("Iteration i=", i, "j=", j)
 		}
+	}
+
+	// Example 1: if statement
+	num := 10
+	if num > 0 {
+		fmt.Println("Number is positive")
+	}
+
+	// Example 2: if-else statement
+	num = -5
+	if num > 0 {
+		fmt.Println("Number is positive")
+	} else {
+		fmt.Println("Number is negative")
+	}
+
+	// Example 3: if-else if-else statement
+	num = 0
+	if num > 0 {
+		fmt.Println("Number is positive")
+	} else if num < 0 {
+		fmt.Println("Number is negative")
+	} else {
+		fmt.Println("Number is zero")
+	}
+
+	// Example 4: nested if-else statement
+	num = 15
+	if num > 0 {
+		if num%2 == 0 {
+			fmt.Println("Number is positive and even")
+		} else {
+			fmt.Println("Number is positive and odd")
+		}
+	} else {
+		fmt.Println("Number is non-positive")
+	}
+
+	// Example 5: switch statement with multiple cases
+	day := "Tuesday"
+	switch day {
+	case "Monday":
+		fmt.Println("It's Monday!")
+	case "Tuesday":
+		fmt.Println("It's Tuesday!")
+	case "Wednesday":
+		fmt.Println("It's Wednesday!")
+	default:
+		fmt.Println("It's another day!")
+	}
+
+	// Example 6: switch statement with fallthrough
+	num = 5
+	switch num {
+	case 1:
+		fmt.Println("Number is 1")
+		fallthrough
+	case 2:
+		fmt.Println("Number is 2")
+		fallthrough
+	case 3:
+		fmt.Println("Number is 3")
+	default:
+		fmt.Println("Number is not 1, 2, or 3")
+	}
+
+	// Example 7: switch statement with expressions
+	age := 25
+	switch {
+	case age < 18:
+		fmt.Println("You are underage")
+	case age >= 18 && age < 60:
+		fmt.Println("You are an adult")
+	default:
+		fmt.Println("You are a senior citizen")
+	}
+
+	// Example 8: switch statement with type assertions
+	var data interface{}
+	data = 42
+	switch value := data.(type) {
+	case int:
+		fmt.Println("Data is an integer:", value)
+	case string:
+		fmt.Println("Data is a string:", value)
+	default:
+		fmt.Println("Data is of an unknown type")
+	}
+
+	// Example 9: conditional assignment with if-else
+	temperature := 25
+	var status string
+	if temperature > 30 {
+		status = "Hot"
+	} else {
+		status = "Cool"
+	}
+	fmt.Println("Status:", status)
+
+	// Example 10: conditional assignment with ternary operator (Go 1.15+)
+	temperature = 25
+	status = "Cool"
+	if temperature > 30 {
+		status = "Hot"
+	}
+	fmt.Println("Status:", status)
+
+	// Example 11: short-circuit evaluation with logical AND
+	age = 25
+	eligible := age >= 18 && checkID()
+	fmt.Println("Eligible:", eligible)
+
+	// Example 12: short-circuit evaluation with logical OR
+	age = 15
+	eligible = age >= 18 || checkID()
+	fmt.Println("Eligible:", eligible)
+
+	// Example 13: conditional statement with multiple conditions
+	grade := 80
+	if grade >= 90 {
+		fmt.Println("Grade: A")
+	} else if grade >= 80 && grade < 90 {
+		fmt.Println("Grade: B")
+	} else if grade >= 70 && grade < 80 {
+		fmt.Println("Grade: C")
+	} else if grade >= 60 && grade < 70 {
+		fmt.Println("Grade: D")
+	} else {
+		fmt.Println("Grade: F")
+	}
+
+	// Example 14: conditional statement with short-circuit evaluation
+	num1 := 10
+	num2 := 0
+	if num2 != 0 && num1/num2 > 1 {
+		fmt.Println("Result:", num1/num2)
+	} else {
+		fmt.Println("Error: Division by zero")
+	}
+
+	// Example 15: conditional statement with switch and ranges
+	score := 85
+	switch {
+	case score >= 90:
+		fmt.Println("Grade: A")
+	case score >= 80 && score < 90:
+		fmt.Println("Grade: B")
+	case score >= 70 && score < 80:
+		fmt.Println("Grade: C")
+	case score >= 60 && score < 70:
+		fmt.Println("Grade: D")
+	default:
+		fmt.Println("Grade: F")
+	}
+
+	// Example 16: conditional statement with multiple conditions and short-circuit evaluation
+	num1 = 10
+	num2 = 5
+	if num1 > 0 && num2 > 0 && num1+num2 > 10 {
+		fmt.Println("Sum is greater than 10")
+	} else {
+		fmt.Println("Sum is less than or equal to 10")
+	}
+
+	// Example 17: conditional statement with multiple conditions and else if
+	num1 = 5
+	num2 = 10
+	if num1 > 0 && num2 > 0 {
+		fmt.Println("Both numbers are positive")
+	} else if num1 < 0 && num2 < 0 {
+		fmt.Println("Both numbers are negative")
+	} else if num1 == 0 || num2 == 0 {
+		fmt.Println("One of the numbers is zero")
+	} else {
+		fmt.Println("Numbers have mixed signs")
+	}
+
+	// Example 18: conditional statement with negation
+	isRaining := false
+	if !isRaining {
+		fmt.Println("It is not raining")
+	}
+
+	// Example 19: conditional statement with parentheses for clarity
+	num = 5
+	if (num > 0 && num < 10) || num == 20 {
+		fmt.Println("Number satisfies the condition")
+	}
+
+	// Example 20: conditional statement with complex conditions
+	age = 25
+	hasLicense := true
+	if (age >= 18 && age < 60) && hasLicense {
+		fmt.Println("You are eligible to drive")
 	}
 }
