@@ -123,4 +123,49 @@ This program provides examples that demonstrate various map operations and conce
 25. If-else statements with maps.
 26. Function calls within a range loop.
 
-These concepts demonstrate various operations and techniques for working with maps in Go, allowing you to store, retrieve, modify, and iterate over key-value pairs effectively.
+## String Manipulation
+
+These concepts demonstrate various operations and techniques for working with maps in Go, allowing you to store, retrieve, modify, and iterate over key-value pairs effectively.The example covers a wide range of string manipulation concepts in Go. Here is a summary of the concepts covered:
+1. String Length: Finding the length of a string.
+2. String Concatenation: Concatenating two or more strings together.
+3. String Access: Accessing individual characters in a string.
+4. Substring Extraction: Extracting substrings from a string.
+5. Case Conversion: Converting the case of a string (upper case, lower case, title case).
+6. Trimming: Removing leading and trailing whitespace from a string.
+7. Splitting and Joining: Splitting a string into substrings based on a delimiter and joining substrings back into a single string.
+8. Prefix and Suffix Checking: Checking if a string starts or ends with a specific substring.
+9. Counting Occurrences: Counting the number of occurrences of a substring in a string.
+10. Replacing Substrings: Replacing occurrences of a substring with another substring.
+11. Empty String Check: Checking if a string is empty or not.
+12. Numeric Checks: Checking if a string contains only numeric characters.
+13. String Reversal: Reversing the characters in a string.
+14. Palindrome Check: Checking if a string is a palindrome (reads the same forwards and backwards).
+15. Anagram Check: Checking if two strings are anagrams of each other.
+16. Word Counting: Counting the number of words in a string.
+17. Email Address Validation: Validating if a string is a valid email address.
+18. ASCII Code Retrieval: Getting the ASCII codes of characters in a string.
+19. URL Validation: Checking if a string is a valid URL.
+20. Duplicate Removal: Removing duplicate characters from a string.
+21. Alphanumeric Check: Checking if a string contains only alphanumeric characters.
+22. Capitalization: Capitalizing the first letter of each word in a string.
+23. IP Address Validation: Validating if a string is a valid IP address.
+24. Leading and Trailing Zero Trimming: Trimming leading and trailing zeros from a string.
+26. Hexadecimal, Binary, and Octal Checks: Checking if a string is a valid hexadecimal, binary, or octal number.
+27. Number Extraction: Extracting numbers from a string.
+28. Letter Extraction: Extracting letters from a string.
+29. Zero Padding: Padding a string with leading zeros.
+30. Palindrome Permutation Check: Checking if a string is a valid palindrome permutation.
+31. Pangram Check: Checking if a string is a valid pangram (contains all letters of the alphabet).
+32. String Repeating: Repeating a string a certain number of times.
+33. Roman Numeral Validation: Checking if a string is a valid Roman numeral.
+34. IPv4 Address Validation: Validating if a string is a valid IPv4 address.
+35. IPv6 Address Validation: Validating if a string is a valid IPv6 address.
+36. Character Frequency Count: Counting the frequency of characters in a string.
+37. Credit Card Number Validation: Validating if a string is a valid credit card number.
+38. US Phone Number Validation: Validating if a string is a valid US phone number.
+39. Social Security Number (SSN) Validation: Validating if a string is a valid social security number.
+40. MAC Address Validation: Validating if a string is a valid MAC address.
+41. ISBN Validation: Validating if a string is a valid ISBN-10 or ISBN-13 number.
+42. Password Validation: Validating if a string is a valid password.
+
+These concepts cover a wide range of common string manipulation tasks and provide useful functions for working with strings in various scenarios.
