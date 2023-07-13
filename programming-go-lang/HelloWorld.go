@@ -737,6 +737,213 @@ func isValidPassword(password string) bool {
 	return hasUpperCase && hasLowerCase && hasDigit && hasSpecialChar
 }
 
+// Calculates the Greatest Common Divisor (GCD) of two numbers using Euclidean algorithm.
+func getGCD(a, b int) int {
+	for b != 0 {
+		a, b = b, a%b
+	}
+	return a
+}
+
+// Calculates the Least Common Multiple (LCM) of two numbers using GCD.
+func getLCM(a, b int) int {
+	gcd := getGCD(a, b)
+	return a * b / gcd
+}
+
+// Converts a binary number to decimal.
+func convertBinaryToDecimal(binary string) int {
+	decimal := 0
+	power := 1
+	for i := len(binary) - 1; i >= 0; i-- {
+		if binary[i] == '1' {
+			decimal += power
+		}
+		power *= 2
+	}
+	return decimal
+}
+
+// Converts a decimal number to binary.
+func convertDecimalToBinary(decimal int) string {
+	binary := ""
+	for decimal > 0 {
+		remainder := decimal % 2
+		binary = fmt.Sprintf("%d%s", remainder, binary)
+		decimal /= 2
+	}
+	return binary
+}
+
+// Converts a hexadecimal number to decimal.
+func convertHexadecimalToDecimal(hexadecimal string) int {
+	decimal := 0
+	power := 1
+	for i := len(hexadecimal) - 1; i >= 0; i-- {
+		digit := getHexadecimalDigitValue(hexadecimal[i])
+		decimal += digit * power
+		power *= 16
+	}
+	return decimal
+}
+
+// Converts a decimal number to hexadecimal.
+func convertDecimalToHexadecimal(decimal int) string {
+	hexadecimal := ""
+	for decimal > 0 {
+		remainder := decimal % 16
+		hexadecimal = fmt.Sprintf("%s%s", getHexadecimalDigit(remainder), hexadecimal)
+		decimal /= 16
+	}
+	return hexadecimal
+}
+
+// Converts an octal number to decimal.
+func convertOctalToDecimal(octal string) int {
+	decimal := 0
+	power := 1
+	for i := len(octal) - 1; i >= 0; i-- {
+		digit := int(octal[i] - '0')
+		decimal += digit * power
+		power *= 8
+	}
+	return decimal
+}
+
+// Converts a decimal number to octal.
+func convertDecimalToOctal(decimal int) string {
+	octal := ""
+	for decimal > 0 {
+		remainder := decimal % 8
+		octal = fmt.Sprintf("%d%s", remainder, octal)
+		decimal /= 8
+	}
+	return octal
+}
+
+// Calculates the average of a list of numbers.
+func calculateAverage(numbers []float64) float64 {
+	sum := 0.0
+	for _, num := range numbers {
+		sum += num
+	}
+	return sum / float64(len(numbers))
+}
+
+// Calculates the median of a list of numbers.
+func calculateMedian(numbers []float64) float64 {
+	n := len(numbers)
+	if n == 0 {
+		return 0
+	}
+	sortedNumbers := make([]float64, n)
+	copy(sortedNumbers, numbers)
+	sort.Float64s(sortedNumbers)
+	if n%2 == 0 {
+		return (sortedNumbers[n/2-1] + sortedNumbers[n/2]) / 2.0
+	}
+	return sortedNumbers[n/2]
+}
+
+// Calculates the mode of a list of numbers.
+func calculateMode(numbers []float64) []float64 {
+	frequency := make(map[float64]int)
+	for _, num := range numbers {
+		frequency[num]++
+	}
+	mode := []float64{}
+	maxFrequency := 0
+	for num, freq := range frequency {
+		if freq > maxFrequency {
+			mode = []float64{num}
+			maxFrequency = freq
+		} else if freq == maxFrequency {
+			mode = append(mode, num)
+		}
+	}
+	return mode
+}
+
+// Calculates the standard deviation of a list of numbers.
+func calculateStandardDeviation(numbers []float64) float64 {
+	n := len(numbers)
+	if n == 0 {
+		return 0
+	}
+	average := calculateAverage(numbers)
+	varianceSum := 0.0
+	for _, num := range numbers {
+		diff := num - average
+		varianceSum += diff * diff
+	}
+	variance := varianceSum / float64(n)
+	return math.Sqrt(variance)
+}
+
+// Calculates the permutation of n objects taken r at a time.
+func calculatePermutation(n, r int) int {
+	if n < r {
+		return 0
+	}
+	permutation := 1
+	for i := 0; i < r; i++ {
+		permutation *= n - i
+	}
+	return permutation
+}
+
+// Calculates the combination of n objects taken r at a time.
+func calculateCombination(n, r int) int {
+	if n < r {
+		return 0
+	}
+	r = min(r, n-r)
+	combination := 1
+	for i := 0; i < r; i++ {
+		combination *= n - i
+		combination /= i + 1
+	}
+	return combination
+}
+
+// Calculates the logarithmic exponential of a base raised to an exponent.
+func calculateLogarithmicExponential(base, exponent float64) float64 {
+	return math.Pow(base, exponent)
+}
+
+// Helper function to get the hexadecimal digit value.
+func getHexadecimalDigitValue(digit byte) int {
+	if digit >= '0' && digit <= '9' {
+		return int(digit - '0')
+	}
+	if digit >= 'A' && digit <= 'F' {
+		return int(digit-'A') + 10
+	}
+	if digit >= 'a' && digit <= 'f' {
+		return int(digit-'a') + 10
+	}
+	return 0
+}
+
+// Helper function to get the hexadecimal digit.
+func getHexadecimalDigit(value int) string {
+	if value >= 0 && value <= 9 {
+		return string(value + '0')
+	}
+	if value >= 10 && value <= 15 {
+		return string(value-10+'A')
+	}
+	return ""
+}
+
+// Helper function to get the minimum of two integers.
+func min(a, b int) int {
+	if a < b {
+		return a
+	}
+	return b
+}
+
 func main() {
 	// Create instances of Transformers
 	optimusPrime := Transformer{Name: "Optimus Prime", Faction: "Autobot", Power: 100}
@@ -1686,4 +1893,196 @@ Loop:
 		fmt.Println("Example 50: Checking if a string is a valid password:")
 		isValidPassword := isValidPassword("P@ssw0rd")
 		fmt.Println(isValidPassword)
+
+
+		// Addition
+	addition := 5 + 3
+	fmt.Println("Addition:", addition)
+
+	// Subtraction
+	subtraction := 10 - 4
+	fmt.Println("Subtraction:", subtraction)
+
+	// Multiplication
+	multiplication := 6 * 7
+	fmt.Println("Multiplication:", multiplication)
+
+	// Division
+	division := 12 / 3
+	fmt.Println("Division:", division)
+
+	// Modulo
+	modulo := 17 % 5
+	fmt.Println("Modulo:", modulo)
+
+	// Exponentiation
+	exponentiation := math.Pow(2, 5)
+	fmt.Println("Exponentiation:", exponentiation)
+
+	// Square Root
+	squareRoot := math.Sqrt(25)
+	fmt.Println("Square Root:", squareRoot)
+
+	// Trigonometric Functions
+	angle := 30.0
+	radians := angle * math.Pi / 180.0
+	sine := math.Sin(radians)
+	cosine := math.Cos(radians)
+	tangent := math.Tan(radians)
+	fmt.Printf("Trigonometric Functions (Angle: %f degrees):\n", angle)
+	fmt.Println("Sine:", sine)
+	fmt.Println("Cosine:", cosine)
+	fmt.Println("Tangent:", tangent)
+
+	// Logarithmic Functions
+	number := 100.0
+	logarithm := math.Log10(number)
+	naturalLog := math.Log(number)
+	fmt.Printf("Logarithmic Functions (Number: %f):\n", number)
+	fmt.Println("Logarithm (base 10):", logarithm)
+	fmt.Println("Natural Logarithm:", naturalLog)
+
+	// Rounding Functions
+	value := 7.6
+	rounded := math.Round(value)
+	ceil := math.Ceil(value)
+	floor := math.Floor(value)
+	fmt.Printf("Rounding Functions (Value: %f):\n", value)
+	fmt.Println("Rounded:", rounded)
+	fmt.Println("Ceiling:", ceil)
+	fmt.Println("Floor:", floor)
+
+	// Absolute Value
+	absolute := math.Abs(-10)
+	fmt.Println("Absolute Value:", absolute)
+
+	// Minimum and Maximum
+	minimum := math.Min(5, 10)
+	maximum := math.Max(7, 3)
+	fmt.Println("Minimum:", minimum)
+	fmt.Println("Maximum:", maximum)
+
+	// Random Number
+	random := math.Rand()
+	fmt.Println("Random Number:", random)
+
+	// Factorial
+	factorial := 1
+	n := 5
+	for i := 1; i <= n; i++ {
+		factorial *= i
+	}
+	fmt.Printf("Factorial of %d: %d\n", n, factorial)
+
+	// Fibonacci Series
+	fibonacci := []int{0, 1}
+	n = 10
+	for i := 2; i <= n; i++ {
+		fibonacci = append(fibonacci, fibonacci[i-1]+fibonacci[i-2])
+	}
+	fmt.Printf("Fibonacci Series (First %d numbers): %v\n", n, fibonacci)
+
+	// Prime Numbers
+	primeNumbers := []int{}
+	limit := 100
+	for i := 2; i <= limit; i++ {
+		isPrime := true
+		for j := 2; j <= int(math.Sqrt(float64(i))); j++ {
+			if i%j == 0 {
+				isPrime = false
+				break
+			}
+		}
+		if isPrime {
+			primeNumbers = append(primeNumbers, i)
+		}
+	}
+	fmt.Printf("Prime Numbers (Up to %d):\n", limit)
+	fmt.Println(primeNumbers)
+
+	// Sum of Digits
+	number = 12345
+	sum := 0
+	for number > 0 {
+		sum += number % 10
+		number /= 10
+	}
+	fmt.Println("Sum of Digits:", sum)
+
+	// Greatest Common Divisor (GCD)
+	a := 36
+	b := 48
+	gcd := getGCD(a, b)
+	fmt.Printf("Greatest Common Divisor of %d and %d: %d\n", a, b, gcd)
+
+	// Least Common Multiple (LCM)
+	lcm := getLCM(a, b)
+	fmt.Printf("Least Common Multiple of %d and %d: %d\n", a, b, lcm)
+
+	// Binary to Decimal Conversion
+	binary := "10101"
+	decimal := convertBinaryToDecimal(binary)
+	fmt.Printf("Binary to Decimal Conversion (%s): %d\n", binary, decimal)
+
+	// Decimal to Binary Conversion
+	decimal = 42
+	binary = convertDecimalToBinary(decimal)
+	fmt.Printf("Decimal to Binary Conversion (%d): %s\n", decimal, binary)
+
+	// Hexadecimal to Decimal Conversion
+	hexadecimal := "1A"
+	decimal = convertHexadecimalToDecimal(hexadecimal)
+	fmt.Printf("Hexadecimal to Decimal Conversion (%s): %d\n", hexadecimal, decimal)
+
+	// Decimal to Hexadecimal Conversion
+	decimal = 26
+	hexadecimal = convertDecimalToHexadecimal(decimal)
+	fmt.Printf("Decimal to Hexadecimal Conversion (%d): %s\n", decimal, hexadecimal)
+
+	// Octal to Decimal Conversion
+	octal := "32"
+	decimal = convertOctalToDecimal(octal)
+	fmt.Printf("Octal to Decimal Conversion (%s): %d\n", octal, decimal)
+
+	// Decimal to Octal Conversion
+	decimal = 26
+	octal = convertDecimalToOctal(decimal)
+	fmt.Printf("Decimal to Octal Conversion (%d): %s\n", decimal, octal)
+
+	// Average Calculation
+	numbers := []float64{5, 7, 2, 9, 4}
+	average := calculateAverage(numbers)
+	fmt.Println("Average:", average)
+
+	// Median Calculation
+	numbers = []float64{7, 5, 9, 2, 4}
+	median := calculateMedian(numbers)
+	fmt.Println("Median:", median)
+
+	// Mode Calculation
+	numbers = []float64{5, 7, 2, 9, 4, 5}
+	mode := calculateMode(numbers)
+	fmt.Println("Mode:", mode)
+
+	// Standard Deviation Calculation
+	numbers = []float64{4, 2, 9, 5, 7}
+	standardDeviation := calculateStandardDeviation(numbers)
+	fmt.Println("Standard Deviation:", standardDeviation)
+
+	// Permutation Calculation
+	n = 5
+	r := 3
+	permutation := calculatePermutation(n, r)
+	fmt.Printf("Permutation (n=%d, r=%d): %d\n", n, r, permutation)
+
+	// Combination Calculation
+	combination := calculateCombination(n, r)
+	fmt.Printf("Combination (n=%d, r=%d): %d\n", n, r, combination)
+
+	// Logarithmic Exponential Calculation
+	base := 2.0
+	exponent := 3.0
+	logarithmicExponential := calculateLogarithmicExponential(base, exponent)
+	fmt.Printf("Logarithmic Exponential (Base: %f, Exponent: %f): %f\n", base, exponent, logarithmicExponential)
+
 }
