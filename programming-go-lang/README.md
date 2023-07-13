@@ -92,3 +92,35 @@ Here's the program with examples demonstrating various conditional constructs in
 20. Conditional statement with complex conditions.
 
 These examples cover a wide range of conditional scenarios and showcase the different ways to use conditionals in Go. Feel free to explore and experiment with these examples to further understand and utilize conditional constructs in your Go programs.
+
+## Maps
+
+This program provides examples that demonstrate various map operations and concepts in Go. Feel free to explore and experiment with these examples to further understand and utilize maps in your Go programs.
+1. Creating an empty map using the make function.
+2. Adding elements to a map using key-value pairs.
+3. Accessing values from a map using keys.
+4. Checking if a key exists in a map.
+5. Updating values in a map.
+6. Deleting elements from a map.
+7. Counting the number of elements in a map using the len function.
+8. Iterating over a map using a for range loop.
+9. Creating a map with initial values using the map literal syntax.
+10. Combining two maps into a single map.
+11. Clearing a map by removing all elements.
+12. Creating a map with structs as values.
+13. Creating a map with functions as values.
+14. Creating a map with nested maps.
+15. Creating a map with slices as values.
+16. Copying a map to another map.
+17. Using boolean keys in a map.
+18. Using a range of keys in a map.
+19. Modifying values in a map using a range loop.
+20. Deleting elements from a map using a range loop.
+21. Modifying values in a map using a range loop with break.
+22. Skipping even keys in a map using a range loop with continue.
+23. Nested loops with maps.
+24. Switch case statements with maps.
+25. If-else statements with maps.
+26. Function calls within a range loop.
+
+These concepts demonstrate various operations and techniques for working with maps in Go, allowing you to store, retrieve, modify, and iterate over key-value pairs effectively.
