@@ -41,8 +41,9 @@ Here's the program with examples demonstrating various operations with slices:
 10. Creating a multidimensional slice.
 
 These examples cover a range of common operations with slices and showcase their flexibility and functionality in Go. Feel free to explore and experiment with these examples to further understand and utilize slices in your Go programs.
-## Conditionals
 
+## Looping
+This program includes examples that demonstrate various looping constructs in Go:
 1. For loop with a condition.
 2. For loop as a while loop.
 3. For loop as a forever loop with a break statement.
@@ -63,3 +64,31 @@ These examples cover a range of common operations with slices and showcase their
 18. For loop with a continue statement.
 19. For loop with a nested break statement.
 20. For loop with a nested continue statement.
+
+These examples cover a wide range of looping scenarios and showcase the different ways to use loops in Go. Feel free to explore and experiment with these examples to further understand and utilize looping constructs in your Go programs.
+
+## Conditionals
+
+Here's the program with examples demonstrating various conditional constructs in Go:
+1. If statement.
+2. If-else statement.
+3. If-else if-else statement.
+4. Nested if-else statement.
+5. Switch statement with multiple cases.
+6. Switch statement with fallthrough.
+7. Switch statement with expressions.
+8. Switch statement with type assertions.
+9. Conditional assignment with if-else.
+10. Conditional assignment with ternary operator (Go 1.15+).
+11. Short-circuit evaluation with logical AND.
+12. Short-circuit evaluation with logical OR.
+13. Conditional statement with multiple conditions.
+14. Conditional statement with short-circuit evaluation.
+15. Conditional statement with switch and ranges.
+16. Conditional statement with multiple conditions and short-circuit evaluation.
+17. Conditional statement with multiple conditions and else if.
+18. Conditional statement with negation.
+19. Conditional statement with parentheses for clarity.
+20. Conditional statement with complex conditions.
+
+These examples cover a wide range of conditional scenarios and showcase the different ways to use conditionals in Go. Feel free to explore and experiment with these examples to further understand and utilize conditional constructs in your Go programs.
