@@ -15,6 +15,14 @@ const (
 	maximum = 100      // Maximum constant
 )
 
+// Struct representing a character in the Harry Potter series
+type Character struct {
+	Name   string
+	House  string
+	Role   string
+	Points int
+}
+
 // User represents a user in the system.
 type User struct {
 	ID       int
@@ -2305,6 +2313,96 @@ Loop:
 	writer.Flush()
 	if err := writer.Error(); err != nil {
 		log.Fatal(err)
+	}
+
+	// Create a Character pointer
+	var harry *Character
+
+	// Assign values to the fields using the pointer
+	harry = &Character{
+		Name:   "Harry Potter",
+		House:  "Gryffindor",
+		Role:   "Student",
+		Points: 100,
+	}
+
+	// Access and modify fields using the pointer
+	harry.Role = "Auror"
+	harry.Points += 50
+
+	// Print the character's details
+	fmt.Printf("Name: %s\n", harry.Name)
+	fmt.Printf("House: %s\n", harry.House)
+	fmt.Printf("Role: %s\n", harry.Role)
+	fmt.Printf("Points: %d\n", harry.Points)
+
+	// Create a pointer to an integer
+	var numPtr *int
+
+	// Create an integer variable and assign its address to the pointer
+	num := 42
+	numPtr = &num
+
+	// Print the value and memory address of the variable using the pointer
+	fmt.Printf("Value: %d\n", *numPtr)
+	fmt.Printf("Address: %p\n", numPtr)
+
+	// Update the value of the variable using the pointer
+	*numPtr = 99
+
+	// Print the updated value
+	fmt.Printf("Updated Value: %d\n", num)
+
+	// Create an array of pointers to characters
+	characters := []*Character{
+		{Name: "Hermione Granger", House: "Gryffindor", Role: "Student"},
+		{Name: "Ron Weasley", House: "Gryffindor", Role: "Student"},
+		{Name: "Draco Malfoy", House: "Slytherin", Role: "Student"},
+	}
+
+	// Iterate over the array and print each character's details
+	for _, character := range characters {
+		fmt.Printf("Name: %s\n", character.Name)
+		fmt.Printf("House: %s\n", character.House)
+		fmt.Printf("Role: %s\n", character.Role)
+	}
+
+	// Function that takes a pointer to a character as an argument
+	updatePoints := func(c *Character, points int) {
+		c.Points += points
+	}
+
+	// Update Harry's points using the function
+	updatePoints(harry, 20)
+
+	// Print Harry's updated points
+	fmt.Printf("Harry's Points: %d\n", harry.Points)
+
+	// Create a pointer to an array
+	numbers := []int{1, 2, 3, 4, 5}
+	numbersPtr := &numbers
+
+	// Print the array using the pointer
+	fmt.Printf("Numbers: %v\n", *numbersPtr)
+
+	// Update the array using the pointer
+	(*numbersPtr)[0] = 10
+
+	// Print the updated array
+	fmt.Printf("Updated Numbers: %v\n", numbers)
+
+	// Create a map of character names to their pointers
+	characterMap := map[string]*Character{
+		"Harry":   harry,
+		"Hermione": {Name: "Hermione Granger", House: "Gryffindor", Role: "Student"},
+		"Ron":     {Name: "Ron Weasley", House: "Gryffindor", Role: "Student"},
+	}
+
+	// Print the details of characters in the map
+	for name, character := range characterMap {
+		fmt.Printf("Name: %s\n", name)
+		fmt.Printf("House: %s\n", character.House)
+		fmt.Printf("Role: %s\n", character.Role)
 	}
 
 }
