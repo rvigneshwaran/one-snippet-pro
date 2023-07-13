@@ -329,6 +329,11 @@ func checkID() bool {
 	return true
 }
 
+// Function to convert a string to uppercase
+func toUppercase(str string) string {
+	return strings.ToUpper(str)
+}
+
 func main() {
 	// Create instances of Transformers
 	optimusPrime := Transformer{Name: "Optimus Prime", Faction: "Autobot", Power: 100}
@@ -835,5 +840,194 @@ Loop:
 	hasLicense := true
 	if (age >= 18 && age < 60) && hasLicense {
 		fmt.Println("You are eligible to drive")
+	}
+
+	// Example 1: Creating an empty map for Transformers
+	autobots := make(map[string]string)
+	fmt.Println("Autobots:", autobots)
+
+	// Example 2: Adding Transformers to the map
+	autobots["Optimus Prime"] = "Leader"
+	autobots["Bumblebee"] = "Scout"
+	autobots["Ironhide"] = "Weapons Specialist"
+	fmt.Println("Autobots:", autobots)
+
+	// Example 3: Accessing a Transformer's role
+	fmt.Println("Optimus Prime is the", autobots["Optimus Prime"])
+
+	// Example 4: Checking if a Transformer exists in the map
+	_, exists := autobots["Megatron"]
+	fmt.Println("Megatron exists in Autobots:", exists)
+
+	// Example 5: Updating a Transformer's role
+	autobots["Bumblebee"] = "Guardian"
+	fmt.Println("Updated Autobots:", autobots)
+
+	// Example 6: Removing a Transformer from the map
+	delete(autobots, "Ironhide")
+	fmt.Println("Autobots after removing Ironhide:", autobots)
+
+	// Example 7: Counting the number of Autobots
+	fmt.Println("Number of Autobots:", len(autobots))
+
+	// Example 8: Iterating over the Autobots map
+	fmt.Println("Autobots:")
+	for name, role := range autobots {
+		fmt.Println(name, "-", role)
+	}
+
+	// Example 9: Creating a map for Decepticons
+	decepticons := map[string]string{
+		"Megatron":   "Leader",
+		"Starscream": "Air Commander",
+		"Soundwave":  "Communications",
+	}
+	fmt.Println("Decepticons:", decepticons)
+
+	// Example 10: Combining Autobots and Decepticons
+	transformers := make(map[string]string)
+	for name, role := range autobots {
+		transformers[name] = role
+	}
+	for name, role := range decepticons {
+		transformers[name] = role
+	}
+	fmt.Println("Transformers:", transformers)
+
+	// Example 11: Clearing the Transformers map
+	for key := range transformers {
+		delete(transformers, key)
+	}
+	fmt.Println("Transformers after clearing:", transformers)
+
+	// Example 12: Map with structs as values
+	type Transformer struct {
+		Name string
+		Role string
+	}
+	transformerMap := make(map[string]Transformer)
+	transformerMap["Optimus Prime"] = Transformer{Name: "Optimus Prime", Role: "Leader"}
+	transformerMap["Bumblebee"] = Transformer{Name: "Bumblebee", Role: "Guardian"}
+	transformerMap["Megatron"] = Transformer{Name: "Megatron", Role: "Leader"}
+	fmt.Println("Transformer Map:", transformerMap)
+
+	// Example 13: Map with functions as values
+	transformerActions := make(map[string]func())
+	transformerActions["Transform"] = func() {
+		fmt.Println("Transforming...")
+	}
+	transformerActions["Attack"] = func() {
+		fmt.Println("Attacking...")
+	}
+	transformerActions["Defend"] = func() {
+		fmt.Println("Defending...")
+	}
+	fmt.Println("Transformer Actions:", transformerActions)
+
+	// Example 14: Map with nested maps
+	nestedMap := make(map[string]map[string]string)
+	nestedMap["Autobots"] = make(map[string]string)
+	nestedMap["Decepticons"] = make(map[string]string)
+	nestedMap["Autobots"]["Optimus Prime"] = "Leader"
+	nestedMap["Autobots"]["Bumblebee"] = "Guardian"
+	nestedMap["Decepticons"]["Megatron"] = "Leader"
+	nestedMap["Decepticons"]["Starscream"] = "Air Commander"
+	fmt.Println("Nested Map:", nestedMap)
+
+	// Example 15: Map with slices as values
+	transformerTeams := make(map[string][]string)
+	transformerTeams["Autobots"] = []string{"Optimus Prime", "Bumblebee"}
+	transformerTeams["Decepticons"] = []string{"Megatron", "Starscream"}
+	fmt.Println("Transformer Teams:", transformerTeams)
+
+	// Example 16: Copying a map
+	copiedMap := make(map[string]string)
+	for key, value := range autobots {
+		copiedMap[key] = value
+	}
+	fmt.Println("Copied Autobots Map:", copiedMap)
+
+	// Example 17: Map with boolean keys
+	booleanMap := make(map[bool]string)
+	booleanMap[true] = "Good"
+	booleanMap[false] = "Evil"
+	fmt.Println("Boolean Map:", booleanMap)
+
+	// Example 18: Map with range of keys
+	rangeMap := make(map[int]string)
+	for i := 1; i <= 10; i++ {
+		rangeMap[i] = fmt.Sprintf("Transformer %d", i)
+	}
+	fmt.Println("Range Map:", rangeMap)
+
+	// Example 19: Map with range of values
+	for key, value := range rangeMap {
+		rangeMap[key] = value + " is powerful"
+	}
+	fmt.Println("Updated Range Map:", rangeMap)
+
+	// Example 20: Map with range and delete
+	for key := range rangeMap {
+		if key%2 == 0 {
+			delete(rangeMap, key)
+		}
+	}
+	fmt.Println("Range Map after deleting even keys:", rangeMap)
+
+	// Example 21: Map with range and modify
+	for key := range rangeMap {
+		rangeMap[key] = "New Transformer"
+	}
+	fmt.Println("Modified Range Map:", rangeMap)
+
+	// Example 22: Map with range and break
+	for key, value := range rangeMap {
+		fmt.Printf("Key: %d, Value: %s\n", key, value)
+		if key == 5 {
+			break
+		}
+	}
+
+	// Example 23: Map with range and continue
+	for key, value := range rangeMap {
+		if key%2 == 0 {
+			continue
+		}
+		fmt.Printf("Key: %d, Value: %s\n", key, value)
+	}
+
+	// Example 24: Map with range and nested loop
+	for team, transformers := range transformerTeams {
+		fmt.Println(team, "Transformers:")
+		for _, transformer := range transformers {
+			fmt.Println("- ", transformer)
+		}
+	}
+
+	// Example 25: Map with range and switch case
+	for name, role := range autobots {
+		switch role {
+		case "Leader":
+			fmt.Printf("%s is the leader\n", name)
+		case "Scout":
+			fmt.Printf("%s is the scout\n", name)
+		default:
+			fmt.Printf("%s has the role of %s\n", name, role)
+		}
+	}
+
+	// Example 26: Map with range and if-else
+	for name, role := range autobots {
+		if role == "Leader" {
+			fmt.Printf("%s is a powerful leader\n", name)
+		} else {
+			fmt.Printf("%s is a skilled %s\n", name, role)
+		}
+	}
+
+	// Example 27: Map with range and function call
+	for name, role := range autobots {
+		uppercaseName := toUppercase(name)
+		fmt.Printf("%s is a %s\n", uppercaseName, role)
 	}
 }
