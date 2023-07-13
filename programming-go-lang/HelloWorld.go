@@ -9,6 +9,7 @@ import (
 	"os"
 	"errors"
 	"strconv"
+	"flag"
 )
 
 const (
@@ -2808,5 +2809,111 @@ Loop:
 	if err != nil {
 		fmt.Println("Error:", err)
 	}
+
+	// Example 1: Reading a single command-line argument
+	arg := os.Args[1]
+	fmt.Println("Command-line argument:", arg)
+
+	// Example 2: Reading multiple command-line arguments
+	args := os.Args[1:]
+	fmt.Println("Command-line arguments:", args)
+
+	// Example 3: Using the flag package to parse command-line arguments
+	var name string
+	flag.StringVar(&name, "name", "", "Specify a name")
+	flag.Parse()
+	fmt.Println("Name:", name)
+
+	// Example 4: Using positional command-line arguments
+	if len(os.Args) < 4 {
+		fmt.Println("Usage: program <arg1> <arg2> <arg3>")
+		return
+	}
+	arg1 := os.Args[1]
+	arg2 := os.Args[2]
+	arg3 := os.Args[3]
+	fmt.Println("Argument 1:", arg1)
+	fmt.Println("Argument 2:", arg2)
+	fmt.Println("Argument 3:", arg3)
+
+	// Example 5: Using flag arguments with different types
+	var (
+		intFlag    int
+		floatFlag  float64
+		boolFlag   bool
+		stringFlag string
+	)
+	flag.IntVar(&intFlag, "int", 0, "An integer flag")
+	flag.Float64Var(&floatFlag, "float", 0.0, "A float flag")
+	flag.BoolVar(&boolFlag, "bool", false, "A boolean flag")
+	flag.StringVar(&stringFlag, "string", "", "A string flag")
+	flag.Parse()
+	fmt.Println("Integer Flag:", intFlag)
+	fmt.Println("Float Flag:", floatFlag)
+	fmt.Println("Boolean Flag:", boolFlag)
+	fmt.Println("String Flag:", stringFlag)
+
+	// Example 6: Using flag arguments with shorthand notation
+	var (
+		iFlag int
+		fFlag float64
+		bFlag bool
+		sFlag string
+	)
+	flag.IntVar(&iFlag, "i", 0, "An integer flag")
+	flag.Float64Var(&fFlag, "f", 0.0, "A float flag")
+	flag.BoolVar(&bFlag, "b", false, "A boolean flag")
+	flag.StringVar(&sFlag, "s", "", "A string flag")
+	flag.Parse()
+	fmt.Println("Integer Flag (shorthand):", iFlag)
+	fmt.Println("Float Flag (shorthand):", fFlag)
+	fmt.Println("Boolean Flag (shorthand):", bFlag)
+	fmt.Println("String Flag (shorthand):", sFlag)
+
+	// Example 7: Using flag arguments with default values
+	var (
+		defaultIntFlag    int
+		defaultFloatFlag  float64
+		defaultBoolFlag   bool
+		defaultStringFlag string
+	)
+	flag.IntVar(&defaultIntFlag, "default-int", 100, "An integer flag with default value")
+	flag.Float64Var(&defaultFloatFlag, "default-float", 3.14, "A float flag with default value")
+	flag.BoolVar(&defaultBoolFlag, "default-bool", true, "A boolean flag with default value")
+	flag.StringVar(&defaultStringFlag, "default-string", "default", "A string flag with default value")
+	flag.Parse()
+	fmt.Println("Default Integer Flag:", defaultIntFlag)
+	fmt.Println("Default Float Flag:", defaultFloatFlag)
+	fmt.Println("Default Boolean Flag:", defaultBoolFlag)
+	fmt.Println("Default String Flag:", defaultStringFlag)
+
+	// Example 8: Using flag arguments with required values
+	var requiredFlag string
+	flag.StringVar(&requiredFlag, "required", "", "A required flag")
+	flag.Parse()
+	if requiredFlag == "" {
+		fmt.Println("Error: Required flag not provided")
+		return
+	}
+	fmt.Println("Required Flag:", requiredFlag)
+
+	// Example 9: Using flag arguments with custom usage message
+	var customFlag string
+	flag.StringVar(&customFlag, "custom", "", "A custom flag")
+	flag.Usage = func() {
+		fmt.Println("Usage: program -custom <value>")
+	}
+	flag.Parse()
+	fmt.Println("Custom Flag:", customFlag)
+
+	// Example 10: Using flag arguments with shorthand notation and custom usage message
+	var shorthandFlag string
+	flag.StringVar(&shorthandFlag, "shorthand", "", "A shorthand flag")
+	flag.StringVar(&shorthandFlag, "s", "", "A shorthand flag (shorthand)")
+	flag.Usage = func() {
+		fmt.Println("Usage: program -shorthand <value>")
+	}
+	flag.Parse()
+	fmt.Println("Shorthand Flag:", shorthandFlag)
 
 }
