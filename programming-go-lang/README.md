@@ -28,6 +28,7 @@ This repository contains an amazing Go program that demonstrates various concept
 This program showcases the power and versatility of the Go programming language. It covers a wide range of concepts and features, providing a comprehensive understanding of Go programming. In addition , It also has the extensive list of examples demonstated under each category listed.
 
 ## Slices
+Here's the program with examples demonstrating various operations with slices:
 1. Creating a slice using a composite literal.
 2. Accessing elements of a slice.
 3. Slicing a slice to create a subslice.
@@ -39,6 +40,7 @@ This program showcases the power and versatility of the Go programming language.
 9. Iterating over a slice using the range keyword.
 10. Creating a multidimensional slice.
 
+These examples cover a range of common operations with slices and showcase their flexibility and functionality in Go. Feel free to explore and experiment with these examples to further understand and utilize slices in your Go programs.
 ## Conditionals
 
 1. For loop with a condition.
