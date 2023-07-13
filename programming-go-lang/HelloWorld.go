@@ -7,6 +7,8 @@ import (
 	"io/ioutil"
 	"log"
 	"os"
+	"errors"
+	"strconv"
 )
 
 const (
@@ -969,6 +971,241 @@ func dirExists(dirname string) bool {
 		return false
 	}
 	return fileInfo.IsDir()
+}
+
+// divide divides two numbers and returns the result.
+// It returns an error if the divisor is zero.
+func divide(dividend, divisor float64) (float64, error) {
+	if divisor == 0 {
+		return 0, errors.New("division by zero")
+	}
+	return dividend / divisor, nil
+}
+
+// InvalidAgeError represents an error indicating an invalid age.
+type InvalidAgeError struct {
+	Age int
+}
+
+// Error returns the error message for the InvalidAgeError.
+func (e InvalidAgeError) Error() string {
+	return fmt.Sprintf("Invalid age: %d", e.Age)
+}
+
+// validateAge validates the given age and returns an error if it is invalid.
+func validateAge(age int) error {
+	if age < 18 {
+		return InvalidAgeError{Age: age}
+	}
+	return nil
+}
+
+// CustomError represents a custom error.
+type CustomError struct {
+	Message string
+}
+
+// Error returns the error message for the CustomError.
+func (e CustomError) Error() string {
+	return e.Message
+}
+
+// MultiError represents multiple errors.
+type MultiError []error
+
+// Error returns the error message for the MultiError.
+func (e MultiError) Error() string {
+	errStr := "Multiple errors occurred:"
+	for _, err := range e {
+		errStr += "\n- " + err.Error()
+	}
+	return errStr
+}
+
+// divideWithRecovery divides two numbers and recovers from a panic caused by a zero divisor.
+// It returns an error if the divisor is zero or if a panic occurs.
+func divideWithRecovery(dividend, divisor float64) (float64, error) {
+	defer func() {
+		if r := recover(); r != nil {
+			err := fmt.Errorf("panic occurred: %v", r)
+			fmt.Println("Recovered error:", err)
+		}
+	}()
+	if divisor == 0 {
+		panic("division by zero")
+	}
+	return dividend / divisor, nil
+}
+
+// processItem processes an item and returns an error if the item is invalid.
+func processItem(item int) error {
+	if item%2 == 0 {
+		return errors.New("invalid item")
+	}
+	return nil
+}
+
+// ValidationErr represents a validation error with a field and message.
+type ValidationErr struct {
+	Field   string
+	Message string
+}
+
+// Error returns the error message for the ValidationErr.
+func (e ValidationErr) Error() string {
+	return fmt.Sprintf("%s: %s", e.Field, e.Message)
+}
+
+// ValidationMessage returns a validation message for the ValidationErr.
+func (e ValidationErr) ValidationMessage() string {
+	return fmt.Sprintf("Validation error for field %s: %s", e.Field, e.Message)
+}
+
+// InvalidEmailError represents an error indicating an invalid email.
+type InvalidEmailError struct {
+	Email string
+}
+
+// Error returns the error message for the InvalidEmailError.
+func (e InvalidEmailError) Error() string {
+	return fmt.Sprintf("Invalid email: %s", e.Email)
+}
+
+// validateEmail validates the given email and returns an error if it is invalid.
+func validateEmail(email string) error {
+	if len(email) < 5 || email[:1] == "@" || email[len(email)-1:] == "@" {
+		return InvalidEmailError{Email: email}
+	}
+	return nil
+}
+
+// handleAPIError handles an API error by calling the given error handler function.
+// It returns an error if the error handler function returns an error.
+func handleAPIError(message string, errorHandler func(error)) error {
+	err := errors.New(message)
+	errorHandler(err)
+	return nil
+}
+
+// OpenFile opens a file with the given filename and returns it.
+// It returns an error if the file cannot be opened.
+func OpenFile(filename string) (string, error) {
+	if filename == "" {
+		return "", errors.New("filename cannot be empty")
+	}
+	return "file opened: " + filename, nil
+}
+
+// MultiError2 represents multiple errors using a slice.
+type MultiError2 struct {
+	Errors []error
+}
+
+// Error returns the error message for the MultiError2.
+func (e MultiError2) Error() string {
+	errStr := "Multiple errors occurred:"
+	for _, err := range e.Errors {
+		errStr += "\n- " + err.Error()
+	}
+	return errStr
+}
+
+// processWithPanic processes a request and panics if an error occurs.
+// It recovers from the panic and returns it as an error.
+func processWithPanic() error {
+	defer func() {
+		if r := recover(); r != nil {
+			err := fmt.Errorf("panic occurred: %v", r)
+			panic(err)
+		}
+	}()
+	panic("Something went wrong")
+}
+
+// customHandler is a custom error handler implementation.
+type customHandler struct{}
+
+// HandleError handles an error by printing it.
+func (h customHandler) HandleError(err error) {
+	fmt.Println("Custom error handler:", err)
+}
+
+// handleWithHandler handles an error using the given error handler.
+// It returns an error if the error handler returns an error.
+func handleWithHandler(message string, errorHandler ErrorHandler) error {
+	err := errors.New(message)
+	errorHandler.HandleError(err)
+	return nil
+}
+
+// ErrorHandler is an interface for handling errors.
+type ErrorHandler interface {
+	HandleError(error)
+}
+
+// customHandlerWithStack is a custom error handler implementation with stack trace.
+type customHandlerWithStack struct{}
+
+// HandleError handles an error by printing it with stack trace.
+func (h customHandlerWithStack) HandleError(err error) {
+	fmt.Printf("Custom error handler with stack trace: %v\n", err)
+}
+
+// processWithStack simulates a request processing and returns an error with stack trace.
+func processWithStack() error {
+	err := errors.New("request failed")
+	return fmt.Errorf("error occurred: %w", err)
+}
+
+// ErrorType represents an error type.
+type ErrorType string
+
+const (
+	// NotFoundError indicates a not found error.
+	NotFoundError ErrorType = "NotFound"
+
+	// PermissionError indicates a permission error.
+	PermissionError ErrorType = "Permission"
+
+	// ConnectionError indicates a connection error.
+	ConnectionError ErrorType = "Connection"
+)
+
+// ErrorMessage returns the error message for the given error code.
+func ErrorMessage(code ErrorCode) string {
+	switch code {
+	case 404:
+		return "Not Found"
+	case 403:
+		return "Permission Denied"
+	case 500:
+		return "Internal Server Error"
+	default:
+		return "Unknown Error"
+	}
+}
+
+// ErrorCode represents an error code.
+type ErrorCode int
+
+// User represents a user with a name.
+type User struct {
+	Name string
+}
+
+// Validate validates the user's name and returns an error if it is invalid.
+func (u User) Validate() error {
+	if u.Name == "" {
+		return errors.New("name cannot be empty")
+	}
+	return nil
+}
+
+// handleError prints the given error.
+func handleError(err error) {
+	if err != nil {
+		fmt.Println("Error:", err)
+	}
 }
 
 func main() {
@@ -2403,6 +2640,173 @@ Loop:
 		fmt.Printf("Name: %s\n", name)
 		fmt.Printf("House: %s\n", character.House)
 		fmt.Printf("Role: %s\n", character.Role)
+	}
+
+
+	// Example 1: Returning an error from a function
+	result, err := divide(10, 0)
+	if err != nil {
+		fmt.Println("Error:", err)
+	} else {
+		fmt.Println("Result:", result)
+	}
+
+	// Example 2: Handling specific errors using type assertion
+	err = validateAge(15)
+	if invalidAgeErr, ok := err.(InvalidAgeError); ok {
+		fmt.Println("Invalid age:", invalidAgeErr.Age)
+	} else {
+		fmt.Println("No error or different error occurred")
+	}
+
+	// Example 3: Creating a custom error type
+	customErr := CustomError{"Custom error occurred"}
+	fmt.Println(customErr.Error())
+
+	// Example 4: Wrapping an error with additional context
+	wrappedErr := fmt.Errorf("Wrapped error: %w", customErr)
+	fmt.Println(wrappedErr.Error())
+
+	// Example 5: Checking if an error is of a specific type
+	if errors.Is(wrappedErr, customErr) {
+		fmt.Println("Wrapped error is of type CustomError")
+	}
+
+	// Example 6: Unwrapping an error to access the root cause
+	cause := errors.Unwrap(wrappedErr)
+	if cause != nil {
+		fmt.Println("Root cause:", cause)
+	}
+
+	// Example 7: Handling multiple errors using error variables
+	err1 := errors.New("Error 1")
+	err2 := errors.New("Error 2")
+	err3 := errors.New("Error 3")
+
+	var multiErr error = MultiError{err1, err2, err3}
+	if multiErr != nil {
+		fmt.Println("Multiple errors occurred:", multiErr)
+	}
+
+	// Example 8: Recovering from a panic and converting it to an error
+	defer func() {
+		if r := recover(); r != nil {
+			err := fmt.Errorf("Panic occurred: %v", r)
+			fmt.Println("Recovered error:", err)
+		}
+	}()
+	panic("Something went wrong")
+
+	// Example 9: Handling errors in a loop and continuing execution
+	for i := 1; i <= 5; i++ {
+		err := processItem(i)
+		if err != nil {
+			fmt.Println("Error processing item", i, ":", err)
+			continue
+		}
+		fmt.Println("Item", i, "processed successfully")
+	}
+
+	// Example 10: Custom error types with additional methods
+	validationErr := ValidationErr{Field: "username", Message: "Invalid characters"}
+	fmt.Println(validationErr.Error())
+	fmt.Println(validationErr.ValidationMessage())
+
+	// Example 11: Checking for specific error types using type switch
+	switch err := validateEmail("test@example"); err.(type) {
+	case InvalidEmailError:
+		fmt.Println("Invalid email:", err)
+	default:
+		fmt.Println("No error or different error occurred")
+	}
+
+	// Example 12: Handling errors with defer statements
+	err = openFile("nonexistent.txt")
+	defer handleError(err)
+	// Perform file operations
+
+	// Example 13: Ignoring errors using the blank identifier _
+	_, _ = divide(10, 0)
+
+	// Example 14: Recovering from a panic and returning an error
+	result, err = divideWithRecovery(10, 0)
+	if err != nil {
+		fmt.Println("Error:", err)
+	} else {
+		fmt.Println("Result:", result)
+	}
+
+	// Example 15: Handling errors with context using the "pkg/errors" package
+	err = processRequest()
+	if err != nil {
+		fmt.Println("Error:", err)
+	}
+
+	// Example 16: Defining error codes and messages as constants
+	errCode := ErrorCode(404)
+	errMsg := ErrorMessage(errCode)
+	fmt.Println("Error code:", errCode)
+	fmt.Println("Error message:", errMsg)
+
+	// Example 17: Returning an error from a method of a custom type
+	user := User{Name: ""}
+	err = user.Validate()
+	if err != nil {
+		fmt.Println("Error:", err)
+	}
+
+	// Example 18: Handling errors using a custom error handler function
+	err = handleAPIError("API request failed", func(err error) {
+		fmt.Println("Custom error handler:", err)
+	})
+	if err != nil {
+		fmt.Println("Error:", err)
+	}
+
+	// Example 19: Handling errors using a recoverable error type
+	file, err := OpenFile("nonexistent.txt")
+	if err != nil {
+		fmt.Println("Error:", err)
+	} else {
+		fmt.Println("File opened successfully:", file)
+	}
+
+	// Example 20: Using error variables to handle multiple errors
+	err1 = errors.New("Error 1")
+	err2 = errors.New("Error 2")
+	err3 = errors.New("Error 3")
+
+	var multiErr2 error = MultiError2{[]error{err1, err2, err3}}
+	if multiErr2 != nil {
+		fmt.Println("Multiple errors occurred:", multiErr2)
+	}
+
+	// Example 21: Recovering from a panic and converting it to an error with context
+	err = processWithPanic()
+	if err != nil {
+		fmt.Println("Error:", err)
+	}
+
+	// Example 22: Handling errors using a custom error handler interface
+	err = handleWithHandler("error", customHandler{})
+	if err != nil {
+		fmt.Println("Error:", err)
+	}
+
+	// Example 23: Handling errors with context using the "pkg/errors" package (with stack trace)
+	err = processWithStack()
+	if err != nil {
+		fmt.Println("Error:", err)
+	}
+
+	// Example 24: Defining error types as constants
+	errType := ErrorType("NotFound")
+	fmt.Println("Error type:", errType)
+
+	// Example 25: Handling errors using a custom error handler interface (with stack trace)
+	err = handleWithHandlerAndStack("error", customHandlerWithStack{})
+	if err != nil {
+		fmt.Println("Error:", err)
 	}
 
 }
