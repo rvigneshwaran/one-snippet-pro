@@ -334,6 +334,409 @@ func toUppercase(str string) string {
 	return strings.ToUpper(str)
 }
 
+// Function to reverse a string
+func reverseString(str string) string {
+	runes := []rune(str)
+	for i, j := 0, len(runes)-1; i < j; i, j = i+1, j-1 {
+		runes[i], runes[j] = runes[j], runes[i]
+	}
+	return string(runes)
+}
+
+// Function to check if a string is a palindrome
+func isStringPalindrome(str string) bool {
+	str = strings.ToLower(str)
+	for i := 0; i < len(str)/2; i++ {
+		if str[i] != str[len(str)-i-1] {
+			return false
+		}
+	}
+	return true
+}
+
+// Function to check if two strings are anagrams
+func areStringsAnagrams(str1, str2 string) bool {
+	str1 = strings.ToLower(str1)
+	str2 = strings.ToLower(str2)
+
+	if len(str1) != len(str2) {
+		return false
+	}
+
+	count := make(map[rune]int)
+	for _, ch := range str1 {
+		count[ch]++
+	}
+
+	for _, ch := range str2 {
+		if count[ch] == 0 {
+			return false
+		}
+		count[ch]--
+	}
+
+	return true
+}
+
+// Function to count the number of words in a string
+func countWordsInString(str string) int {
+	fields := strings.Fields(str)
+	return len(fields)
+}
+
+// Function to check if a string is a valid email address
+func isValidEmailAddress(email string) bool {
+	return strings.Contains(email, "@") && strings.Contains(email, ".")
+}
+
+// Function to get the ASCII codes of characters in a string
+func getASCIICodes(str string) []int {
+	asciiCodes := make([]int, len(str))
+	for i, ch := range str {
+		asciiCodes[i] = int(ch)
+	}
+	return asciiCodes
+}
+
+// Function to check if a string is a valid URL
+func isValidURL(url string) bool {
+	return strings.HasPrefix(url, "http://") || strings.HasPrefix(url, "https://")
+}
+
+// Function to remove duplicate characters from a string
+func removeDuplicatesFromString(str string) string {
+	uniqueChars := make(map[rune]bool)
+	result := ""
+	for _, ch := range str {
+		if !uniqueChars[ch] {
+			uniqueChars[ch] = true
+			result += string(ch)
+		}
+	}
+	return result
+}
+
+// Function to check if a string contains only letters
+func isStringAlpha(str string) bool {
+	for _, ch := range str {
+		if !isLetter(ch) {
+			return false
+		}
+	}
+	return true
+}
+
+// Function to check if a character is a letter
+func isLetter(ch rune) bool {
+	return (ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z')
+}
+
+// Function to check if a string contains only digits
+func isStringNumeric(str string) bool {
+	for _, ch := range str {
+		if !isDigit(ch) {
+			return false
+		}
+	}
+	return true
+}
+
+// Function to check if a character is a digit
+func isDigit(ch rune) bool {
+	return ch >= '0' && ch <= '9'
+}
+
+// Function to check if a string contains only alphanumeric characters
+func isStringAlphaNumeric(str string) bool {
+	for _, ch := range str {
+		if !isLetter(ch) && !isDigit(ch) {
+			return false
+		}
+	}
+	return true
+}
+
+// Function to capitalize the first letter of each word in a string
+func capitalizeWords(str string) string {
+	words := strings.Fields(str)
+	for i, word := range words {
+		words[i] = strings.Title(word)
+	}
+	return strings.Join(words, " ")
+}
+
+// Function to check if a string is a valid IP address
+func isValidIPAddress(ip string) bool {
+	parts := strings.Split(ip, ".")
+	if len(parts) != 4 {
+		return false
+	}
+	for _, part := range parts {
+		num, err := strconv.Atoi(part)
+		if err != nil || num < 0 || num > 255 {
+			return false
+		}
+	}
+	return true
+}
+
+// Function to trim leading and trailing zeros from a string
+func trimLeadingTrailingZeros(str string) string {
+	trimmed := strings.TrimLeft(str, "0")
+	if trimmed == "" {
+		return "0"
+	}
+	return trimmed
+}
+
+// Function to check if a string is a valid hexadecimal number
+func isValidHexadecimal(str string) bool {
+	match, _ := regexp.MatchString("^[0-9A-Fa-f]+$", str)
+	return match
+}
+
+// Function to check if a string is a valid binary number
+func isValidBinary(str string) bool {
+	match, _ := regexp.MatchString("^[01]+$", str)
+	return match
+}
+
+// Function to check if a string is a valid octal number
+func isValidOctal(str string) bool {
+	match, _ := regexp.MatchString("^[0-7]+$", str)
+	return match
+}
+
+// Function to extract numbers from a string
+func extractNumbers(str string) []int {
+	numbers := make([]int, 0)
+	numStr := ""
+	for _, ch := range str {
+		if isDigit(ch) {
+			numStr += string(ch)
+		} else {
+			if numStr != "" {
+				num, _ := strconv.Atoi(numStr)
+				numbers = append(numbers, num)
+				numStr = ""
+			}
+		}
+	}
+	if numStr != "" {
+		num, _ := strconv.Atoi(numStr)
+		numbers = append(numbers, num)
+	}
+	return numbers
+}
+
+// Function to extract letters from a string
+func extractLetters(str string) []string {
+	letters := make([]string, 0)
+	for _, ch := range str {
+		if isLetter(ch) {
+			letters = append(letters, string(ch))
+		}
+	}
+	return letters
+}
+
+// Function to pad a string with leading zeros
+func padWithZeros(str string, length int) string {
+	padLength := length - len(str)
+	if padLength <= 0 {
+		return str
+	}
+	padding := strings.Repeat("0", padLength)
+	return padding + str
+}
+
+// Function to check if a string is a valid palindrome permutation
+func isValidPalindromePermutation(str string) bool {
+	str = strings.ReplaceAll(str, " ", "")
+	str = strings.ToLower(str)
+
+	frequency := make(map[rune]int)
+	for _, ch := range str {
+		frequency[ch]++
+	}
+
+	oddCount := 0
+	for _, count := range frequency {
+		if count%2 != 0 {
+			oddCount++
+		}
+	}
+
+	return oddCount <= 1
+}
+
+// Function to check if a string is a valid pangram
+func isValidPangram(str string) bool {
+	str = strings.ReplaceAll(str, " ", "")
+	str = strings.ToLower(str)
+
+	seen := make(map[rune]bool)
+	for _, ch := range str {
+		seen[ch] = true
+	}
+
+	return len(seen) == 26
+}
+
+// Function to repeat a string n times
+func repeatString(str string, n int) string {
+	return strings.Repeat(str, n)
+}
+
+// Function to check if a string is a valid Roman numeral
+func isValidRomanNumeral(str string) bool {
+	match, _ := regexp.MatchString("^M{0,3}(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})$", str)
+	return match
+}
+
+// Function to check if a string is a valid IPv4 address
+func isValidIPv4Address(ip string) bool {
+	parts := strings.Split(ip, ".")
+	if len(parts) != 4 {
+		return false
+	}
+	for _, part := range parts {
+		num, err := strconv.Atoi(part)
+		if err != nil || num < 0 || num > 255 {
+			return false
+		}
+	}
+	return true
+}
+
+// Function to check if a string is a valid IPv6 address
+func isValidIPv6Address(ip string) bool {
+	parts := strings.Split(ip, ":")
+	if len(parts) != 8 {
+		return false
+	}
+	for _, part := range parts {
+		match, _ := regexp.MatchString("^[0-9A-Fa-f]{1,4}$", part)
+		if !match {
+			return false
+		}
+	}
+	return true
+}
+
+// Function to get the frequency of characters in a string
+func getCharacterFrequency(str string) map[rune]int {
+	frequency := make(map[rune]int)
+	for _, ch := range str {
+		frequency[ch]++
+	}
+	return frequency
+}
+
+// Function to check if a string is a valid credit card number
+func isValidCreditCard(cardNumber string) bool {
+	cardNumber = strings.ReplaceAll(cardNumber, "-", "")
+	if len(cardNumber) < 13 || len(cardNumber) > 16 {
+		return false
+	}
+	sum := 0
+	odd := true
+	for i := len(cardNumber) - 1; i >= 0; i-- {
+		digit := int(cardNumber[i] - '0')
+		if odd {
+			digit *= 2
+			if digit > 9 {
+				digit = digit%10 + digit/10
+			}
+		}
+		sum += digit
+		odd = !odd
+	}
+	return sum%10 == 0
+}
+
+// Function to check if a string is a valid US phone number
+func isValidPhoneNumber(phoneNumber string) bool {
+	match, _ := regexp.MatchString("^(\\()\\d{3}(\\))\\s\\d{3}-\\d{4}$", phoneNumber)
+	return match
+}
+
+// Function to check if a string is a valid social security number (SSN)
+func isValidSSN(ssn string) bool {
+	match, _ := regexp.MatchString("^\\d{3}-\\d{2}-\\d{4}$", ssn)
+	return match
+}
+
+// Function to check if a string is a valid MAC address
+func isValidMACAddress(macAddress string) bool {
+	match, _ := regexp.MatchString("^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$", macAddress)
+	return match
+}
+
+// Function to check if a string is a valid ISBN-10 or ISBN-13 number
+func isValidISBN(isbn string) bool {
+	isbn = strings.ReplaceAll(isbn, "-", "")
+	if len(isbn) != 10 && len(isbn) != 13 {
+		return false
+	}
+
+	if len(isbn) == 10 {
+		sum := 0
+		for i := 0; i < 9; i++ {
+			digit := int(isbn[i] - '0')
+			sum += digit * (10 - i)
+		}
+		lastDigit := int(isbn[9])
+		if lastDigit == 'X' {
+			lastDigit = 10
+		} else {
+			lastDigit -= '0'
+		}
+		sum += lastDigit
+
+		return sum%11 == 0
+	}
+
+	if len(isbn) == 13 {
+		sum := 0
+		for i := 0; i < 12; i++ {
+			digit := int(isbn[i] - '0')
+			if i%2 == 0 {
+				sum += digit
+			} else {
+				sum += digit * 3
+			}
+		}
+		lastDigit := int(isbn[12] - '0')
+		return (10-sum%10)%10 == lastDigit
+	}
+
+	return false
+}
+
+// Function to check if a string is a valid password
+func isValidPassword(password string) bool {
+	if len(password) < 8 || len(password) > 20 {
+		return false
+	}
+	hasUpperCase := false
+	hasLowerCase := false
+	hasDigit := false
+	hasSpecialChar := false
+	for _, ch := range password {
+		if ch >= 'A' && ch <= 'Z' {
+			hasUpperCase = true
+		} else if ch >= 'a' && ch <= 'z' {
+			hasLowerCase = true
+		} else if ch >= '0' && ch <= '9' {
+			hasDigit = true
+		} else if ch == '!' || ch == '@' || ch == '#' || ch == '$' || ch == '%' || ch == '^' || ch == '&' || ch == '*' {
+			hasSpecialChar = true
+		}
+	}
+	return hasUpperCase && hasLowerCase && hasDigit && hasSpecialChar
+}
+
 func main() {
 	// Create instances of Transformers
 	optimusPrime := Transformer{Name: "Optimus Prime", Faction: "Autobot", Power: 100}
@@ -1030,4 +1433,257 @@ Loop:
 		uppercaseName := toUppercase(name)
 		fmt.Printf("%s is a %s\n", uppercaseName, role)
 	}
+
+		// Example 1: Concatenating strings using the + operator
+		str1 := "Hello"
+		str2 := "World"
+		result := str1 + " " + str2
+		fmt.Println("Example 1: Concatenation using + operator:", result)
+	
+		// Example 2: Getting the length of a string
+		str := "Hello, World!"
+		length := len(str)
+		fmt.Println("Example 2: Length of a string:", length)
+	
+		// Example 3: Accessing individual characters in a string
+		fmt.Println("Example 3: Accessing individual characters:")
+		for i := 0; i < len(str); i++ {
+			fmt.Printf("%c ", str[i])
+		}
+		fmt.Println()
+	
+		// Example 4: Checking if a string starts with a prefix
+		fmt.Println("Example 4: Checking prefix:")
+		fmt.Println(strings.HasPrefix(str, "Hello"))
+	
+		// Example 5: Checking if a string ends with a suffix
+		fmt.Println("Example 5: Checking suffix:")
+		fmt.Println(strings.HasSuffix(str, "World"))
+	
+		// Example 6: Checking if a string contains a substring
+		fmt.Println("Example 6: Checking substring:")
+		fmt.Println(strings.Contains(str, "World"))
+	
+		// Example 7: Counting the occurrences of a substring in a string
+		fmt.Println("Example 7: Counting occurrences of substring:")
+		fmt.Println(strings.Count(str, "o"))
+	
+		// Example 8: Finding the index of a substring in a string
+		fmt.Println("Example 8: Finding index of substring:")
+		fmt.Println(strings.Index(str, "World"))
+	
+		// Example 9: Replacing substrings in a string
+		fmt.Println("Example 9: Replacing substrings:")
+		newStr := strings.ReplaceAll(str, "World", "Gopher")
+		fmt.Println(newStr)
+	
+		// Example 10: Converting a string to uppercase
+		fmt.Println("Example 10: Uppercase conversion:")
+		fmt.Println(strings.ToUpper(str))
+	
+		// Example 11: Converting a string to lowercase
+		fmt.Println("Example 11: Lowercase conversion:")
+		fmt.Println(strings.ToLower(str))
+	
+		// Example 12: Trimming whitespace from a string
+		fmt.Println("Example 12: Trimming whitespace:")
+		trimmedStr := strings.TrimSpace("   Hello, World!   ")
+		fmt.Println(trimmedStr)
+	
+		// Example 13: Splitting a string into substrings based on a delimiter
+		fmt.Println("Example 13: Splitting a string:")
+		splitStr := strings.Split(str, ",")
+		fmt.Println(splitStr)
+	
+		// Example 14: Joining substrings into a single string using a delimiter
+		fmt.Println("Example 14: Joining substrings:")
+		joinedStr := strings.Join(splitStr, "-")
+		fmt.Println(joinedStr)
+	
+		// Example 15: Checking if a string is empty
+		fmt.Println("Example 15: Checking if a string is empty:")
+		emptyStr := ""
+		fmt.Println(strings.TrimSpace(emptyStr) == "")
+	
+		// Example 16: Checking if a string is numeric
+		fmt.Println("Example 16: Checking if a string is numeric:")
+		numericStr := "12345"
+		isNumeric := true
+		for _, ch := range numericStr {
+			if ch < '0' || ch > '9' {
+				isNumeric = false
+				break
+			}
+		}
+		fmt.Println(isNumeric)
+	
+		// Example 17: Getting the substring between two indices
+		fmt.Println("Example 17: Substring between indices:")
+		substr := str[7:12]
+		fmt.Println(substr)
+	
+		// Example 18: Reversing a string
+		fmt.Println("Example 18: Reversing a string:")
+		reversedStr := reverseString(str)
+		fmt.Println(reversedStr)
+	
+		// Example 19: Checking if a string is a palindrome
+		fmt.Println("Example 19: Checking if a string is a palindrome:")
+		isPalindrome := isStringPalindrome("madam")
+		fmt.Println(isPalindrome)
+	
+		// Example 20: Checking if a string is an anagram
+		fmt.Println("Example 20: Checking if strings are anagrams:")
+		isAnagram := areStringsAnagrams("listen", "silent")
+		fmt.Println(isAnagram)
+	
+		// Example 21: Counting the words in a string
+		fmt.Println("Example 21: Counting words in a string:")
+		wordCount := countWordsInString("Hello, World!")
+		fmt.Println(wordCount)
+	
+		// Example 22: Checking if a string is a valid email address
+		fmt.Println("Example 22: Checking if a string is a valid email address:")
+		isValidEmail := isValidEmailAddress("example@example.com")
+		fmt.Println(isValidEmail)
+	
+		// Example 23: Getting the ASCII value of characters in a string
+		fmt.Println("Example 23: ASCII values of characters:")
+		asciiValues := getASCIICodes("Hello, World!")
+		fmt.Println(asciiValues)
+	
+		// Example 24: Checking if a string is a valid URL
+		fmt.Println("Example 24: Checking if a string is a valid URL:")
+		isValidURL := isValidURL("https://www.example.com")
+		fmt.Println(isValidURL)
+	
+		// Example 25: Removing duplicate characters from a string
+		fmt.Println("Example 25: Removing duplicate characters:")
+		uniqueStr := removeDuplicatesFromString("Hello, World!")
+		fmt.Println(uniqueStr)
+	
+		// Example 26: Checking if a string contains only letters
+		fmt.Println("Example 26: Checking if a string contains only letters:")
+		isAlpha := isStringAlpha("Hello")
+		fmt.Println(isAlpha)
+	
+		// Example 27: Checking if a string contains only digits
+		fmt.Println("Example 27: Checking if a string contains only digits:")
+		isNumeric = isStringNumeric("12345")
+		fmt.Println(isNumeric)
+	
+		// Example 28: Checking if a string contains only alphanumeric characters
+		fmt.Println("Example 28: Checking if a string contains only alphanumeric characters:")
+		isAlphaNumeric := isStringAlphaNumeric("Hello123")
+		fmt.Println(isAlphaNumeric)
+	
+		// Example 29: Capitalizing the first letter of each word in a string
+		fmt.Println("Example 29: Capitalizing first letters of words:")
+		capitalizedStr := capitalizeWords("hello, world!")
+		fmt.Println(capitalizedStr)
+	
+		// Example 30: Checking if a string is a valid IP address
+		fmt.Println("Example 30: Checking if a string is a valid IP address:")
+		isValidIP := isValidIPAddress("192.168.0.1")
+		fmt.Println(isValidIP)
+	
+		// Example 31: Removing leading and trailing zeros from a string
+		fmt.Println("Example 31: Removing leading and trailing zeros:")
+		trimmedZeros := trimLeadingTrailingZeros("00123.4500")
+		fmt.Println(trimmedZeros)
+	
+		// Example 32: Checking if a string is a valid hexadecimal number
+		fmt.Println("Example 32: Checking if a string is a valid hexadecimal number:")
+		isValidHex := isValidHexadecimal("1A2B3C")
+		fmt.Println(isValidHex)
+	
+		// Example 33: Checking if a string is a valid binary number
+		fmt.Println("Example 33: Checking if a string is a valid binary number:")
+		isValidBinary := isValidBinary("010101")
+		fmt.Println(isValidBinary)
+	
+		// Example 34: Checking if a string is a valid octal number
+		fmt.Println("Example 34: Checking if a string is a valid octal number:")
+		isValidOctal := isValidOctal("01234567")
+		fmt.Println(isValidOctal)
+	
+		// Example 35: Extracting numbers from a string
+		fmt.Println("Example 35: Extracting numbers from a string:")
+		numbers := extractNumbers("abc123def456ghi")
+		fmt.Println(numbers)
+	
+		// Example 36: Extracting letters from a string
+		fmt.Println("Example 36: Extracting letters from a string:")
+		letters := extractLetters("abc123def456ghi")
+		fmt.Println(letters)
+	
+		// Example 37: Padding a string with leading zeros
+		fmt.Println("Example 37: Padding a string with leading zeros:")
+		paddedStr := padWithZeros("42", 6)
+		fmt.Println(paddedStr)
+	
+		// Example 38: Checking if a string is a valid palindrome permutation
+		fmt.Println("Example 38: Checking if a string is a valid palindrome permutation:")
+		isValidPalPerm := isValidPalindromePermutation("Tact Coa")
+		fmt.Println(isValidPalPerm)
+	
+		// Example 39: Checking if a string is a valid pangram
+		fmt.Println("Example 39: Checking if a string is a valid pangram:")
+		isValidPangram := isValidPangram("The quick brown fox jumps over the lazy dog")
+		fmt.Println(isValidPangram)
+	
+		// Example 40: Repeating a string n times
+		fmt.Println("Example 40: Repeating a string:")
+		repeatedStr := repeatString("Hello", 3)
+		fmt.Println(repeatedStr)
+	
+		// Example 41: Checking if a string is a valid Roman numeral
+		fmt.Println("Example 41: Checking if a string is a valid Roman numeral:")
+		isValidRoman := isValidRomanNumeral("XIV")
+		fmt.Println(isValidRoman)
+	
+		// Example 42: Checking if a string is a valid IPv4 address
+		fmt.Println("Example 42: Checking if a string is a valid IPv4 address:")
+		isValidIPv4 := isValidIPv4Address("192.168.0.1")
+		fmt.Println(isValidIPv4)
+	
+		// Example 43: Checking if a string is a valid IPv6 address
+		fmt.Println("Example 43: Checking if a string is a valid IPv6 address:")
+		isValidIPv6 := isValidIPv6Address("2001:0db8:85a3:0000:0000:8a2e:0370:7334")
+		fmt.Println(isValidIPv6)
+	
+		// Example 44: Getting the frequency of characters in a string
+		fmt.Println("Example 44: Frequency of characters in a string:")
+		charFreq := getCharacterFrequency("Hello, World!")
+		fmt.Println(charFreq)
+	
+		// Example 45: Checking if a string is a valid credit card number
+		fmt.Println("Example 45: Checking if a string is a valid credit card number:")
+		isValidCreditCard := isValidCreditCard("4111-1111-1111-1111")
+		fmt.Println(isValidCreditCard)
+	
+		// Example 46: Checking if a string is a valid US phone number
+		fmt.Println("Example 46: Checking if a string is a valid US phone number:")
+		isValidPhoneNumber := isValidPhoneNumber("(123) 456-7890")
+		fmt.Println(isValidPhoneNumber)
+	
+		// Example 47: Checking if a string is a valid social security number (SSN)
+		fmt.Println("Example 47: Checking if a string is a valid SSN:")
+		isValidSSN := isValidSSN("123-45-6789")
+		fmt.Println(isValidSSN)
+	
+		// Example 48: Checking if a string is a valid MAC address
+		fmt.Println("Example 48: Checking if a string is a valid MAC address:")
+		isValidMAC := isValidMACAddress("01:23:45:67:89:AB")
+		fmt.Println(isValidMAC)
+	
+		// Example 49: Checking if a string is a valid ISBN-10 or ISBN-13 number
+		fmt.Println("Example 49: Checking if a string is a valid ISBN number:")
+		isValidISBN := isValidISBN("978-3-16-148410-0")
+		fmt.Println(isValidISBN)
+	
+		// Example 50: Checking if a string is a valid password
+		fmt.Println("Example 50: Checking if a string is a valid password:")
+		isValidPassword := isValidPassword("P@ssw0rd")
+		fmt.Println(isValidPassword)
 }
