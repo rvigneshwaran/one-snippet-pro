@@ -3,6 +3,10 @@ package main
 import (
 	"fmt"
 	"strings"
+	"math"
+	"io/ioutil"
+	"log"
+	"os"
 )
 
 const (
@@ -942,6 +946,21 @@ func min(a, b int) int {
 		return a
 	}
 	return b
+}
+
+// Check if a file exists
+func fileExists(filename string) bool {
+	_, err := os.Stat(filename)
+	return !os.IsNotExist(err)
+}
+
+// Check if a directory exists
+func dirExists(dirname string) bool {
+	fileInfo, err := os.Stat(dirname)
+	if err != nil {
+		return false
+	}
+	return fileInfo.IsDir()
 }
 
 func main() {
@@ -2084,5 +2103,208 @@ Loop:
 	exponent := 3.0
 	logarithmicExponential := calculateLogarithmicExponential(base, exponent)
 	fmt.Printf("Logarithmic Exponential (Base: %f, Exponent: %f): %f\n", base, exponent, logarithmicExponential)
+
+
+	// Create a new file
+	file, err := os.Create("example.txt")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer file.Close()
+
+	// Write data to the file
+	data := []byte("Hello, World!")
+	_, err = file.Write(data)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	// Read data from the file
+	readData, err := ioutil.ReadFile("example.txt")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println("Read data:", string(readData))
+
+	// Rename the file
+	err = os.Rename("example.txt", "new_example.txt")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	// Check if a file exists
+	exists := fileExists("new_example.txt")
+	fmt.Println("File exists:", exists)
+
+	// Get file information
+	fileInfo, err := os.Stat("new_example.txt")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println("File name:", fileInfo.Name())
+	fmt.Println("File size:", fileInfo.Size())
+	fmt.Println("Is directory:", fileInfo.IsDir())
+	fmt.Println("File mode:", fileInfo.Mode())
+	fmt.Println("Last modified:", fileInfo.ModTime())
+
+	// Remove the file
+	err = os.Remove("new_example.txt")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	// Create a new directory
+	err = os.Mkdir("example_dir", 0755)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	// Rename the directory
+	err = os.Rename("example_dir", "new_example_dir")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	// Get directory information
+	dirInfo, err := os.Stat("new_example_dir")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println("Directory name:", dirInfo.Name())
+	fmt.Println("Is directory:", dirInfo.IsDir())
+	fmt.Println("Directory mode:", dirInfo.Mode())
+	fmt.Println("Last modified:", dirInfo.ModTime())
+
+	// Remove the directory
+	err = os.Remove("new_example_dir")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	// List files in a directory
+	files, err := ioutil.ReadDir(".")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println("Files in current directory:")
+	for _, f := range files {
+		fmt.Println(f.Name())
+	}
+
+	// Open a file for reading
+	readFile, err := os.Open("example.txt")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer readFile.Close()
+
+	// Read file content using a buffer
+	buffer := make([]byte, 1024)
+	bytesRead, err := readFile.Read(buffer)
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println("Read bytes:", string(buffer[:bytesRead]))
+
+	// Write data to a file using a buffer
+	writeFile, err := os.Create("example_write.txt")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer writeFile.Close()
+	bufferData := []byte("Buffered write example")
+	bytesWritten, err := writeFile.Write(bufferData)
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println("Bytes written:", bytesWritten)
+
+	// Append data to a file
+	appendFile, err := os.OpenFile("example_write.txt", os.O_APPEND|os.O_WRONLY, 0644)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer appendFile.Close()
+	appendData := []byte(" Appended data")
+	_, err = appendFile.Write(appendData)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	// Read file content line by line
+	lineFile, err := os.Open("example.txt")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer lineFile.Close()
+	scanner := bufio.NewScanner(lineFile)
+	for scanner.Scan() {
+		line := scanner.Text()
+		fmt.Println("Line:", line)
+	}
+	if err := scanner.Err(); err != nil {
+		log.Fatal(err)
+	}
+
+	// Copy file content to another file
+	srcFile, err := os.Open("example.txt")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer srcFile.Close()
+	destFile, err := os.Create("example_copy.txt")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer destFile.Close()
+	bytesCopied, err := io.Copy(destFile, srcFile)
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println("Bytes copied:", bytesCopied)
+
+	// Check if a directory exists
+	dirExists := dirExists("example_dir")
+	fmt.Println("Directory exists:", dirExists)
+
+	// Read a CSV file
+	csvFile, err := os.Open("data.csv")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer csvFile.Close()
+	reader := csv.NewReader(csvFile)
+	records, err := reader.ReadAll()
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println("CSV records:")
+	for _, record := range records {
+		fmt.Println(record)
+	}
+
+	// Write data to a CSV file
+	csvData := [][]string{
+		{"Name", "Age", "City"},
+		{"John", "25", "New York"},
+		{"Alice", "30", "London"},
+		{"Bob", "35", "Paris"},
+	}
+	csvWriteFile, err := os.Create("data_write.csv")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer csvWriteFile.Close()
+	writer := csv.NewWriter(csvWriteFile)
+	for _, record := range csvData {
+		err := writer.Write(record)
+		if err != nil {
+			log.Fatal(err)
+		}
+	}
+	writer.Flush()
+	if err := writer.Error(); err != nil {
+		log.Fatal(err)
+	}
 
 }
