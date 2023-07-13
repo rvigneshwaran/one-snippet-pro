@@ -10,6 +10,8 @@ import (
 	"errors"
 	"strconv"
 	"flag"
+	"sync"
+	"time"
 )
 
 const (
@@ -1208,6 +1210,92 @@ func handleError(err error) {
 		fmt.Println("Error:", err)
 	}
 }
+
+func processJob(job Job) string {
+	time.Sleep(500 * time.Millisecond)
+	return fmt.Sprintf("Processed Job %d: %s", job.ID, job.Msg)
+}
+
+func worker(input <-chan int, output chan<- int) {
+	for num := range input {
+		result := num * 2
+		output <- result
+	}
+}
+
+func doWorkWithContext(ctx Context) {
+	select {
+	case <-ctx.Done():
+		fmt.Println("Work canceled")
+	case <-time.After(2 * time.Second):
+		fmt.Println("Work completed")
+	}
+}
+
+func doWorkWithContextCancellation(ctx Context) {
+	for {
+		select {
+		case <-ctx.Done():
+			fmt.Println("Work canceled")
+			return
+		default:
+			fmt.Println("Working...")
+			time.Sleep(500 * time.Millisecond)
+		}
+	}
+}
+
+func doWorkWithContextTimeout(ctx Context) {
+	select {
+	case <-ctx.Done():
+		fmt.Println("Work canceled")
+	case <-time.After(2 * time.Second):
+		fmt.Println("Work completed")
+	}
+}
+
+func doWorkWithContextDeadline(ctx Context) {
+	select {
+	case <-ctx.Done():
+		fmt.Println("Work canceled")
+	case <-time.After(2 * time.Second):
+		fmt.Println("Work completed")
+	}
+}
+
+func doTask(id int) {
+	fmt.Println("Task", id)
+	time.Sleep(500 * time.Millisecond)
+}
+
+func atomicIncrement(counter *int64) {
+	atomic.AddInt64(counter, 1)
+}
+
+func processJob2(job int) int {
+	time.Sleep(500 * time.Millisecond)
+	return job * 2
+}
+
+func doWorkWithContextDeadlineAndCancellation(ctx Context) {
+	for {
+		select {
+		case <-ctx.Done():
+			fmt.Println("Work canceled")
+			return
+		default:
+			fmt.Println("Working...")
+			time.Sleep(500 * time.Millisecond)
+		}
+	}
+}
+
+func setupContextWithValue() Context {
+	value := "value"
+	ctx := context.WithValue(context.Background(), "key", value)
+	return ctx
+}
+
 
 func main() {
 	// Create instances of Transformers
@@ -2916,4 +3004,317 @@ Loop:
 	flag.Parse()
 	fmt.Println("Shorthand Flag:", shorthandFlag)
 
+	// Example 1: Goroutine
+	go func() {
+		fmt.Println("Hello from Goroutine!")
+	}()
+
+	// Example 2: WaitGroup
+	var wg sync.WaitGroup
+	wg.Add(1)
+	go func() {
+		defer wg.Done()
+		fmt.Println("Hello from WaitGroup!")
+	}()
+	wg.Wait()
+
+	// Example 3: Channels (Unbuffered)
+	ch := make(chan string)
+	go func() {
+		ch <- "Hello from Unbuffered Channel!"
+	}()
+	msg := <-ch
+	fmt.Println(msg)
+
+	// Example 4: Channels (Buffered)
+	ch2 := make(chan string, 1)
+	ch2 <- "Hello from Buffered Channel!"
+	msg2 := <-ch2
+	fmt.Println(msg2)
+
+	// Example 5: Channel Synchronization
+	done := make(chan bool)
+	go func() {
+		time.Sleep(time.Second)
+		fmt.Println("Work done!")
+		done <- true
+	}()
+	<-done
+
+	// Example 6: Select Statement
+	ch3 := make(chan string)
+	ch4 := make(chan string)
+	go func() {
+		time.Sleep(500 * time.Millisecond)
+		ch3 <- "Hello"
+	}()
+	go func() {
+		time.Sleep(1 * time.Second)
+		ch4 <- "World"
+	}()
+	select {
+	case msg3 := <-ch3:
+		fmt.Println(msg3)
+	case msg4 := <-ch4:
+		fmt.Println(msg4)
+	}
+
+	// Example 7: Buffered Channel with Goroutine
+	ch5 := make(chan int, 5)
+	go func() {
+		for i := 0; i < 5; i++ {
+			ch5 <- i
+		}
+		close(ch5)
+	}()
+	for num := range ch5 {
+		fmt.Println(num)
+	}
+
+	// Example 8: Select Statement with Timeout
+	ch6 := make(chan string)
+	go func() {
+		time.Sleep(2 * time.Second)
+		ch6 <- "Hello from Select with Timeout!"
+	}()
+	select {
+	case msg6 := <-ch6:
+		fmt.Println(msg6)
+	case <-time.After(1 * time.Second):
+		fmt.Println("Timeout!")
+	}
+
+	// Example 9: Mutex
+	var counter int
+	var mu sync.Mutex
+	var wg2 sync.WaitGroup
+	for i := 0; i < 10; i++ {
+		wg2.Add(1)
+		go func() {
+			defer wg2.Done()
+			mu.Lock()
+			counter++
+			mu.Unlock()
+		}()
+	}
+	wg2.Wait()
+	fmt.Println("Counter:", counter)
+
+	// Example 10: RWMutex
+	var data int
+	var rwMu sync.RWMutex
+	var wg3 sync.WaitGroup
+	wg3.Add(2)
+	go func() {
+		defer wg3.Done()
+		rwMu.RLock()
+		fmt.Println("Data:", data)
+		rwMu.RUnlock()
+	}()
+	go func() {
+		defer wg3.Done()
+		rwMu.Lock()
+		data = 42
+		rwMu.Unlock()
+	}()
+	wg3.Wait()
+
+	// Example 11: Atomic Operations
+	var value int32
+	var wg4 sync.WaitGroup
+	wg4.Add(2)
+	go func() {
+		defer wg4.Done()
+		for i := 0; i < 1000; i++ {
+			value++
+		}
+	}()
+	go func() {
+		defer wg4.Done()
+		for i := 0; i < 1000; i++ {
+			value--
+		}
+	}()
+	wg4.Wait()
+	fmt.Println("Value:", value)
+
+	// Example 12: Worker Pool
+	type Job struct {
+		ID  int
+		Msg string
+	}
+	jobs := make(chan Job)
+	results := make(chan string)
+	var wg5 sync.WaitGroup
+	const numWorkers = 5
+	wg5.Add(numWorkers)
+	for i := 0; i < numWorkers; i++ {
+		go func(id int) {
+			defer wg5.Done()
+			for job := range jobs {
+				result := processJob(job)
+				results <- result
+			}
+		}(i)
+	}
+	go func() {
+		for i := 0; i < 10; i++ {
+			job := Job{
+				ID:  i,
+				Msg: fmt.Sprintf("Job %d", i),
+			}
+			jobs <- job
+		}
+		close(jobs)
+	}()
+	go func() {
+		wg5.Wait()
+		close(results)
+	}()
+	for result := range results {
+		fmt.Println(result)
+	}
+
+	// Example 13: Fan-Out/Fan-In
+	input := make(chan int)
+	output := make(chan int)
+	const numWorkers2 = 5
+	for i := 0; i < numWorkers2; i++ {
+		go worker(input, output)
+	}
+	go func() {
+		for i := 0; i < 10; i++ {
+			input <- i
+		}
+		close(input)
+	}()
+	for i := 0; i < 10; i++ {
+		result := <-output
+		fmt.Println(result)
+	}
+
+	// Example 14: Context
+	ctx := setupContext()
+	go doWorkWithContext(ctx)
+
+	// Example 15: Context Cancellation
+	ctx2, cancel := setupContextWithCancellation()
+	go doWorkWithContextCancellation(ctx2)
+	time.Sleep(2 * time.Second)
+	cancel()
+
+	// Example 16: Context Timeout
+	ctx3, cancel2 := setupContextWithTimeout()
+	go doWorkWithContextTimeout(ctx3)
+	time.Sleep(2 * time.Second)
+	cancel2()
+
+	// Example 17: Context Deadline
+	ctx4, cancel3 := setupContextWithDeadline()
+	go doWorkWithContextDeadline(ctx4)
+	time.Sleep(2 * time.Second)
+	cancel3()
+
+	// Example 18: Rate Limiting
+	const numRequests = 10
+	const requestsPerSecond = 2
+	rateLimit := time.Tick(time.Second / requestsPerSecond)
+	for i := 0; i < numRequests; i++ {
+		<-rateLimit
+		fmt.Println("Request", i+1)
+	}
+
+	// Example 19: Semaphore
+	semaphore := make(chan struct{}, 3)
+	var wg6 sync.WaitGroup
+	const numTasks = 5
+	wg6.Add(numTasks)
+	for i := 0; i < numTasks; i++ {
+		go func(id int) {
+			defer wg6.Done()
+			semaphore <- struct{}{}
+			doTask(id)
+			<-semaphore
+		}(i)
+	}
+	wg6.Wait()
+
+	// Example 20: Atomic Counter
+	var counter2 int64
+	var wg7 sync.WaitGroup
+	const numIncrements = 1000
+	wg7.Add(numIncrements)
+	for i := 0; i < numIncrements; i++ {
+		go func() {
+			defer wg7.Done()
+			atomicIncrement(&counter2)
+		}()
+	}
+	wg7.Wait()
+	fmt.Println("Counter:", counter2)
+
+	// Example 21: Buffered Channel with Worker Pool
+	jobs2 := make(chan int, 10)
+	results2 := make(chan int, 10)
+	const numWorkers3 = 5
+	var wg8 sync.WaitGroup
+	wg8.Add(numWorkers3)
+	for i := 0; i < numWorkers3; i++ {
+		go func(id int) {
+			defer wg8.Done()
+			for job := range jobs2 {
+				result := processJob2(job)
+				results2 <- result
+			}
+		}(i)
+	}
+	go func() {
+		for i := 0; i < 10; i++ {
+			jobs2 <- i
+		}
+		close(jobs2)
+	}()
+	go func() {
+		wg8.Wait()
+		close(results2)
+	}()
+	for result := range results2 {
+		fmt.Println(result)
+	}
+
+	// Example 22: Context with Deadline and Cancellation
+	ctx5, cancel4 := setupContextWithDeadlineAndCancellation()
+	go doWorkWithContextDeadlineAndCancellation(ctx5)
+	time.Sleep(2 * time.Second)
+	cancel4()
+
+	// Example 23: Context with Value
+	ctx6 := setupContextWithValue()
+	go doWorkWithContextValue(ctx6)
+
+	// Example 24: Select Statement with Default Case
+	ch7 := make(chan string)
+	go func() {
+		time.Sleep(2 * time.Second)
+		ch7 <- "Hello from Select with Default Case!"
+	}()
+	select {
+	case msg7 := <-ch7:
+		fmt.Println(msg7)
+	default:
+		fmt.Println("No message received")
+	}
+
+	// Example 25: Non-blocking Channel Operations
+	ch8 := make(chan int)
+	select {
+	case <-ch8:
+		fmt.Println("Received from channel")
+	default:
+		fmt.Println("No message received")
+	}
+	ch8 <- 42
+
+	// Wait for goroutines to complete
+	time.Sleep(2 * time.Second)
 }
